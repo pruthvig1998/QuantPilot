@@ -1,0 +1,12 @@
+mode: live
+output: runs/2026-10-22
+card: META SKIP (no_trade) conviction 7
+card: TSLA WATCH (no_trade) conviction 0
+card: AAPL WATCH (no_trade) conviction 5
+journal: 3 entries, hit rate None
+llm: 9 calls, mean 121.8s, max 273.45s, total 1095.9s (nvidia/nemotron-3-ultra-550b-a55b)
+briefing_text: runs/2026-10-22/briefing.txt
+briefing_markdown: runs/2026-10-22/briefing.md
+dashboard: runs/2026-10-22/dashboard.html
+artifacts: runs/2026-10-22/artifacts.json
+exit 0

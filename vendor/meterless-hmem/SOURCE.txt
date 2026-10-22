@@ -1,0 +1,4 @@
+Vendored from https://github.com/Meterless/Meterless
+Path: engines/hmem/reference/src (H-MEM reference implementation)
+Commit: 1742dec
+License: Apache-2.0 (see LICENSE). Files are unmodified copies.

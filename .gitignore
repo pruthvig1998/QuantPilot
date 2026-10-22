@@ -1,0 +1,11 @@
+# QuantPilot local state - never commit secrets or run outputs.
+.env
+.env.*
+!.env.example
+*.db
+runs/
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+.DS_Store

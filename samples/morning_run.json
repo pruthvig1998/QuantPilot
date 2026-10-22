@@ -1,0 +1,1867 @@
+{
+ "as_of": "2026-10-23T12:30:00+00:00",
+ "board": {
+  "board": [
+   {
+    "components": {
+     "momentum": 0.3556,
+     "options_oi": 0.5662,
+     "options_volume": 0.5667,
+     "relative_volume": 0.4538
+    },
+    "direction": "bullish",
+    "expiration": 1793131200,
+    "inputs": {
+     "call_oi": 41800.0,
+     "call_volume": 9462.0,
+     "change_pct": 2.31,
+     "put_oi": 11577.0,
+     "put_volume": 2617.0,
+     "relative_volume": 1.68,
+     "ret_5d_pct": 0.32
+    },
+    "price": 248.3,
+    "rank": 1,
+    "score": 49.12,
+    "ticker": "TSLA"
+   },
+   {
+    "components": {
+     "momentum": -0.2364,
+     "options_oi": 0.0115,
+     "options_volume": 0.0122,
+     "relative_volume": -0.0
+    },
+    "direction": "choppy",
+    "expiration": 1793131200,
+    "inputs": {
+     "call_oi": 22000.0,
+     "call_volume": 4980.0,
+     "change_pct": -1.19,
+     "put_oi": 21500.0,
+     "put_volume": 4860.0,
+     "relative_volume": 1.0,
+     "ret_5d_pct": -0.41
+    },
+    "price": 102.0,
+    "rank": 2,
+    "score": -5.26,
+    "ticker": "SPY"
+   },
+   {
+    "components": {
+     "momentum": -0.2364,
+     "options_oi": 0.0,
+     "options_volume": 0.0,
+     "relative_volume": -0.0
+    },
+    "direction": "choppy",
+    "expiration": 1793131200,
+    "inputs": {
+     "call_oi": 21500.0,
+     "call_volume": 4860.0,
+     "change_pct": -1.19,
+     "put_oi": 21500.0,
+     "put_volume": 4860.0,
+     "relative_volume": 1.0,
+     "ret_5d_pct": -0.41
+    },
+    "price": 110.0,
+    "rank": 3,
+    "score": -5.91,
+    "ticker": "AMD"
+   },
+   {
+    "components": {
+     "momentum": -0.2686,
+     "options_oi": -0.5355,
+     "options_volume": -0.5354,
+     "relative_volume": -0.2286
+    },
+    "direction": "bearish",
+    "expiration": 1793131200,
+    "inputs": {
+     "call_oi": 12100.0,
+     "call_volume": 2739.0,
+     "change_pct": -1.39,
+     "put_oi": 39996.0,
+     "put_volume": 9052.0,
+     "relative_volume": 1.34,
+     "ret_5d_pct": -0.45
+    },
+    "price": 187.45,
+    "rank": 4,
+    "score": -40.74,
+    "ticker": "NVDA"
+   }
+  ],
+  "count": 4,
+  "errors": [
+   {
+    "error": "options tables not registered for NFLX (fixture)",
+    "ticker": "NFLX"
+   }
+  ]
+ },
+ "cards": [
+  {
+   "checks": [
+    {
+     "check": "iv_rank_known",
+     "detail": "unknown - 52-week IV range unavailable, so no IV rank can be computed",
+     "passed": null,
+     "source": "events"
+    },
+    {
+     "check": "iv_elevated",
+     "detail": "unknown - no IV rank, so elevation cannot be judged",
+     "passed": null,
+     "source": "events"
+    },
+    {
+     "check": "earnings_in_window",
+     "detail": "unknown - earnings date unavailable from the data provider",
+     "passed": null,
+     "source": "events"
+    },
+    {
+     "check": "market_event_in_window",
+     "detail": "market event(s) inside the 5-day window: FOMC 2026-10-28 (5d)",
+     "passed": false,
+     "source": "events"
+    },
+    {
+     "check": "event_crush_risk",
+     "detail": "unknown - no IV rank, so crush risk cannot be judged",
+     "passed": null,
+     "source": "events"
+    },
+    {
+     "check": "delta_floor",
+     "detail": "delta +0.36; |delta| >= 0.30 required to rank",
+     "passed": true,
+     "source": "guardrail"
+    },
+    {
+     "check": "premium_known",
+     "detail": "premium $2.81 (mid)",
+     "passed": true,
+     "source": "guardrail"
+    },
+    {
+     "check": "iv_known",
+     "detail": "implied volatility 42.0%",
+     "passed": true,
+     "source": "guardrail"
+    },
+    {
+     "check": "not_expired",
+     "detail": "4 day(s) to expiry",
+     "passed": true,
+     "source": "guardrail"
+    },
+    {
+     "check": "spread_within_limit",
+     "detail": "bid/ask spread 8% of premium vs 30% limit",
+     "passed": true,
+     "source": "guardrail"
+    },
+    {
+     "check": "delta_band",
+     "detail": "|delta| 0.36 vs target band 0.25-0.45 around 0.35",
+     "passed": true,
+     "source": "selection"
+    },
+    {
+     "check": "spread_limit",
+     "detail": "spread 8% of premium vs 20% limit",
+     "passed": true,
+     "source": "selection"
+    },
+    {
+     "check": "option_volume",
+     "detail": "contract volume 1710 vs 50 minimum",
+     "passed": true,
+     "source": "selection"
+    },
+    {
+     "check": "open_interest",
+     "detail": "open interest 7600 vs 100 minimum",
+     "passed": true,
+     "source": "selection"
+    },
+    {
+     "check": "dte_window",
+     "detail": "4 day(s) to expiry vs the 1-7 DTE window",
+     "passed": true,
+     "source": "selection"
+    }
+   ],
+   "contract": {
+    "contract_symbol": "TSLA261027C00252500",
+    "days_to_expiry": 4,
+    "expiration": 1793131200,
+    "option_type": "call",
+    "premium": 2.81,
+    "premium_source": "mid",
+    "strike": 252.5
+   },
+   "conviction": 7,
+   "direction": "call",
+   "downgrade_reason": null,
+   "downgraded": false,
+   "generated_from": {
+    "as_of": "2026-10-23T12:30:00+00:00",
+    "packet_hash": "db612caa9dee36e246cf178f33c87464904013a337977728f6a6ce0069a49b37"
+   },
+   "greeks_plain": {
+    "breakeven": 255.31,
+    "breakeven_move_pct": 2.82,
+    "line": "needs +2.8% by 2026-10-27 to break even; model probability of profit 26%; bleeds $52.26/day in theta per contract",
+    "probability_of_profit": 0.2596,
+    "theta_burn_usd_per_day": 52.26
+   },
+   "kind": "trade",
+   "levels": {
+    "entry": 243.5624,
+    "entry_zone": {
+     "basis": "unmitigated_same_direction",
+     "bottom": 243.07646771037184,
+     "midpoint": 243.5624,
+     "mitigated": false,
+     "top": 244.0482876712329,
+     "type": "bullish"
+    },
+    "spot": 248.3,
+    "stop": 242.8335,
+    "target": 255.1027,
+    "target_source": "liquidity_pool"
+   },
+   "rejection": null,
+   "sizing": {
+    "account_size_usd": 10000.0,
+    "contracts": 1,
+    "executable": true,
+    "notes": [],
+    "per_contract_risk_usd": 72.89,
+    "premium_outlay_usd": 281.0,
+    "premium_per_contract_usd": 281.0,
+    "risk_budget_usd": 100.0,
+    "risk_pct": 0.01,
+    "stop_distance": 0.7289
+   },
+   "symbol": "TSLA",
+   "verdict": "TRADE",
+   "why": "TSLA: TRADE (conviction 7/10, call bias). Uptrend, top board score and a surviving in-band call outweigh the event flag, which the card surfaces as a failed check. Bull case: TSLA is in an uptrend [indicators.regime = uptrend] with price above the 200DMA [indicators.long_filter.price_above_200dma = true]. The liquidity board ranks it top of this run [liquidity.score = 49.12], and the nearest bullish order block below spot gives a defined entry zone. Bear case: The bull case ignores the calendar: the FOMC decision lands inside the holding window [events.market_events_in_window = FOMC 2026-10-28], and the packet carries no IV rank [events.iv.rank_pct = null], so premium crush into the print cannot be scored. STRONGEST BEAR EVIDENCE: events.market_events_in_window includes FOMC 2026-10-28 Biggest risk: FOMC decision on 2026-10-28 lands inside the holding window; event volatility can crush the premium even if direction is right."
+  },
+  {
+   "checks": [
+    {
+     "check": "iv_rank_known",
+     "detail": "unknown - 52-week IV range unavailable, so no IV rank can be computed",
+     "passed": null,
+     "source": "events"
+    },
+    {
+     "check": "iv_elevated",
+     "detail": "unknown - no IV rank, so elevation cannot be judged",
+     "passed": null,
+     "source": "events"
+    },
+    {
+     "check": "earnings_in_window",
+     "detail": "unknown - earnings date unavailable from the data provider",
+     "passed": null,
+     "source": "events"
+    },
+    {
+     "check": "market_event_in_window",
+     "detail": "market event(s) inside the 5-day window: FOMC 2026-10-28 (5d)",
+     "passed": false,
+     "source": "events"
+    },
+    {
+     "check": "event_crush_risk",
+     "detail": "unknown - no IV rank, so crush risk cannot be judged",
+     "passed": null,
+     "source": "events"
+    },
+    {
+     "check": "delta_floor",
+     "detail": "delta -0.36; |delta| >= 0.30 required to rank",
+     "passed": true,
+     "source": "guardrail"
+    },
+    {
+     "check": "premium_known",
+     "detail": "premium $1.96 (mid)",
+     "passed": true,
+     "source": "guardrail"
+    },
+    {
+     "check": "iv_known",
+     "detail": "implied volatility 38.0%",
+     "passed": true,
+     "source": "guardrail"
+    },
+    {
+     "check": "not_expired",
+     "detail": "4 day(s) to expiry",
+     "passed": true,
+     "source": "guardrail"
+    },
+    {
+     "check": "spread_within_limit",
+     "detail": "bid/ask spread 8% of premium vs 30% limit",
+     "passed": true,
+     "source": "guardrail"
+    },
+    {
+     "check": "delta_band",
+     "detail": "|delta| 0.36 vs target band 0.25-0.45 around 0.35",
+     "passed": true,
+     "source": "selection"
+    },
+    {
+     "check": "spread_limit",
+     "detail": "spread 8% of premium vs 20% limit",
+     "passed": true,
+     "source": "selection"
+    },
+    {
+     "check": "option_volume",
+     "detail": "contract volume 1636 vs 50 minimum",
+     "passed": true,
+     "source": "selection"
+    },
+    {
+     "check": "open_interest",
+     "detail": "open interest 7272 vs 100 minimum",
+     "passed": true,
+     "source": "selection"
+    },
+    {
+     "check": "dte_window",
+     "detail": "4 day(s) to expiry vs the 1-7 DTE window",
+     "passed": true,
+     "source": "selection"
+    }
+   ],
+   "contract": {
+    "contract_symbol": "NVDA261027P00185000",
+    "days_to_expiry": 4,
+    "expiration": 1793131200,
+    "option_type": "put",
+    "premium": 1.96,
+    "premium_source": "mid",
+    "strike": 185.0
+   },
+   "conviction": 4,
+   "direction": "put",
+   "downgrade_reason": null,
+   "downgraded": false,
+   "generated_from": {
+    "as_of": "2026-10-23T12:30:00+00:00",
+    "packet_hash": "ec6c732561061fd120d4b8b3338a77446c35b0fe463b2a7b143ea2e541982f3a"
+   },
+   "greeks_plain": {
+    "breakeven": 183.04,
+    "breakeven_move_pct": -2.35,
+    "line": "needs -2.4% by 2026-10-27 to break even; model probability of profit 28%; bleeds $34.01/day in theta per contract",
+    "probability_of_profit": 0.2775,
+    "theta_burn_usd_per_day": 34.01
+   },
+   "kind": "no_trade",
+   "levels": {
+    "entry": null,
+    "entry_zone": null,
+    "spot": 187.45,
+    "stop": null,
+    "target": null,
+    "target_source": null
+   },
+   "rejection": {
+    "candidates_considered": 3,
+    "failed_checks": [],
+    "nearest_candidate": "NVDA261027P00185000",
+    "reason": "judge verdict WATCH. Direction leans put on trend and board score, but the IV rank gap persisted through round 2, so this stays a WATCH, not a trade."
+   },
+   "sizing": {
+    "account_size_usd": 10000.0,
+    "contracts": 0,
+    "executable": false,
+    "notes": [
+     "no stop level in the packet - position cannot be sized"
+    ],
+    "per_contract_risk_usd": null,
+    "premium_outlay_usd": null,
+    "premium_per_contract_usd": null,
+    "risk_budget_usd": 100.0,
+    "risk_pct": 0.01,
+    "stop_distance": null
+   },
+   "symbol": "NVDA",
+   "verdict": "WATCH",
+   "why": "Round 1 came back INSUFFICIENT_EVIDENCE (gap: events.iv.rank_pct is null in the packet - the crush-risk check cannot be scored without an IV rank). After the follow-up pass,  WATCH (conviction 4/10, put bias). Direction leans put on trend and board score, but the IV rank gap persisted through round 2, so this stays a WATCH, not a trade. Bull case: CONCEDED: this gap cannot be resolved from the packet. The downtrend evidence stands [indicators.regime = downtrend] and the board score is -40.74 [liquidity.score = -40.74], but IV rank stays unknown in packet. Bear case: The concession settles it: direction leans put, yet with IV rank unknown in packet the premium side is unscoreable, so a trade cannot be sized honestly. STRONGEST BEAR EVIDENCE: events.iv.rank_pct = null Biggest risk: Paying unscored IV into the Oct 28 FOMC window."
+  }
+ ],
+ "date": "2026-10-23",
+ "debates": {
+  "NVDA": {
+   "bear_case": "The concession settles it: direction leans put, yet with IV rank unknown in packet the premium side is unscoreable, so a trade cannot be sized honestly. STRONGEST BEAR EVIDENCE: events.iv.rank_pct = null",
+   "bull_case": "CONCEDED: this gap cannot be resolved from the packet. The downtrend evidence stands [indicators.regime = downtrend] and the board score is -40.74 [liquidity.score = -40.74], but IV rank stays unknown in packet. STRONGEST BULL EVIDENCE: liquidity.score = -40.74",
+   "conviction": 4,
+   "direction": "put",
+   "gap_history": [
+    "events.iv.rank_pct is null in the packet - the crush-risk check cannot be scored without an IV rank"
+   ],
+   "judge": {
+    "biggest_risk": "Paying unscored IV into the Oct 28 FOMC window.",
+    "conviction": 4,
+    "direction": "put",
+    "forced_default": false,
+    "gap": null,
+    "key_evidence": [
+     "liquidity.score = -40.74",
+     "indicators.regime = downtrend"
+    ],
+    "parse_ok": true,
+    "summary": "Direction leans put on trend and board score, but the IV rank gap persisted through round 2, so this stays a WATCH, not a trade.",
+    "verdict": "WATCH"
+   },
+   "looped": true,
+   "model": null,
+   "packet_hash": "ec6c732561061fd120d4b8b3338a77446c35b0fe463b2a7b143ea2e541982f3a",
+   "rounds": [
+    {
+     "bear_case": "The put case is directionally supported, but the packet cannot score IV rank [events.iv.rank_pct = null], so nobody can say whether the puts are priced for a crush. STRONGEST BEAR EVIDENCE: events.iv.rank_pct = null",
+     "bull_case": "NVDA's trend is down [indicators.regime = downtrend] and the board scores it negative [liquidity.score = -40.74], so the honest case is the put side or standing aside. STRONGEST BULL EVIDENCE: liquidity.score = -40.74",
+     "gap": "events.iv.rank_pct is null in the packet - the crush-risk check cannot be scored without an IV rank",
+     "gap_note_in": null,
+     "judge": {
+      "biggest_risk": "Unscored IV risk on a premium-buying decision.",
+      "conviction": 0,
+      "direction": "none",
+      "forced_default": false,
+      "gap": "events.iv.rank_pct is null in the packet - the crush-risk check cannot be scored without an IV rank",
+      "key_evidence": [
+       "liquidity.score = -40.74"
+      ],
+      "parse_ok": true,
+      "summary": "Cannot verdict the options side without an IV rank.",
+      "verdict": "INSUFFICIENT_EVIDENCE"
+     },
+     "judge_raw": "{\"verdict\": \"INSUFFICIENT_EVIDENCE\", \"conviction\": 0, \"direction\": \"none\", \"gap\": \"events.iv.rank_pct is null in the packet - the crush-risk check cannot be scored without an IV rank\", \"key_evidence\": [\"liquidity.score = -40.74\"], \"biggest_risk\": \"Unscored IV risk on a premium-buying decision.\", \"summary\": \"Cannot verdict the options side without an IV rank.\"}",
+     "round": 1,
+     "verdict": "INSUFFICIENT_EVIDENCE"
+    },
+    {
+     "bear_case": "The concession settles it: direction leans put, yet with IV rank unknown in packet the premium side is unscoreable, so a trade cannot be sized honestly. STRONGEST BEAR EVIDENCE: events.iv.rank_pct = null",
+     "bull_case": "CONCEDED: this gap cannot be resolved from the packet. The downtrend evidence stands [indicators.regime = downtrend] and the board score is -40.74 [liquidity.score = -40.74], but IV rank stays unknown in packet. STRONGEST BULL EVIDENCE: liquidity.score = -40.74",
+     "gap": null,
+     "gap_note_in": "events.iv.rank_pct is null in the packet - the crush-risk check cannot be scored without an IV rank",
+     "judge": {
+      "biggest_risk": "Paying unscored IV into the Oct 28 FOMC window.",
+      "conviction": 4,
+      "direction": "put",
+      "forced_default": false,
+      "gap": null,
+      "key_evidence": [
+       "liquidity.score = -40.74",
+       "indicators.regime = downtrend"
+      ],
+      "parse_ok": true,
+      "summary": "Direction leans put on trend and board score, but the IV rank gap persisted through round 2, so this stays a WATCH, not a trade.",
+      "verdict": "WATCH"
+     },
+     "judge_raw": "{\"verdict\": \"WATCH\", \"conviction\": 4, \"direction\": \"put\", \"gap\": null, \"key_evidence\": [\"liquidity.score = -40.74\", \"indicators.regime = downtrend\"], \"biggest_risk\": \"Paying unscored IV into the Oct 28 FOMC window.\", \"summary\": \"Direction leans put on trend and board score, but the IV rank gap persisted through round 2, so this stays a WATCH, not a trade.\"}",
+     "round": 2,
+     "verdict": "WATCH"
+    }
+   ],
+   "symbol": "NVDA",
+   "verdict": "WATCH",
+   "why": "Round 1 came back INSUFFICIENT_EVIDENCE (gap: events.iv.rank_pct is null in the packet - the crush-risk check cannot be scored without an IV rank). After the follow-up pass,  WATCH (conviction 4/10, put bias). Direction leans put on trend and board score, but the IV rank gap persisted through round 2, so this stays a WATCH, not a trade. Bull case: CONCEDED: this gap cannot be resolved from the packet. The downtrend evidence stands [indicators.regime = downtrend] and the board score is -40.74 [liquidity.score = -40.74], but IV rank stays unknown in packet. Bear case: The concession settles it: direction leans put, yet with IV rank unknown in packet the premium side is unscoreable, so a trade cannot be sized honestly. STRONGEST BEAR EVIDENCE: events.iv.rank_pct = null Biggest risk: Paying unscored IV into the Oct 28 FOMC window."
+  },
+  "TSLA": {
+   "bear_case": "The bull case ignores the calendar: the FOMC decision lands inside the holding window [events.market_events_in_window = FOMC 2026-10-28], and the packet carries no IV rank [events.iv.rank_pct = null], so premium crush into the print cannot be scored. STRONGEST BEAR EVIDENCE: events.market_events_in_window includes FOMC 2026-10-28",
+   "bull_case": "TSLA is in an uptrend [indicators.regime = uptrend] with price above the 200DMA [indicators.long_filter.price_above_200dma = true]. The liquidity board ranks it top of this run [liquidity.score = 49.12], and the nearest bullish order block below spot gives a defined entry zone. STRONGEST BULL EVIDENCE: liquidity.score = 49.12",
+   "conviction": 7,
+   "direction": "call",
+   "gap_history": [],
+   "judge": {
+    "biggest_risk": "FOMC decision on 2026-10-28 lands inside the holding window; event volatility can crush the premium even if direction is right.",
+    "conviction": 7,
+    "direction": "call",
+    "forced_default": false,
+    "gap": null,
+    "key_evidence": [
+     "liquidity.score = 49.12",
+     "indicators.regime = uptrend"
+    ],
+    "parse_ok": true,
+    "summary": "Uptrend, top board score and a surviving in-band call outweigh the event flag, which the card surfaces as a failed check.",
+    "verdict": "TRADE"
+   },
+   "looped": false,
+   "model": null,
+   "packet_hash": "db612caa9dee36e246cf178f33c87464904013a337977728f6a6ce0069a49b37",
+   "rounds": [
+    {
+     "bear_case": "The bull case ignores the calendar: the FOMC decision lands inside the holding window [events.market_events_in_window = FOMC 2026-10-28], and the packet carries no IV rank [events.iv.rank_pct = null], so premium crush into the print cannot be scored. STRONGEST BEAR EVIDENCE: events.market_events_in_window includes FOMC 2026-10-28",
+     "bull_case": "TSLA is in an uptrend [indicators.regime = uptrend] with price above the 200DMA [indicators.long_filter.price_above_200dma = true]. The liquidity board ranks it top of this run [liquidity.score = 49.12], and the nearest bullish order block below spot gives a defined entry zone. STRONGEST BULL EVIDENCE: liquidity.score = 49.12",
+     "gap": null,
+     "gap_note_in": null,
+     "judge": {
+      "biggest_risk": "FOMC decision on 2026-10-28 lands inside the holding window; event volatility can crush the premium even if direction is right.",
+      "conviction": 7,
+      "direction": "call",
+      "forced_default": false,
+      "gap": null,
+      "key_evidence": [
+       "liquidity.score = 49.12",
+       "indicators.regime = uptrend"
+      ],
+      "parse_ok": true,
+      "summary": "Uptrend, top board score and a surviving in-band call outweigh the event flag, which the card surfaces as a failed check.",
+      "verdict": "TRADE"
+     },
+     "judge_raw": "{\"verdict\": \"TRADE\", \"conviction\": 7, \"direction\": \"call\", \"gap\": null, \"key_evidence\": [\"liquidity.score = 49.12\", \"indicators.regime = uptrend\"], \"biggest_risk\": \"FOMC decision on 2026-10-28 lands inside the holding window; event volatility can crush the premium even if direction is right.\", \"summary\": \"Uptrend, top board score and a surviving in-band call outweigh the event flag, which the card surfaces as a failed check.\"}",
+     "round": 1,
+     "verdict": "TRADE"
+    }
+   ],
+   "symbol": "TSLA",
+   "verdict": "TRADE",
+   "why": "TSLA: TRADE (conviction 7/10, call bias). Uptrend, top board score and a surviving in-band call outweigh the event flag, which the card surfaces as a failed check. Bull case: TSLA is in an uptrend [indicators.regime = uptrend] with price above the 200DMA [indicators.long_filter.price_above_200dma = true]. The liquidity board ranks it top of this run [liquidity.score = 49.12], and the nearest bullish order block below spot gives a defined entry zone. Bear case: The bull case ignores the calendar: the FOMC decision lands inside the holding window [events.market_events_in_window = FOMC 2026-10-28], and the packet carries no IV rank [events.iv.rank_pct = null], so premium crush into the print cannot be scored. STRONGEST BEAR EVIDENCE: events.market_events_in_window includes FOMC 2026-10-28 Biggest risk: FOMC decision on 2026-10-28 lands inside the holding window; event volatility can crush the premium even if direction is right."
+  }
+ },
+ "journal_seed": [
+  {
+   "card": {
+    "checks": [],
+    "conviction": 6,
+    "direction": "call",
+    "kind": "trade",
+    "symbol": "AMD",
+    "verdict": "TRADE",
+    "why": "Seed entry: uptrend plus a top-three board score."
+   },
+   "debate": {
+    "conviction": 6,
+    "direction": "call",
+    "packet_hash": "seed-amd-20261021",
+    "rounds": [],
+    "symbol": "AMD",
+    "verdict": "TRADE",
+    "why": "Seed entry: uptrend plus a top-three board score."
+   },
+   "entry_price": 128.4,
+   "outcome": {
+    "note": "sample seed outcome",
+    "spot": 132.9,
+    "ts": "2026-10-22T20:00:00+00:00"
+   },
+   "ts": "2026-10-21T13:30:00+00:00"
+  },
+  {
+   "card": {
+    "checks": [],
+    "conviction": 5,
+    "direction": "put",
+    "kind": "trade",
+    "symbol": "MSFT",
+    "verdict": "TRADE",
+    "why": "Seed entry: bearish stack under the 200DMA."
+   },
+   "debate": {
+    "conviction": 5,
+    "direction": "put",
+    "packet_hash": "seed-msft-20261021",
+    "rounds": [],
+    "symbol": "MSFT",
+    "verdict": "TRADE",
+    "why": "Seed entry: bearish stack under the 200DMA."
+   },
+   "entry_price": 512.0,
+   "outcome": {
+    "note": "sample seed outcome",
+    "spot": 518.25,
+    "ts": "2026-10-22T20:00:00+00:00"
+   },
+   "ts": "2026-10-21T13:35:00+00:00"
+  },
+  {
+   "card": {
+    "checks": [],
+    "conviction": 3,
+    "direction": "none",
+    "kind": "no_trade",
+    "symbol": "META",
+    "verdict": "WATCH",
+    "why": "Seed entry: plausible setup, unproven momentum."
+   },
+   "debate": {
+    "conviction": 3,
+    "direction": "none",
+    "packet_hash": "seed-meta-20261022",
+    "rounds": [],
+    "symbol": "META",
+    "verdict": "WATCH",
+    "why": "Seed entry: plausible setup, unproven momentum."
+   },
+   "entry_price": 731.5,
+   "outcome": {
+    "note": "sample seed outcome (WATCH: recorded, never scored)",
+    "spot": 728.1,
+    "ts": "2026-10-22T20:00:00+00:00"
+   },
+   "ts": "2026-10-22T13:30:00+00:00"
+  }
+ ],
+ "packets": {
+  "NVDA": {
+   "as_of": "2026-10-23T12:30:00+00:00",
+   "as_of_epoch": 1792758600.0,
+   "data_quality": {
+    "complete": false,
+    "missing": [
+     "insider"
+    ]
+   },
+   "events": {
+    "as_of": "2026-10-23",
+    "checks": [
+     {
+      "check": "iv_rank_known",
+      "detail": "unknown - 52-week IV range unavailable, so no IV rank can be computed",
+      "passed": null
+     },
+     {
+      "check": "iv_elevated",
+      "detail": "unknown - no IV rank, so elevation cannot be judged",
+      "passed": null
+     },
+     {
+      "check": "earnings_in_window",
+      "detail": "unknown - earnings date unavailable from the data provider",
+      "passed": null
+     },
+     {
+      "check": "market_event_in_window",
+      "detail": "market event(s) inside the 5-day window: FOMC 2026-10-28 (5d)",
+      "passed": false
+     },
+     {
+      "check": "event_crush_risk",
+      "detail": "unknown - no IV rank, so crush risk cannot be judged",
+      "passed": null
+     }
+    ],
+    "earnings": {
+     "date": null,
+     "days_away": null,
+     "in_window": null
+    },
+    "holding_days": 5,
+    "iv": {
+     "current": 0.38,
+     "high_52w": null,
+     "low_52w": null,
+     "rank_pct": null
+    },
+    "market_events_in_window": [
+     {
+      "date": "2026-10-28",
+      "days_away": 5,
+      "label": "FOMC rate decision",
+      "type": "FOMC"
+     }
+    ],
+    "one_liner": "NVDA: IV rank unknown - 52-week IV history unavailable; event risk cannot be scored",
+    "red_flag": false,
+    "spot": 187.45,
+    "ticker": "NVDA"
+   },
+   "events_error": null,
+   "guardrails": {
+    "candidates": [
+     {
+      "contract_symbol": "NVDA261027P00185000",
+      "evaluation": {
+       "checks": [
+        {
+         "check": "delta_floor",
+         "detail": "delta -0.36; |delta| >= 0.30 required to rank",
+         "passed": true
+        },
+        {
+         "check": "premium_known",
+         "detail": "premium $1.96 (mid)",
+         "passed": true
+        },
+        {
+         "check": "iv_known",
+         "detail": "implied volatility 38.0%",
+         "passed": true
+        },
+        {
+         "check": "not_expired",
+         "detail": "4 day(s) to expiry",
+         "passed": true
+        },
+        {
+         "check": "spread_within_limit",
+         "detail": "bid/ask spread 8% of premium vs 30% limit",
+         "passed": true
+        }
+       ],
+       "contract_symbol": "NVDA261027P00185000",
+       "days_to_expiry": 4,
+       "expiration": 1793131200,
+       "metrics": {
+        "breakeven": 183.04,
+        "breakeven_move_pct": -2.35,
+        "delta": -0.3585,
+        "implied_volatility": 0.38,
+        "premium": 1.96,
+        "premium_source": "mid",
+        "probability_of_profit": 0.2775,
+        "spread_pct": 8.2,
+        "theta_burn_usd_per_day": 34.01
+       },
+       "option_type": "put",
+       "rank": 1,
+       "rankable": true,
+       "strike": 185.0
+      },
+      "option_type": "put",
+      "raw": {
+       "ask": 2.04,
+       "bid": 1.88,
+       "contractSymbol": "NVDA261027P00185000",
+       "impliedVolatility": 0.38,
+       "lastPrice": 1.96,
+       "openInterest": 7272,
+       "strike": 185.0,
+       "volume": 1636
+      }
+     },
+     {
+      "contract_symbol": "NVDA261027C00190000",
+      "evaluation": {
+       "checks": [
+        {
+         "check": "delta_floor",
+         "detail": "delta +0.38; |delta| >= 0.30 required to rank",
+         "passed": true
+        },
+        {
+         "check": "premium_known",
+         "detail": "premium $2.04 (mid)",
+         "passed": true
+        },
+        {
+         "check": "iv_known",
+         "detail": "implied volatility 38.0%",
+         "passed": true
+        },
+        {
+         "check": "not_expired",
+         "detail": "4 day(s) to expiry",
+         "passed": true
+        },
+        {
+         "check": "spread_within_limit",
+         "detail": "bid/ask spread 8% of premium vs 30% limit",
+         "passed": true
+        }
+       ],
+       "contract_symbol": "NVDA261027C00190000",
+       "days_to_expiry": 4,
+       "expiration": 1793131200,
+       "metrics": {
+        "breakeven": 192.035,
+        "breakeven_move_pct": 2.45,
+        "delta": 0.3791,
+        "implied_volatility": 0.38,
+        "premium": 2.035,
+        "premium_source": "mid",
+        "probability_of_profit": 0.2691,
+        "spread_pct": 8.4,
+        "theta_burn_usd_per_day": 36.28
+       },
+       "option_type": "call",
+       "rank": 2,
+       "rankable": true,
+       "strike": 190.0
+      },
+      "option_type": "call",
+      "raw": {
+       "ask": 2.12,
+       "bid": 1.95,
+       "contractSymbol": "NVDA261027C00190000",
+       "impliedVolatility": 0.38,
+       "lastPrice": 2.03,
+       "openInterest": 2200,
+       "strike": 190.0,
+       "volume": 495
+      }
+     },
+     {
+      "contract_symbol": "NVDA261027C00190000",
+      "evaluation": {
+       "checks": [
+        {
+         "check": "delta_floor",
+         "detail": "delta +0.38; |delta| >= 0.30 required to rank",
+         "passed": true
+        },
+        {
+         "check": "premium_known",
+         "detail": "premium $2.04 (mid)",
+         "passed": true
+        },
+        {
+         "check": "iv_known",
+         "detail": "implied volatility 38.0%",
+         "passed": true
+        },
+        {
+         "check": "not_expired",
+         "detail": "4 day(s) to expiry",
+         "passed": true
+        },
+        {
+         "check": "spread_within_limit",
+         "detail": "bid/ask spread 8% of premium vs 30% limit",
+         "passed": true
+        }
+       ],
+       "contract_symbol": "NVDA261027C00190000",
+       "days_to_expiry": 4,
+       "expiration": 1793131200,
+       "metrics": {
+        "breakeven": 192.035,
+        "breakeven_move_pct": 2.45,
+        "delta": 0.3791,
+        "implied_volatility": 0.38,
+        "premium": 2.035,
+        "premium_source": "mid",
+        "probability_of_profit": 0.2691,
+        "spread_pct": 8.4,
+        "theta_burn_usd_per_day": 36.28
+       },
+       "option_type": "call",
+       "rank": 3,
+       "rankable": true,
+       "strike": 190.0
+      },
+      "option_type": "call",
+      "raw": {
+       "ask": 2.12,
+       "bid": 1.95,
+       "contractSymbol": "NVDA261027C00190000",
+       "impliedVolatility": 0.38,
+       "lastPrice": 2.03,
+       "openInterest": 2200,
+       "strike": 190.0,
+       "volume": 495
+      }
+     }
+    ],
+    "expiration": 1793131200,
+    "ranked_count": 13,
+    "rejected_count": 5
+   },
+   "guardrails_error": null,
+   "indicators": {
+    "breakouts": {
+     "at_20d_high": false,
+     "at_20d_low": true,
+     "at_52w_high": false,
+     "at_52w_low": true,
+     "dist_20d_high_pct": 1.7269924337055431,
+     "dist_52w_high_pct": 18.85427274837417,
+     "high_20d": 190.68724731698103,
+     "high_52w": 222.79233426682737,
+     "low_20d": 187.0751,
+     "low_52w": 187.0751
+    },
+    "ema": {
+     "bearish_stack": true,
+     "bullish_stack": false,
+     "ema20": 188.92313991200206,
+     "ema21": 188.99466409761868,
+     "ema9": 188.1228299632925,
+     "price_above_stack": false,
+     "price_below_stack": true
+    },
+    "long_filter": {
+     "distance_200dma_pct": -6.8198253145213386,
+     "price_above_200dma": false,
+     "sma200": 201.16940178822446
+    },
+    "price": 187.45,
+    "regime": "downtrend",
+    "rsi_daily": 0.0,
+    "rsi_weekly": 0.0,
+    "ticker": "NVDA",
+    "volume": {
+     "avg_volume_20d": 46167725.75250836,
+     "relative_volume": 1.3429294813516226,
+     "volume": 62000000.0
+    },
+    "zones": {
+     "atr": 0.7576833150119001,
+     "demand": {
+      "bottom": 186.69625834249405,
+      "distance_pct": 0.19999999999999823,
+      "top": 187.45394165750594
+     },
+     "supply": {
+      "bottom": 190.30840565947508,
+      "distance_pct": 1.7269924337055431,
+      "top": 191.06608897448697
+     }
+    }
+   },
+   "indicators_error": null,
+   "insider": null,
+   "insider_source": null,
+   "liquidity": {
+    "components": {
+     "momentum": -0.2686,
+     "options_oi": -0.5355,
+     "options_volume": -0.5354,
+     "relative_volume": -0.2286
+    },
+    "direction": "bearish",
+    "expiration": 1793131200,
+    "inputs": {
+     "call_oi": 12100.0,
+     "call_volume": 2739.0,
+     "change_pct": -1.39,
+     "put_oi": 39996.0,
+     "put_volume": 9052.0,
+     "relative_volume": 1.34,
+     "ret_5d_pct": -0.45
+    },
+    "price": 187.45,
+    "score": -40.74,
+    "ticker": "NVDA"
+   },
+   "liquidity_error": null,
+   "order_blocks": {
+    "above": [
+     {
+      "bottom": 190.65976027397258,
+      "break_index": 2,
+      "displacement_pct": 1.2,
+      "midpoint": 191.0266,
+      "mitigated": false,
+      "origin_index": 1,
+      "timestamp": "2026-10-22T13:35:00+00:00",
+      "top": 191.39341976516633,
+      "type": "bearish"
+     }
+    ],
+    "analysis": {
+     "bars": 11,
+     "last_price": 187.45,
+     "liquidity_pools": [
+      {
+       "indices": [
+        4,
+        7
+       ],
+       "level": 182.3144,
+       "touches": 2,
+       "type": "equal_lows"
+      }
+     ],
+     "order_blocks": [
+      {
+       "bottom": 190.65976027397258,
+       "break_index": 2,
+       "displacement_pct": 1.2,
+       "midpoint": 191.0266,
+       "mitigated": false,
+       "origin_index": 1,
+       "timestamp": "2026-10-22T13:35:00+00:00",
+       "top": 191.39341976516633,
+       "type": "bearish"
+      },
+      {
+       "bottom": 184.51536203522505,
+       "break_index": 7,
+       "displacement_pct": 1.58,
+       "midpoint": 185.6159,
+       "mitigated": true,
+       "origin_index": 6,
+       "timestamp": "2026-10-22T14:00:00+00:00",
+       "top": 186.71634050880627,
+       "type": "bearish"
+      },
+      {
+       "bottom": 182.31438356164384,
+       "break_index": 9,
+       "displacement_pct": 2.21,
+       "midpoint": 184.1485,
+       "mitigated": false,
+       "origin_index": 7,
+       "timestamp": "2026-10-22T14:05:00+00:00",
+       "top": 185.98268101761252,
+       "type": "bullish"
+      }
+     ],
+     "support_resistance": {
+      "price": 187.45,
+      "resistance": [
+       193.1359
+      ],
+      "support": [
+       182.3144
+      ]
+     }
+    },
+    "below": [
+     {
+      "bottom": 182.31438356164384,
+      "break_index": 9,
+      "displacement_pct": 2.21,
+      "midpoint": 184.1485,
+      "mitigated": false,
+      "origin_index": 7,
+      "timestamp": "2026-10-22T14:05:00+00:00",
+      "top": 185.98268101761252,
+      "type": "bullish"
+     },
+     {
+      "bottom": 184.51536203522505,
+      "break_index": 7,
+      "displacement_pct": 1.58,
+      "midpoint": 185.6159,
+      "mitigated": true,
+      "origin_index": 6,
+      "timestamp": "2026-10-22T14:00:00+00:00",
+      "top": 186.71634050880627,
+      "type": "bearish"
+     }
+    ],
+    "error": null,
+    "nearest_pools": [
+     {
+      "distance_pct": -2.74,
+      "indices": [
+       4,
+       7
+      ],
+      "level": 182.3144,
+      "touches": 2,
+      "type": "equal_lows"
+     }
+    ]
+   },
+   "quote": {
+    "change": -2.6500000000000057,
+    "change_pct": -1.3940031562335644,
+    "day_high": 189.3245,
+    "day_low": 185.57549999999998,
+    "open": 190.4802,
+    "previous_close": 190.1,
+    "price": 187.45,
+    "ticker": "NVDA",
+    "volume": 60000000
+   },
+   "spot": 187.45,
+   "symbol": "NVDA"
+  },
+  "TSLA": {
+   "as_of": "2026-10-23T12:30:00+00:00",
+   "as_of_epoch": 1792758600.0,
+   "data_quality": {
+    "complete": false,
+    "missing": [
+     "insider"
+    ]
+   },
+   "events": {
+    "as_of": "2026-10-23",
+    "checks": [
+     {
+      "check": "iv_rank_known",
+      "detail": "unknown - 52-week IV range unavailable, so no IV rank can be computed",
+      "passed": null
+     },
+     {
+      "check": "iv_elevated",
+      "detail": "unknown - no IV rank, so elevation cannot be judged",
+      "passed": null
+     },
+     {
+      "check": "earnings_in_window",
+      "detail": "unknown - earnings date unavailable from the data provider",
+      "passed": null
+     },
+     {
+      "check": "market_event_in_window",
+      "detail": "market event(s) inside the 5-day window: FOMC 2026-10-28 (5d)",
+      "passed": false
+     },
+     {
+      "check": "event_crush_risk",
+      "detail": "unknown - no IV rank, so crush risk cannot be judged",
+      "passed": null
+     }
+    ],
+    "earnings": {
+     "date": null,
+     "days_away": null,
+     "in_window": null
+    },
+    "holding_days": 5,
+    "iv": {
+     "current": 0.42,
+     "high_52w": null,
+     "low_52w": null,
+     "rank_pct": null
+    },
+    "market_events_in_window": [
+     {
+      "date": "2026-10-28",
+      "days_away": 5,
+      "label": "FOMC rate decision",
+      "type": "FOMC"
+     }
+    ],
+    "one_liner": "TSLA: IV rank unknown - 52-week IV history unavailable; event risk cannot be scored",
+    "red_flag": false,
+    "spot": 248.3,
+    "ticker": "TSLA"
+   },
+   "events_error": null,
+   "guardrails": {
+    "candidates": [
+     {
+      "contract_symbol": "TSLA261027C00252500",
+      "evaluation": {
+       "checks": [
+        {
+         "check": "delta_floor",
+         "detail": "delta +0.36; |delta| >= 0.30 required to rank",
+         "passed": true
+        },
+        {
+         "check": "premium_known",
+         "detail": "premium $2.81 (mid)",
+         "passed": true
+        },
+        {
+         "check": "iv_known",
+         "detail": "implied volatility 42.0%",
+         "passed": true
+        },
+        {
+         "check": "not_expired",
+         "detail": "4 day(s) to expiry",
+         "passed": true
+        },
+        {
+         "check": "spread_within_limit",
+         "detail": "bid/ask spread 8% of premium vs 30% limit",
+         "passed": true
+        }
+       ],
+       "contract_symbol": "TSLA261027C00252500",
+       "days_to_expiry": 4,
+       "expiration": 1793131200,
+       "metrics": {
+        "breakeven": 255.31,
+        "breakeven_move_pct": 2.82,
+        "delta": 0.3636,
+        "implied_volatility": 0.42,
+        "premium": 2.81,
+        "premium_source": "mid",
+        "probability_of_profit": 0.2596,
+        "spread_pct": 7.8,
+        "theta_burn_usd_per_day": 52.26
+       },
+       "option_type": "call",
+       "rank": 1,
+       "rankable": true,
+       "strike": 252.5
+      },
+      "option_type": "call",
+      "raw": {
+       "ask": 2.92,
+       "bid": 2.7,
+       "contractSymbol": "TSLA261027C00252500",
+       "impliedVolatility": 0.42,
+       "lastPrice": 2.81,
+       "openInterest": 7600,
+       "strike": 252.5,
+       "volume": 1710
+      }
+     },
+     {
+      "contract_symbol": "TSLA261027P00245000",
+      "evaluation": {
+       "checks": [
+        {
+         "check": "delta_floor",
+         "detail": "delta -0.37; |delta| >= 0.30 required to rank",
+         "passed": true
+        },
+        {
+         "check": "premium_known",
+         "detail": "premium $2.99 (mid)",
+         "passed": true
+        },
+        {
+         "check": "iv_known",
+         "detail": "implied volatility 42.0%",
+         "passed": true
+        },
+        {
+         "check": "not_expired",
+         "detail": "4 day(s) to expiry",
+         "passed": true
+        },
+        {
+         "check": "spread_within_limit",
+         "detail": "bid/ask spread 8% of premium vs 30% limit",
+         "passed": true
+        }
+       ],
+       "contract_symbol": "TSLA261027P00245000",
+       "days_to_expiry": 4,
+       "expiration": 1793131200,
+       "metrics": {
+        "breakeven": 242.015,
+        "breakeven_move_pct": -2.53,
+        "delta": -0.3681,
+        "implied_volatility": 0.42,
+        "premium": 2.985,
+        "premium_source": "mid",
+        "probability_of_profit": 0.2837,
+        "spread_pct": 7.7,
+        "theta_burn_usd_per_day": 50.33
+       },
+       "option_type": "put",
+       "rank": 2,
+       "rankable": true,
+       "strike": 245.0
+      },
+      "option_type": "put",
+      "raw": {
+       "ask": 3.1,
+       "bid": 2.87,
+       "contractSymbol": "TSLA261027P00245000",
+       "impliedVolatility": 0.42,
+       "lastPrice": 2.98,
+       "openInterest": 2105,
+       "strike": 245.0,
+       "volume": 473
+      }
+     },
+     {
+      "contract_symbol": "TSLA261027C00250000",
+      "evaluation": {
+       "checks": [
+        {
+         "check": "delta_floor",
+         "detail": "delta +0.45; |delta| >= 0.30 required to rank",
+         "passed": true
+        },
+        {
+         "check": "premium_known",
+         "detail": "premium $3.79 (mid)",
+         "passed": true
+        },
+        {
+         "check": "iv_known",
+         "detail": "implied volatility 42.0%",
+         "passed": true
+        },
+        {
+         "check": "not_expired",
+         "detail": "4 day(s) to expiry",
+         "passed": true
+        },
+        {
+         "check": "spread_within_limit",
+         "detail": "bid/ask spread 8% of premium vs 30% limit",
+         "passed": true
+        }
+       ],
+       "contract_symbol": "TSLA261027C00250000",
+       "days_to_expiry": 4,
+       "expiration": 1793131200,
+       "metrics": {
+        "breakeven": 253.79,
+        "breakeven_move_pct": 2.21,
+        "delta": 0.4513,
+        "implied_volatility": 0.42,
+        "premium": 3.79,
+        "premium_source": "mid",
+        "probability_of_profit": 0.3055,
+        "spread_pct": 7.9,
+        "theta_burn_usd_per_day": 55.31
+       },
+       "option_type": "call",
+       "rank": 3,
+       "rankable": true,
+       "strike": 250.0
+      },
+      "option_type": "call",
+      "raw": {
+       "ask": 3.94,
+       "bid": 3.64,
+       "contractSymbol": "TSLA261027C00250000",
+       "impliedVolatility": 0.42,
+       "lastPrice": 3.79,
+       "openInterest": 7600,
+       "strike": 250.0,
+       "volume": 1710
+      }
+     }
+    ],
+    "expiration": 1793131200,
+    "ranked_count": 13,
+    "rejected_count": 5
+   },
+   "guardrails_error": null,
+   "indicators": {
+    "breakouts": {
+     "at_20d_high": true,
+     "at_20d_low": false,
+     "at_52w_high": true,
+     "at_52w_low": false,
+     "dist_20d_high_pct": 0.20000000000000032,
+     "dist_52w_high_pct": 0.20000000000000032,
+     "high_20d": 248.7966,
+     "high_52w": 248.7966,
+     "low_20d": 244.3363023956737,
+     "low_52w": 198.24681880613238
+    },
+    "ema": {
+     "bearish_stack": false,
+     "bullish_stack": true,
+     "ema20": 246.62235044091867,
+     "ema21": 246.52609280042165,
+     "ema9": 247.6632439577782,
+     "price_above_stack": true,
+     "price_below_stack": false
+    },
+    "long_filter": {
+     "distance_200dma_pct": 8.68233421276328,
+     "price_above_200dma": true,
+     "sma200": 228.46399260611437
+    },
+    "price": 248.3,
+    "regime": "uptrend",
+    "rsi_daily": 100.0,
+    "rsi_weekly": 100.0,
+    "ticker": "TSLA",
+    "volume": {
+     "avg_volume_20d": 56523411.37123746,
+     "relative_volume": 1.6807195053400787,
+     "volume": 95000000.0
+    },
+    "zones": {
+     "atr": 0.9837783959367412,
+     "demand": {
+      "bottom": 243.84441319770534,
+      "distance_pct": 1.5963341137037104,
+      "top": 244.82819159364206
+     },
+     "supply": {
+      "bottom": 248.30471080203165,
+      "distance_pct": 0.20000000000000032,
+      "top": 249.28848919796837
+     }
+    }
+   },
+   "indicators_error": null,
+   "insider": null,
+   "insider_source": null,
+   "liquidity": {
+    "components": {
+     "momentum": 0.3556,
+     "options_oi": 0.5662,
+     "options_volume": 0.5667,
+     "relative_volume": 0.4538
+    },
+    "direction": "bullish",
+    "expiration": 1793131200,
+    "inputs": {
+     "call_oi": 41800.0,
+     "call_volume": 9462.0,
+     "change_pct": 2.31,
+     "put_oi": 11577.0,
+     "put_volume": 2617.0,
+     "relative_volume": 1.68,
+     "ret_5d_pct": 0.32
+    },
+    "price": 248.3,
+    "score": 49.12,
+    "ticker": "TSLA"
+   },
+   "liquidity_error": null,
+   "order_blocks": {
+    "above": [
+     {
+      "bottom": 250.24363992172215,
+      "break_index": 9,
+      "displacement_pct": 2.1,
+      "midpoint": 252.6732,
+      "mitigated": false,
+      "origin_index": 7,
+      "timestamp": "2026-10-22T14:05:00+00:00",
+      "top": 255.1027397260274,
+      "type": "bearish"
+     },
+     {
+      "bottom": 249.27181996086108,
+      "break_index": 7,
+      "displacement_pct": 1.55,
+      "midpoint": 250.7295,
+      "mitigated": true,
+      "origin_index": 6,
+      "timestamp": "2026-10-22T14:00:00+00:00",
+      "top": 252.18727984344423,
+      "type": "bullish"
+     }
+    ],
+    "analysis": {
+     "bars": 11,
+     "last_price": 248.30000000000004,
+     "liquidity_pools": [
+      {
+       "indices": [
+        4,
+        7
+       ],
+       "level": 255.1027,
+       "touches": 2,
+       "type": "equal_highs"
+      }
+     ],
+     "order_blocks": [
+      {
+       "bottom": 243.07646771037184,
+       "break_index": 2,
+       "displacement_pct": 1.25,
+       "midpoint": 243.5624,
+       "mitigated": false,
+       "origin_index": 1,
+       "timestamp": "2026-10-22T13:35:00+00:00",
+       "top": 244.0482876712329,
+       "type": "bullish"
+      },
+      {
+       "bottom": 249.27181996086108,
+       "break_index": 7,
+       "displacement_pct": 1.55,
+       "midpoint": 250.7295,
+       "mitigated": true,
+       "origin_index": 6,
+       "timestamp": "2026-10-22T14:00:00+00:00",
+       "top": 252.18727984344423,
+       "type": "bullish"
+      },
+      {
+       "bottom": 250.24363992172215,
+       "break_index": 9,
+       "displacement_pct": 2.1,
+       "midpoint": 252.6732,
+       "mitigated": false,
+       "origin_index": 7,
+       "timestamp": "2026-10-22T14:05:00+00:00",
+       "top": 255.1027397260274,
+       "type": "bearish"
+      }
+     ],
+     "support_resistance": {
+      "price": 248.30000000000004,
+      "resistance": [
+       255.1027
+      ],
+      "support": [
+       240.7684
+      ]
+     }
+    },
+    "below": [
+     {
+      "bottom": 243.07646771037184,
+      "break_index": 2,
+      "displacement_pct": 1.25,
+      "midpoint": 243.5624,
+      "mitigated": false,
+      "origin_index": 1,
+      "timestamp": "2026-10-22T13:35:00+00:00",
+      "top": 244.0482876712329,
+      "type": "bullish"
+     }
+    ],
+    "error": null,
+    "nearest_pools": [
+     {
+      "distance_pct": 2.74,
+      "indices": [
+       4,
+       7
+      ],
+      "level": 255.1027,
+      "touches": 2,
+      "type": "equal_highs"
+     }
+    ]
+   },
+   "quote": {
+    "change": 5.600000000000023,
+    "change_pct": 2.3073753605274097,
+    "day_high": 250.78300000000002,
+    "day_low": 245.817,
+    "open": 243.1854,
+    "previous_close": 242.7,
+    "price": 248.3,
+    "ticker": "TSLA",
+    "volume": 60000000
+   },
+   "spot": 248.3,
+   "symbol": "TSLA"
+  }
+ },
+ "session": "premarket",
+ "xray": {
+  "breadth": {
+   "counts": {
+    "above_200dma": 7,
+    "bearish": 5,
+    "bearish_stack": 5,
+    "below_200dma": 5,
+    "bullish": 7,
+    "bullish_stack": 7,
+    "neutral": 0,
+    "pct_above_200dma": 58.3,
+    "rsi_neutral": 0,
+    "rsi_overbought": 7,
+    "rsi_oversold": 5,
+    "total": 12
+   },
+   "errors": [],
+   "symbols": [
+    {
+     "above_200dma": false,
+     "bearish_stack": true,
+     "bullish_stack": false,
+     "direction": "bearish",
+     "distance_200dma_pct": -6.24,
+     "price": 102.0,
+     "regime": "downtrend",
+     "rsi_daily": 0.0,
+     "rsi_zone": "oversold",
+     "ticker": "SPY"
+    },
+    {
+     "above_200dma": false,
+     "bearish_stack": true,
+     "bullish_stack": false,
+     "direction": "bearish",
+     "distance_200dma_pct": -6.24,
+     "price": 143.0,
+     "regime": "downtrend",
+     "rsi_daily": 0.0,
+     "rsi_zone": "oversold",
+     "ticker": "QQQ"
+    },
+    {
+     "above_200dma": true,
+     "bearish_stack": false,
+     "bullish_stack": true,
+     "direction": "bullish",
+     "distance_200dma_pct": 7.13,
+     "price": 136.0,
+     "regime": "uptrend",
+     "rsi_daily": 100.0,
+     "rsi_zone": "overbought",
+     "ticker": "AAPL"
+    },
+    {
+     "above_200dma": true,
+     "bearish_stack": false,
+     "bullish_stack": true,
+     "direction": "bullish",
+     "distance_200dma_pct": 7.13,
+     "price": 114.0,
+     "regime": "uptrend",
+     "rsi_daily": 100.0,
+     "rsi_zone": "overbought",
+     "ticker": "MSFT"
+    },
+    {
+     "above_200dma": false,
+     "bearish_stack": true,
+     "bullish_stack": false,
+     "direction": "bearish",
+     "distance_200dma_pct": -6.82,
+     "price": 187.45,
+     "regime": "downtrend",
+     "rsi_daily": 0.0,
+     "rsi_zone": "oversold",
+     "ticker": "NVDA"
+    },
+    {
+     "above_200dma": true,
+     "bearish_stack": false,
+     "bullish_stack": true,
+     "direction": "bullish",
+     "distance_200dma_pct": 7.13,
+     "price": 110.0,
+     "regime": "uptrend",
+     "rsi_daily": 100.0,
+     "rsi_zone": "overbought",
+     "ticker": "AMZN"
+    },
+    {
+     "above_200dma": true,
+     "bearish_stack": false,
+     "bullish_stack": true,
+     "direction": "bullish",
+     "distance_200dma_pct": 7.13,
+     "price": 145.0,
+     "regime": "uptrend",
+     "rsi_daily": 100.0,
+     "rsi_zone": "overbought",
+     "ticker": "META"
+    },
+    {
+     "above_200dma": true,
+     "bearish_stack": false,
+     "bullish_stack": true,
+     "direction": "bullish",
+     "distance_200dma_pct": 7.13,
+     "price": 126.0,
+     "regime": "uptrend",
+     "rsi_daily": 100.0,
+     "rsi_zone": "overbought",
+     "ticker": "GOOGL"
+    },
+    {
+     "above_200dma": true,
+     "bearish_stack": false,
+     "bullish_stack": true,
+     "direction": "bullish",
+     "distance_200dma_pct": 8.68,
+     "price": 248.3,
+     "regime": "uptrend",
+     "rsi_daily": 100.0,
+     "rsi_zone": "overbought",
+     "ticker": "TSLA"
+    },
+    {
+     "above_200dma": false,
+     "bearish_stack": true,
+     "bullish_stack": false,
+     "direction": "bearish",
+     "distance_200dma_pct": -6.24,
+     "price": 110.0,
+     "regime": "downtrend",
+     "rsi_daily": 0.0,
+     "rsi_zone": "oversold",
+     "ticker": "AMD"
+    },
+    {
+     "above_200dma": false,
+     "bearish_stack": true,
+     "bullish_stack": false,
+     "direction": "bearish",
+     "distance_200dma_pct": -6.24,
+     "price": 112.0,
+     "regime": "downtrend",
+     "rsi_daily": 0.0,
+     "rsi_zone": "oversold",
+     "ticker": "NFLX"
+    },
+    {
+     "above_200dma": true,
+     "bearish_stack": false,
+     "bullish_stack": true,
+     "direction": "bullish",
+     "distance_200dma_pct": 7.13,
+     "price": 101.0,
+     "regime": "uptrend",
+     "rsi_daily": 100.0,
+     "rsi_zone": "overbought",
+     "ticker": "AVGO"
+    }
+   ]
+  },
+  "read": {
+   "bearish_share_pct": 41.7,
+   "bullish_share_pct": 58.3,
+   "lagging_sectors": [
+    "Utilities",
+    "Real Estate",
+    "Communication Services"
+   ],
+   "leading_sectors": [
+    "Technology",
+    "Healthcare",
+    "Energy"
+   ],
+   "pct_above_200dma": 58.3,
+   "posture": "mixed"
+  },
+  "sectors": {
+   "benchmark": "SPY",
+   "benchmark_ret_21d_pct": -1.51,
+   "errors": [],
+   "sectors": [
+    {
+     "above_200dma": true,
+     "label": "leading",
+     "momentum_score": 1.98,
+     "price": 139.0,
+     "rank": 1,
+     "ret_21d_pct": 1.29,
+     "ret_5d_pct": 0.25,
+     "ret_63d_pct": 4.28,
+     "rs_21d_pct": 2.8,
+     "rsi_daily": 100.0,
+     "sector": "Technology",
+     "ticker": "XLK"
+    },
+    {
+     "above_200dma": true,
+     "label": "leading",
+     "momentum_score": 1.98,
+     "price": 100.0,
+     "rank": 2,
+     "ret_21d_pct": 1.29,
+     "ret_5d_pct": 0.25,
+     "ret_63d_pct": 4.28,
+     "rs_21d_pct": 2.8,
+     "rsi_daily": 100.0,
+     "sector": "Healthcare",
+     "ticker": "XLV"
+    },
+    {
+     "above_200dma": true,
+     "label": "leading",
+     "momentum_score": 1.98,
+     "price": 133.0,
+     "rank": 3,
+     "ret_21d_pct": 1.29,
+     "ret_5d_pct": 0.25,
+     "ret_63d_pct": 4.28,
+     "rs_21d_pct": 2.8,
+     "rsi_daily": 100.0,
+     "sector": "Energy",
+     "ticker": "XLE"
+    },
+    {
+     "above_200dma": true,
+     "label": "neutral",
+     "momentum_score": 1.98,
+     "price": 130.0,
+     "rank": 4,
+     "ret_21d_pct": 1.29,
+     "ret_5d_pct": 0.25,
+     "ret_63d_pct": 4.28,
+     "rs_21d_pct": 2.8,
+     "rsi_daily": 100.0,
+     "sector": "Materials",
+     "ticker": "XLB"
+    },
+    {
+     "above_200dma": true,
+     "label": "neutral",
+     "momentum_score": 1.98,
+     "price": 103.0,
+     "rank": 5,
+     "ret_21d_pct": 1.29,
+     "ret_5d_pct": 0.25,
+     "ret_63d_pct": 4.28,
+     "rs_21d_pct": 2.8,
+     "rsi_daily": 100.0,
+     "sector": "Consumer Discretionary",
+     "ticker": "XLY"
+    },
+    {
+     "above_200dma": false,
+     "label": "neutral",
+     "momentum_score": -2.08,
+     "price": 134.0,
+     "rank": 6,
+     "ret_21d_pct": -1.51,
+     "ret_5d_pct": -0.41,
+     "ret_63d_pct": -4.14,
+     "rs_21d_pct": 0.0,
+     "rsi_daily": 0.0,
+     "sector": "Financials",
+     "ticker": "XLF"
+    },
+    {
+     "above_200dma": false,
+     "label": "neutral",
+     "momentum_score": -2.08,
+     "price": 137.0,
+     "rank": 7,
+     "ret_21d_pct": -1.51,
+     "ret_5d_pct": -0.41,
+     "ret_63d_pct": -4.14,
+     "rs_21d_pct": 0.0,
+     "rsi_daily": 0.0,
+     "sector": "Industrials",
+     "ticker": "XLI"
+    },
+    {
+     "above_200dma": false,
+     "label": "lagging",
+     "momentum_score": -2.08,
+     "price": 149.0,
+     "rank": 8,
+     "ret_21d_pct": -1.51,
+     "ret_5d_pct": -0.41,
+     "ret_63d_pct": -4.14,
+     "rs_21d_pct": 0.0,
+     "rsi_daily": 0.0,
+     "sector": "Utilities",
+     "ticker": "XLU"
+    },
+    {
+     "above_200dma": false,
+     "label": "lagging",
+     "momentum_score": -2.08,
+     "price": 115.0,
+     "rank": 9,
+     "ret_21d_pct": -1.51,
+     "ret_5d_pct": -0.41,
+     "ret_63d_pct": -4.14,
+     "rs_21d_pct": 0.0,
+     "rsi_daily": 0.0,
+     "sector": "Real Estate",
+     "ticker": "XLRE"
+    },
+    {
+     "above_200dma": false,
+     "label": "lagging",
+     "momentum_score": -2.08,
+     "price": 131.0,
+     "rank": 10,
+     "ret_21d_pct": -1.51,
+     "ret_5d_pct": -0.41,
+     "ret_63d_pct": -4.14,
+     "rs_21d_pct": 0.0,
+     "rsi_daily": 0.0,
+     "sector": "Communication Services",
+     "ticker": "XLC"
+    }
+   ]
+  }
+ }
+}
