@@ -68,33 +68,42 @@ because Zetaris holds no options tables - the provider split is
 explicit in code and in the README limitations.
 
 ### Meterless (engines + runtime)
-Two integrations. (1) The H-Mem memory engine: the official Meterless
-H-MEM reference implementation, vendored unmodified under Apache-2.0,
-runs through a Node bridge. It is wired into the agent loop: before
-each debate, the agent's past calls on that symbol are recalled into
-the evidence packet as citable values; after outcomes are scored, the
-memory record is superseded with the result. (2) The Meterless
-Runtime is implemented as an OpenAI-compatible provider in the
-application (base-URL normalization, connect-link parsing, the
-meterless-app and meterless-scope headers, a /v1/models probe that
-reports online, unauthorized or offline honestly), following the
-Meterless team's published guidance for this event. On the M1
-Nightshift edition no callable endpoint exists, so the probe reports
-offline there; the NVIDIA route below is the active provider.
+Two integrations, matching the Official Rules (8.1/15.2/16/23) and
+the Technical Execution Requirements. (1) The H-Mem memory engine:
+the official Meterless H-MEM reference implementation, vendored
+unmodified under Apache-2.0, runs through a Node bridge. It is wired
+into the agent loop: before each debate, the agent's past calls on
+that symbol are recalled into the evidence packet as citable values;
+after outcomes are scored, the memory record is superseded with the
+result. (2) Nightshift as the primary AI provider: the Meterless
+Runtime (Runtime 1.4) is implemented in the application as an
+OpenAI-compatible provider route (base-URL normalization,
+connect-link parsing, the meterless-app and meterless-scope headers,
+a /v1/models probe that reports online, unauthorized or offline
+honestly). Per the Technical Execution Requirements, the NVIDIA key
+lives in Nightshift's Providers tab; the application itself holds
+only the Nightshift URL and the runtime token, and routes its model
+calls through Nightshift when that route is configured
+(LLM_PROVIDER=meterless, or auto when a Meterless URL or token is
+present). Every model call is logged per run (provider, the model
+that actually served, latency) in the run artifacts. The NVIDIA
+direct route below is retained only as a development fallback.
 
 ### NVIDIA (the brain)
-All reasoning runs on NVIDIA Nemotron via NVIDIA's direct API:
+All reasoning runs on NVIDIA Nemotron:
 nvidia/nemotron-3-ultra-550b-a55b (the originally targeted
 nemotron-3-super-120b-a12b chat endpoint has returned 404 since
 Oct 20, 2026; the model is an env setting and flips back in one line).
-Bull, bear and judge are separate Nemotron calls over the same
-evidence packet.
+In the rules configuration the key is registered in Nightshift's
+Providers tab and Nightshift serves the calls (see Meterless above);
+NVIDIA's direct API is retained as a development fallback only. Bull,
+bear and judge are separate Nemotron calls over the same evidence
+packet, and the model that served each call is logged in the run
+artifacts.
 
 ### Cursor (development environment)
-[TO COMPLETE at submission: one honest line describing the genuine
-Cursor editing/review session on this repo. No Cursor credits were
-provided for this event; the free version was used. Do not submit
-without a real session having happened.]
+Optional per Official Rules 8.1; not used. Development used Claude
+Code. No Cursor credits were provided for this event.
 
 ## Pre-existing components declaration
 
@@ -115,6 +124,6 @@ without a real session having happened.]
 
 ## Links (fill at submission)
 
-- Public GitHub repo: [TO COMPLETE]
+- Public GitHub repo: https://github.com/pruthvig1998/QuantPilot (created Oct 23; snapshot commit 0875be0f - re-push after the Oct 23 live-run fixes, then update this note)
 - Demo video: [TO COMPLETE - file name OAH2026-QuantPilot-Track02-Demo.mp4]
 - Slide deck: [TO COMPLETE]

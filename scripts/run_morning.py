@@ -57,7 +57,8 @@ from src.agent.packet import assemble_packet  # noqa: E402
 from src.agent.risk import apply_risk_review, review_card, sector_context  # noqa: E402
 from src.data.cache import CachingProvider  # noqa: E402
 from src.data.yahoo import get_provider  # noqa: E402
-from src.integrations.llm import get_llm_provider  # noqa: E402
+from src.integrations.llm import clear_call_log, get_call_log, get_llm_provider  # noqa: E402
+from src.integrations.zetaris import clear_trace_log, get_trace_log  # noqa: E402
 from src.integrations.meterless_engine import MeterlessEngine  # noqa: E402
 from src.liquidity.board import build_board  # noqa: E402
 from src.xray.xray import market_xray  # noqa: E402
@@ -175,6 +176,10 @@ def run_live(args: argparse.Namespace) -> Dict:
     """
     provider = CachingProvider(get_provider(args.provider or config.DATA_PROVIDER))
     client = TimedClient(get_llm_provider())
+    # Fresh evidence traces for this run: model calls (llm.py) and
+    # Zetaris SQL calls (zetaris.py), drained into artifacts below.
+    clear_call_log()
+    clear_trace_log()
     timings: Dict[str, float] = {}
     errors: List[Dict] = []
     now = datetime.now(timezone.utc)
@@ -308,6 +313,8 @@ def run_live(args: argparse.Namespace) -> Dict:
                        "calls_remembered": remembered},
             "errors": errors,
             "timings": timings,
+            "model_calls": get_call_log(),
+            "data_calls": get_trace_log(),
             "board_history": board_history(
                 os.path.join(REPO_ROOT, "runs"), today, board
             ),
@@ -405,6 +412,8 @@ def run_sample(args: argparse.Namespace) -> Dict:
             "cards": cards,
             "journal_stats": journal.stats(),
             "journal_entries": journal.list_entries(),
+            "model_calls": [],
+            "data_calls": [],
         }
     finally:
         journal.close()
@@ -449,6 +458,18 @@ def main(argv: Optional[List[str]] = None) -> int:
     if llm:
         print(f"llm: {llm['calls']} calls, mean {llm['mean_s']}s, max {llm['max_s']}s, "
               f"total {llm['total_s']}s ({llm['model']})")
+    model_calls = artifacts.get("model_calls") or []
+    if model_calls:
+        by_model: Dict[str, int] = {}
+        for entry in model_calls:
+            key = f"{entry.get('provider')}/{entry.get('model')}"
+            by_model[key] = by_model.get(key, 0) + 1
+        summary = ", ".join(f"{k} x{v}" for k, v in sorted(by_model.items()))
+        print(f"model calls: {len(model_calls)} ({summary})")
+    data_calls = artifacts.get("data_calls") or []
+    if data_calls:
+        total_rows = sum(int(e.get("rows") or 0) for e in data_calls)
+        print(f"data calls: {len(data_calls)} zetaris queries, {total_rows} rows")
     for name, path in result["paths"].items():
         print(f"{name}: {path}")
     return 0

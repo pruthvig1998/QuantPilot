@@ -92,6 +92,36 @@ CHAT_RETRIES = 2
 CHAT_BACKOFF_S = 4.0
 _RETRY_STATUS = {429, 500, 502, 503, 504}
 
+# -- Run-scoped model-call log -------------------------------------------
+# The Official Rules (8.1/15.2/16/23) and the NVIDIA award are scored
+# from run evidence: which provider and which model actually handled
+# each request, and how long it took. Every chat() call appends one
+# entry here; the runner clears the log at run start and drains it
+# into artifacts.json as "model_calls".
+# Entries: {"provider", "model", "latency_ms", "ok"}.
+CALL_LOG: List[Dict] = []
+
+
+def clear_call_log() -> None:
+    """Start a fresh model-call log (called at run start)."""
+    CALL_LOG.clear()
+
+
+def get_call_log() -> List[Dict]:
+    """A copy of the model-call entries recorded so far."""
+    return [dict(entry) for entry in CALL_LOG]
+
+
+def _record_call(provider: str, model: str, started: float, ok: bool) -> None:
+    CALL_LOG.append(
+        {
+            "provider": provider,
+            "model": model,
+            "latency_ms": int(round((time.time() - started) * 1000)),
+            "ok": ok,
+        }
+    )
+
 # Path suffixes a pasted base URL may carry; all normalise away.
 _SUFFIXES = ("/v1/chat/completions", "/v1/models", "/healthz", "/v1")
 
@@ -292,9 +322,35 @@ class LLMProvider:
         max_tokens: int = 4096,
         temperature: Optional[float] = None,
     ) -> dict:
-        """One chat completion; returns the parsed OpenAI-shaped JSON."""
+        """One chat completion; returns the parsed OpenAI-shaped JSON.
+
+        Every call is recorded in the module call log (see CALL_LOG).
+        The model recorded is the one that actually served: the
+        response's own "model" field when the endpoint returns one
+        (the Meterless route echoes the concrete model it routed to),
+        otherwise the requested model. A failed call is recorded with
+        ok=False and the exception re-raised.
+        """
+        requested = model or self.config.model
+        started = time.time()
+        try:
+            data = self._chat_impl(messages, requested, max_tokens, temperature)
+        except Exception:
+            _record_call(self.config.provider, requested, started, ok=False)
+            raise
+        served = data.get("model") if isinstance(data, dict) else None
+        _record_call(self.config.provider, served or requested, started, ok=True)
+        return data
+
+    def _chat_impl(
+        self,
+        messages: List[Dict[str, str]],
+        model: str,
+        max_tokens: int,
+        temperature: Optional[float],
+    ) -> dict:
         payload: Dict[str, object] = {
-            "model": model or self.config.model,
+            "model": model,
             "messages": messages,
             "max_tokens": max_tokens,
         }

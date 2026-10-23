@@ -210,8 +210,8 @@ regenerate them are in the README's Samples section.
   and carries its honest sample-size label until 60.
 - Live verification of the Meterless route on an endpoint-bearing
   Nightshift edition (M5 / Windows / DGX Spark) when one is available.
-- A genuine Cursor-built workflow session on the repo (no credits were
-  provided for this event; the free version is the sanctioned path).
+- Cursor: optional per Official Rules 8.1 and not used - development
+  used Claude Code, and no Cursor credits were provided for this event.
 - Options chains through the Zetaris harness, closing the last direct
   Yahoo dependency.
 

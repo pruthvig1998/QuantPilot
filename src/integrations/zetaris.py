@@ -91,6 +91,34 @@ _PERIOD_DAYS = {
 
 _TICKER_RE = re.compile(r"^[A-Z][A-Z0-9.\-]{0,9}$")
 
+# -- Run-scoped SQL trace -------------------------------------------------
+# The demo and the Sponsor Tech score need visible trace lines of the
+# Zetaris queries a run actually made. Every run_sql call appends one
+# entry here; the runner clears the log at run start and drains it
+# into artifacts.json as "data_calls".
+# Entries: {"table_or_view", "elapsed_ms", "rows"}. Cache hits in
+# CachingProvider never reach this provider, so the trace counts real
+# Zetaris calls only.
+TRACE_LOG: List[Dict] = []
+
+_FROM_RE = re.compile(r"\bFROM\s+([A-Za-z0-9_.]+)", re.IGNORECASE)
+
+
+def clear_trace_log() -> None:
+    """Start a fresh SQL trace (called at run start)."""
+    TRACE_LOG.clear()
+
+
+def get_trace_log() -> List[Dict]:
+    """A copy of the trace lines recorded so far."""
+    return [dict(entry) for entry in TRACE_LOG]
+
+
+def _trace_target(sql: str) -> str:
+    """The view a statement reads from (or "ping" when it has no FROM)."""
+    match = _FROM_RE.search(sql or "")
+    return match.group(1) if match else "ping"
+
 
 def _table_key(ticker: str) -> str:
     if not _TICKER_RE.match(ticker or ""):
@@ -179,20 +207,36 @@ class ZetarisProvider(MarketDataProvider):
         }
 
     def run_sql(self, sql: str, limit: int = 1000) -> list:
-        """Run one SQL statement against Zetaris, return rows as lists."""
-        resp = requests.post(
-            self.rest_url + "/sql-editor/sqls/run",
-            headers=self._headers(),
-            json={
-                "queryId": str(uuid.uuid4()),
-                "sql": sql,
-                "source": "SqlEditor",
-                "limit": limit,
-            },
-            timeout=60,
-        )
-        resp.raise_for_status()
-        return resp.json().get("data", [])
+        """Run one SQL statement against Zetaris, return rows as lists.
+
+        Each call (success or failure) appends a trace line to the
+        module TRACE_LOG: the view read, wall-clock ms, row count.
+        """
+        started = time.time()
+        rows: list = []
+        try:
+            resp = requests.post(
+                self.rest_url + "/sql-editor/sqls/run",
+                headers=self._headers(),
+                json={
+                    "queryId": str(uuid.uuid4()),
+                    "sql": sql,
+                    "source": "SqlEditor",
+                    "limit": limit,
+                },
+                timeout=60,
+            )
+            resp.raise_for_status()
+            rows = resp.json().get("data", [])
+            return rows
+        finally:
+            TRACE_LOG.append(
+                {
+                    "table_or_view": _trace_target(sql),
+                    "elapsed_ms": int(round((time.time() - started) * 1000)),
+                    "rows": len(rows),
+                }
+            )
 
     def ping(self) -> bool:
         """True when Zetaris answers SQL."""
