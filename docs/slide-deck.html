@@ -130,7 +130,7 @@
     <div class="chips" style="margin-top:28px">
       <span class="chip"><span class="lbl">Builder</span> <b>Pruthvi Garlapati</b> (solo)</span>
       <span class="chip"><span class="lbl">Watchlist</span> <b>12</b> US names</span>
-      <span class="chip"><span class="lbl">Tests</span> <b>263</b> passing</span>
+      <span class="chip"><span class="lbl">Tests</span> <b>268</b> passing</span>
       <span class="chip"><span class="lbl">Orders placed</span> <b>none</b> - research only</span>
     </div>
   </div>
@@ -313,7 +313,7 @@
           dashboard, and the Ask-QuantPilot Q&amp;A brain shared by every surface.</p></div>
       </div>
       <div class="col" style="flex:0 0 330px">
-        <div class="stat" style="margin-bottom:12px"><div class="num acc">263</div>
+        <div class="stat" style="margin-bottom:12px"><div class="num acc">268</div>
           <div class="cap">automated tests, all passing (Mac suite, Zetaris up)</div></div>
         <div class="stat" style="margin-bottom:12px"><div class="num">0.6368</div>
           <div class="cap">Black-Scholes call delta, ATM 1y / 20% IV - matches the textbook value; every analytic is verified against a known reference</div></div>
@@ -336,7 +336,7 @@
   <div class="slide-body">
     <h2>What it is <span class="hl">built on</span></h2>
     <ul class="points">
-      <li><b>Python 3.12</b>; requests / pandas / numpy; SQLite; pytest (263 tests).</li>
+      <li><b>Python 3.12</b>; requests / pandas / numpy; SQLite; pytest (268 tests).</li>
       <li><b>Data:</b> Yahoo Finance public APIs (chart + options) behind a provider interface -
         the harness and the direct route are interchangeable.</li>
       <li><b>Brain:</b> NVIDIA Nemotron (nvidia/nemotron-3-ultra-550b-a55b) over an
@@ -534,7 +534,47 @@
     The filenames and commands to regenerate them are in the README's Samples section.</p></div>
 </section>
 
-<!-- SLIDE 13 - FUTURE ENHANCEMENTS -->
+<!-- SLIDE 13 - IMPACT STUDY -->
+<section class="slide">
+  <div class="slide-head">
+    <span class="kicker">Why it matters</span>
+    <span class="req">Live data, Oct 26, US market hours</span>
+  </div>
+  <div class="slide-body">
+    <h2>Cheap weekly contracts <span class="hl">mostly cannot win</span></h2>
+    <ul class="points">
+      <li><b>5,349 tradeable weekly contracts</b> (12 names, 1-7 days out) run through QuantPilot's guardrail.</li>
+      <li><b>1,888 cost $1 or less:</b> median modeled chance of profit 0.4%; 99.8% under 20%.</li>
+      <li>They need a <b>median 11.1% move</b> to break even and lose <b>~42.8% of their value per day</b>.</li>
+      <li>Every name: the cheapest contract ~0% vs the cheapest that passes the guardrail ~20-29%.</li>
+    </ul>
+    <p class="small" style="margin-top:14px">Full study: <b>pruthvig1998.github.io/QuantPilot/explorer/#sec=impact</b> - data in samples/impact-study-2026-10-26.</p>
+  </div>
+  <div class="notes"><span class="tag">Speaker note</span>
+    <p>Live capture Oct 26, 15:00 ET: 6,504 contracts captured, 5,349 tradeable after filtering. The study script reproduces it; the test checks PoP against an independent lognormal.</p></div>
+</section>
+
+<!-- SLIDE 14 - RED TEAM -->
+<section class="slide">
+  <div class="slide-head">
+    <span class="kicker">Trust, tested</span>
+    <span class="req">Adversarial checks on the real code</span>
+  </div>
+  <div class="slide-body">
+    <h2>We tried to make it lie: <span class="hl">8 attacks, 8 caught</span></h2>
+    <ul class="points">
+      <li>Invented number, invented field, prose-only evidence, empty packet, directionless TRADE: all downgraded to WATCH, reason named.</li>
+      <li>Prompt injection into Ask: the model's "512.40" rejected; grounded answer shown.</li>
+      <li>Model cut off mid-thought: treated as no reply. Personal advice: refused.</li>
+      <li>Run against the real code on every build; permanent tests.</li>
+    </ul>
+    <p class="small" style="margin-top:14px">See them run: <b>pruthvig1998.github.io/QuantPilot/explorer/#sec=redteam</b></p>
+  </div>
+  <div class="notes"><span class="tag">Speaker note</span>
+    <p>The red-team attacks run at build time against the real code, not a mock, and the checks are permanent tests in the suite.</p></div>
+</section>
+
+<!-- SLIDE 15 - FUTURE ENHANCEMENTS -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">Future enhancements</span>

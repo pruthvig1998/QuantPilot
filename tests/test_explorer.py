@@ -53,3 +53,11 @@ def test_judge_tour_has_five_steps_with_deep_links():
     assert 'addEventListener("hashchange"' in page    # #tour=N links work in an open tab
     for target in ('"#tiles"', '"tr.bad"', '".card"', '"#ans"', '"#sponsorlog"'):
         assert target in page
+
+
+def test_every_red_team_attack_is_caught():
+    """Each attack runs against the real code; none may get through."""
+    attacks = _builder().red_team()
+    assert len(attacks) == 8
+    for a in attacks:
+        assert a["result"] in ("WATCH", "rejected", "treated as no reply", "refused"), a

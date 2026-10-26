@@ -102,7 +102,7 @@ work again.
   journal on the append-only ledger model.
 - Output layer: briefing (text + Markdown), self-contained HTML
   dashboard, and the Ask-QuantPilot Q&A brain shared by every surface.
-- 263 automated tests, including a 16-question judge regression battery
+- 268 automated tests, including a 16-question judge regression battery
   that fails if any answer invents a number.
 
 Speaker note: The architecture choice that matters: the same pure
@@ -113,7 +113,7 @@ question, so every surface gives the same grounded answer.
 
 **What it is built on**
 
-- Python 3.12; requests / pandas / numpy; SQLite; pytest (263 tests on the Mac suite).
+- Python 3.12; requests / pandas / numpy; SQLite; pytest (268 tests on the Mac suite).
 - Data: Yahoo Finance public APIs (chart + options) behind a provider
   interface - the harness and the direct route are interchangeable.
 - Brain: NVIDIA Nemotron (nvidia/nemotron-3-ultra-550b-a55b) over an

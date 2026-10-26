@@ -260,7 +260,8 @@ def _enforce_grounding(judge: Dict, packet: Dict) -> Dict:
         why = "key_evidence is empty - a TRADE needs packet citations"
     else:
         why = "key_evidence citation(s) failed against the packet: " + "; ".join(
-            f"[{c['path']} = {c['stated']}] is {c['status']}"
+            (f"'{c['stated']}' cites no packet field" if c["path"] is None else
+             f"[{c['path']} = {c['stated']}] is {c['status']}")
             + (f" (packet: {c['actual']})" if c["status"] == "mismatch" else "")
             for c in bad
         )

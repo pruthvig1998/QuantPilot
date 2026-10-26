@@ -28,3 +28,19 @@ runs offline in under 30 seconds (README, "Try it in 60 seconds").
 **Speaker note:** Every number on the page comes from a committed run in
 the repo; each step link (`.../explorer/#tour=1` to `#tour=5`) opens that
 step directly. Screenshots of the five steps: docs/img/tour-1..5.jpg.
+
+## Two more slides (impact + red team)
+
+**Slide: Why it matters - live data, Oct 26 (US market hours)**
+- 5,349 tradeable weekly contracts (12 names, 1-7 days out) run through QuantPilot's guardrail.
+- 1,888 cost $1 or less: median modeled chance of profit 0.4%; 99.8% under 20%.
+- They need a median 11.1% move to break even and lose ~42.8% of their value per day.
+- Every name: the cheapest contract ~0% vs the cheapest that passes the guardrail ~20-29%.
+- Link: pruthvig1998.github.io/QuantPilot/explorer/#sec=impact
+
+**Slide: We tried to make it lie - 8 attacks, 8 caught**
+- Invented number, invented field, prose-only evidence, empty packet, directionless TRADE: all downgraded to WATCH, reason named.
+- Prompt injection into Ask: model's "512.40" rejected; grounded answer shown.
+- Model cut off mid-thought: treated as no reply. Personal advice: refused.
+- Run against the real code on every build; permanent tests.
+- Link: pruthvig1998.github.io/QuantPilot/explorer/#sec=redteam

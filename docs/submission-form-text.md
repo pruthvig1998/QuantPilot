@@ -150,7 +150,9 @@ Code. No Cursor credits were provided for this event.
 - Public GitHub repo: https://github.com/pruthvig1998/QuantPilot (created Oct 23; snapshot at submission state, Oct 26-27, including the Oct 23 and Oct 26 live-run samples and the Nightshift-through run)
 - Try it live (no install, no keys): https://pruthvig1998.github.io/QuantPilot/explorer/ - QuantPilot Explorer: all live runs + sample, with the 3-minute judge tour (deep links #tour=1 to #tour=5)
 - Demo video: OAH2026-QuantPilot-Track02-Demo.mp4, 3:46, 1920x1080, recorded Oct 26 on the Mac, v3 approved structure (title card + six numbered chapters, chapter cards, progress bar, burned-in subtitles, captions .srt; narration: Kokoro neural voice af_heart; visuals: real Oct 26 Nightshift-run captures, Oct 23 caught-misquote capture, labeled SAMPLE fixture loop-back and trade card, one ILLUSTRATION-labeled generic pick) - upload the file to HackOS
-- Slide deck: PDF exported Oct 26 (docs/slide-deck.pdf, 13 pages, 263 tests, Oct 26 Nightshift facts, judge-tour slide) - upload the PDF file to HackOS
+- Slide deck: PDF exported Oct 26 (docs/slide-deck.pdf, 15 pages, 268 tests, Oct 26 Nightshift facts, judge-tour + impact + red-team slides) - upload the PDF file to HackOS
+- Impact study: https://pruthvig1998.github.io/QuantPilot/explorer/#sec=impact - live Oct 26 capture: 5,349 tradeable weekly contracts, 1,888 at $1 or less, median modeled PoP 0.4%; data in samples/impact-study-2026-10-26
+- Red team: https://pruthvig1998.github.io/QuantPilot/explorer/#sec=redteam - 8 attacks against the real code, all caught
 
 ## Description for the form (1989 chars, within the 150-2000 limit)
 
@@ -160,4 +162,4 @@ Three NVIDIA Nemotron voices debate each packet: a bull case, a bear case, and a
 
 Surviving verdicts become trade cards: entry at the order-block zone midpoint, stop beyond the zone, target at the nearest liquidity pool, a contract passing explicit filters, sized at 1 percent account risk with premium capped at 5%. Every check prints passed, failed, or unknown; unknowns never confirm trades. All calls go to an append-only journal, scored against live prices later, with a two-loss circuit breaker. Output: a briefing, a dashboard, and an Ask layer that answers only from the run's own artifacts.
 
-Sponsor stack: Zetaris holds 46 REST tables of Yahoo Finance data behind one SQL interface (59 queries Monday). Meterless H-Mem, vendored unmodified, recalls past calls into packets and updates them with outcomes. All model calls run through the Meterless Nightshift Runtime, pinned to NVIDIA Nemotron Ultra: on Oct 26, 9 of 9 calls went through Nightshift, serving model logged per call, grounding 91 of 91 verified. 263 tests pass. Educational only, not financial advice.
+Sponsor stack: Zetaris holds 46 REST tables of Yahoo Finance data behind one SQL interface (59 queries Monday). Meterless H-Mem, vendored unmodified, recalls past calls into packets and updates them with outcomes. All model calls run through the Meterless Nightshift Runtime, pinned to NVIDIA Nemotron Ultra: on Oct 26, 9 of 9 calls went through Nightshift, serving model logged per call, grounding 91 of 91 verified. 268 tests pass. Educational only, not financial advice.

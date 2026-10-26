@@ -1,0 +1,276 @@
+{
+ "universe": "two-sided quotes (bid > 0 and ask > 0), expiries 1-7 days out",
+ "contracts": 5349,
+ "all": {
+  "contracts": 5349,
+  "median_pop": 0.3077,
+  "share_pop_below_20pct": 0.4386,
+  "median_abs_breakeven_move_pct": 1.5,
+  "median_theta_pct_of_premium_per_day": 11.6
+ },
+ "cheap": {
+  "definition": "premium <= $1.00 per share ($100 per contract)",
+  "contracts": 1888,
+  "median_pop": 0.0044,
+  "share_pop_below_20pct": 0.9984,
+  "median_abs_breakeven_move_pct": 11.1,
+  "median_theta_pct_of_premium_per_day": 42.8,
+  "share_failing_guardrail": 0.9989
+ },
+ "guardrail_passers": {
+  "contracts": 2928,
+  "median_pop": 0.4698,
+  "share_pop_below_20pct": 0.0003,
+  "median_abs_breakeven_move_pct": 0.2,
+  "median_theta_pct_of_premium_per_day": 1.2
+ },
+ "cheap_that_pass": {
+  "contracts": 2,
+  "median_pop": 0.2845,
+  "share_pop_below_20pct": 0.0,
+  "median_abs_breakeven_move_pct": 1.9,
+  "median_theta_pct_of_premium_per_day": 14.7
+ },
+ "by_premium": [
+  {
+   "premium": "up to $0.50",
+   "contracts": 1647,
+   "median_pop": 0.0033,
+   "share_pop_below_20pct": 0.9994,
+   "median_abs_breakeven_move_pct": 12.1,
+   "median_theta_pct_of_premium_per_day": 43.3,
+   "share_failing_guardrail": 1.0
+  },
+  {
+   "premium": "$0.50-$1.00",
+   "contracts": 241,
+   "median_pop": 0.0497,
+   "share_pop_below_20pct": 0.9917,
+   "median_abs_breakeven_move_pct": 6.8,
+   "median_theta_pct_of_premium_per_day": 36.6,
+   "share_failing_guardrail": 0.9917
+  },
+  {
+   "premium": "$1.00-$2.00",
+   "contracts": 253,
+   "median_pop": 0.0969,
+   "share_pop_below_20pct": 0.9368,
+   "median_abs_breakeven_move_pct": 4.6,
+   "median_theta_pct_of_premium_per_day": 30.0,
+   "share_failing_guardrail": 0.9565
+  },
+  {
+   "premium": "$2.00-$5.00",
+   "contracts": 395,
+   "median_pop": 0.1948,
+   "share_pop_below_20pct": 0.5165,
+   "median_abs_breakeven_move_pct": 2.7,
+   "median_theta_pct_of_premium_per_day": 20.3,
+   "share_failing_guardrail": 0.6354
+  },
+  {
+   "premium": "over $5.00",
+   "contracts": 2813,
+   "median_pop": 0.4714,
+   "share_pop_below_20pct": 0.0071,
+   "median_abs_breakeven_move_pct": 0.2,
+   "median_theta_pct_of_premium_per_day": 1.1,
+   "share_failing_guardrail": 0.0149
+  }
+ ],
+ "per_name": [
+  {
+   "symbol": "AAPL",
+   "contracts": 169,
+   "cheapest": {
+    "contract": "AAPL261028C00362500",
+    "premium": 0.015,
+    "pop": 0.0015,
+    "breakeven_move_pct": 5.74
+   },
+   "cheapest_that_passes": {
+    "contract": "AAPL261028C00345000",
+    "premium": 1.765,
+    "pop": 0.2418,
+    "breakeven_move_pct": 1.15
+   }
+  },
+  {
+   "symbol": "AMD",
+   "contracts": 619,
+   "cheapest": {
+    "contract": "AMD261030C00750000",
+    "premium": 0.015,
+    "pop": 0.0002,
+    "breakeven_move_pct": 41.08
+   },
+   "cheapest_that_passes": {
+    "contract": "AMD261028P00522500",
+    "premium": 5.375,
+    "pop": 0.2256,
+    "breakeven_move_pct": -2.73
+   }
+  },
+  {
+   "symbol": "AMZN",
+   "contracts": 232,
+   "cheapest": {
+    "contract": "AMZN261028C00270000",
+    "premium": 0.015,
+    "pop": 0.0013,
+    "breakeven_move_pct": 8.8
+   },
+   "cheapest_that_passes": {
+    "contract": "AMZN261028P00247500",
+    "premium": 2.05,
+    "pop": 0.2897,
+    "breakeven_move_pct": -1.1
+   }
+  },
+  {
+   "symbol": "AVGO",
+   "contracts": 271,
+   "cheapest": {
+    "contract": "AVGO261030C00400000",
+    "premium": 0.015,
+    "pop": 0.0006,
+    "breakeven_move_pct": 21.13
+   },
+   "cheapest_that_passes": {
+    "contract": "AVGO261028C00335000",
+    "premium": 3.075,
+    "pop": 0.2286,
+    "breakeven_move_pct": 2.37
+   }
+  },
+  {
+   "symbol": "GOOGL",
+   "contracts": 220,
+   "cheapest": {
+    "contract": "GOOGL261030P00220000",
+    "premium": 0.015,
+    "pop": 0.0006,
+    "breakeven_move_pct": -30.56
+   },
+   "cheapest_that_passes": {
+    "contract": "GOOGL261102C00330000",
+    "premium": 5.1,
+    "pop": 0.2203,
+    "breakeven_move_pct": 5.78
+   }
+  },
+  {
+   "symbol": "META",
+   "contracts": 637,
+   "cheapest": {
+    "contract": "META261030C00810000",
+    "premium": 0.02,
+    "pop": 0.0003,
+    "breakeven_move_pct": 28.03
+   },
+   "cheapest_that_passes": {
+    "contract": "META261028C00640000",
+    "premium": 5.225,
+    "pop": 0.2365,
+    "breakeven_move_pct": 1.98
+   }
+  },
+  {
+   "symbol": "MSFT",
+   "contracts": 282,
+   "cheapest": {
+    "contract": "MSFT261030C00650000",
+    "premium": 0.015,
+    "pop": 0.0004,
+    "breakeven_move_pct": 22.26
+   },
+   "cheapest_that_passes": {
+    "contract": "MSFT261102C00550000",
+    "premium": 7.475,
+    "pop": 0.2288,
+    "breakeven_move_pct": 4.86
+   }
+  },
+  {
+   "symbol": "NFLX",
+   "contracts": 59,
+   "cheapest": {
+    "contract": "NFLX261030C00073000",
+    "premium": 0.015,
+    "pop": 0.0046,
+    "breakeven_move_pct": 15.48
+   },
+   "cheapest_that_passes": {
+    "contract": "NFLX261030C00064000",
+    "premium": 0.59,
+    "pop": 0.2581,
+    "breakeven_move_pct": 2.16
+   }
+  },
+  {
+   "symbol": "NVDA",
+   "contracts": 244,
+   "cheapest": {
+    "contract": "NVDA261028C00235000",
+    "premium": 0.015,
+    "pop": 0.0015,
+    "breakeven_move_pct": 8.74
+   },
+   "cheapest_that_passes": {
+    "contract": "NVDA261028C00217500",
+    "premium": 1.93,
+    "pop": 0.2651,
+    "breakeven_move_pct": 1.53
+   }
+  },
+  {
+   "symbol": "QQQ",
+   "contracts": 1025,
+   "cheapest": {
+    "contract": "QQQ261027C00737000",
+    "premium": 0.015,
+    "pop": 0.0002,
+    "breakeven_move_pct": 3.45
+   },
+   "cheapest_that_passes": {
+    "contract": "QQQ261027P00710000",
+    "premium": 1.76,
+    "pop": 0.197,
+    "breakeven_move_pct": -0.59
+   }
+  },
+  {
+   "symbol": "SPY",
+   "contracts": 1135,
+   "cheapest": {
+    "contract": "SPY261027C00778000",
+    "premium": 0.015,
+    "pop": 0.0006,
+    "breakeven_move_pct": 1.74
+   },
+   "cheapest_that_passes": {
+    "contract": "SPY261027P00764000",
+    "premium": 1.435,
+    "pop": 0.2365,
+    "breakeven_move_pct": -0.28
+   }
+  },
+  {
+   "symbol": "TSLA",
+   "contracts": 456,
+   "cheapest": {
+    "contract": "TSLA261028C00455000",
+    "premium": 0.015,
+    "pop": 0.0002,
+    "breakeven_move_pct": 15.55
+   },
+   "cheapest_that_passes": {
+    "contract": "TSLA261028C00400000",
+    "premium": 3.075,
+    "pop": 0.2119,
+    "breakeven_move_pct": 2.36
+   }
+  }
+ ],
+ "captured_at_utc": "2026-10-26T19:00:40.442677+00:00"
+}
