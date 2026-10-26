@@ -130,7 +130,7 @@
     <div class="chips" style="margin-top:28px">
       <span class="chip"><span class="lbl">Builder</span> <b>Pruthvi Garlapati</b> (solo)</span>
       <span class="chip"><span class="lbl">Watchlist</span> <b>12</b> US names</span>
-      <span class="chip"><span class="lbl">Tests</span> <b>250</b> passing</span>
+      <span class="chip"><span class="lbl">Tests</span> <b>260</b> passing</span>
       <span class="chip"><span class="lbl">Orders placed</span> <b>none</b> - research only</span>
     </div>
   </div>
@@ -289,7 +289,7 @@
           dashboard, and the Ask-QuantPilot Q&amp;A brain shared by every surface.</p></div>
       </div>
       <div class="col" style="flex:0 0 330px">
-        <div class="stat" style="margin-bottom:12px"><div class="num acc">250</div>
+        <div class="stat" style="margin-bottom:12px"><div class="num acc">260</div>
           <div class="cap">automated tests, all passing (Mac suite, Zetaris up)</div></div>
         <div class="stat" style="margin-bottom:12px"><div class="num">0.6368</div>
           <div class="cap">Black-Scholes call delta, ATM 1y / 20% IV - matches the textbook value; every analytic is verified against a known reference</div></div>
@@ -312,7 +312,7 @@
   <div class="slide-body">
     <h2>What it is <span class="hl">built on</span></h2>
     <ul class="points">
-      <li><b>Python 3.12</b>; requests / pandas / numpy; SQLite; pytest (250 tests).</li>
+      <li><b>Python 3.12</b>; requests / pandas / numpy; SQLite; pytest (260 tests).</li>
       <li><b>Data:</b> Yahoo Finance public APIs (chart + options) behind a provider interface -
         the harness and the direct route are interchangeable.</li>
       <li><b>Brain:</b> NVIDIA Nemotron (nvidia/nemotron-3-ultra-550b-a55b) over an
@@ -385,22 +385,23 @@
         run's packets.</li>
       <li><b>Power rule:</b> a Meterless Runtime provider connection implemented in the product
         to the published Runtime 1.4 contract (connect-link token parsing, provider headers,
-        /v1/models probe), per the Meterless team's Oct 19 HackOS ruling.</li>
+        /v1/models probe), per the Meterless team's Oct 19 HackOS ruling, confirmed directly
+        to this project on Oct 23.</li>
       <li><b>Brain:</b> Nemotron ultra-550b. The planned super-120b endpoint has returned 404 on
         NVIDIA's side since Oct 20 (verified on multiple keys); the model is one env line and
         flips back if it returns.</li>
     </ul>
     <div class="chips" style="margin-top:16px">
-      <span class="chip"><span class="lbl">Measured latency, US hours:</span> <b>121.8s</b> <span class="lbl">mean per Nemotron call</span></span>
-      <span class="chip"><span class="lbl">Full live run</span> <b>19.5 min</b></span>
-      <span class="chip"><b>94%</b> <span class="lbl">of run time is model time</span></span>
+      <span class="chip"><span class="lbl">Measured latency, US hours:</span> <b>100.2s</b> <span class="lbl">mean per Nemotron call, Oct 23 live run (Oct 22: 121.8s)</span></span>
+      <span class="chip"><span class="lbl">Full live run, Oct 23</span> <b>20.7 min</b></span>
+      <span class="chip"><b>10</b> <span class="lbl">model calls, all Nemotron ultra-550b, logged by served model</span></span>
       <span class="chip"><span class="lbl">Demo uses the recorded run, as the guide allows</span></span>
     </div>
   </div>
   <div class="notes"><span class="tag">Speaker note</span>
     <p>The ruling matters: the Meterless team confirmed engines satisfy Build, a Runtime provider
     connection satisfies Power, and Nemotron need not route through Nightshift for the NVIDIA
-    prize. We followed the ruling exactly and documented it.</p></div>
+    prize. The team confirmed that ruling directly to this project on Oct 23. We followed the ruling exactly and documented it.</p></div>
 </section>
 
 <!-- SLIDE 10 - WHAT WAS UNIQUE -->
@@ -431,15 +432,17 @@
           </table></div>
       </div>
       <div class="col" style="flex:0 0 340px">
-        <div class="card" style="margin-bottom:12px"><h3>Grounding, verified in code - live run</h3>
+        <div class="card" style="margin-bottom:12px"><h3>Grounding, verified in code - Oct 23 live run</h3>
           <div class="stat-grid" style="grid-template-columns:1fr 1fr;gap:10px">
-            <div class="stat"><div class="num">102</div><div class="cap">citations checked</div></div>
-            <div class="stat"><div class="num good">100</div><div class="cap">verified against the packet</div></div>
+            <div class="stat"><div class="num">115</div><div class="cap">citations checked</div></div>
+            <div class="stat"><div class="num good">113</div><div class="cap">verified against the packet</div></div>
             <div class="stat"><div class="num bad">2</div><div class="cap">true mismatches caught</div></div>
-            <div class="stat"><div class="num acc">50.0%</div><div class="cap">journal hit rate, published in its own briefing (5 entries, 2 scored)</div></div>
+            <div class="stat"><div class="num acc">0</div><div class="cap">numbers outside the packet</div></div>
           </div>
-          <p class="small" style="margin-top:10px">The 2 catches were real: the META bear swapped
-          two candidates' IVs (0.79 vs 0.75). The code caught it; no verdict depended on it.</p></div>
+          <p class="small" style="margin-top:10px">The 2 catches were real: MSFT relative volume
+          misquoted, and TSLA probability of profit cited as 0.3339 against 0.3031 in the packet.
+          Oct 22: 102 citations, 100 verified, 2 mismatches caught (META bear swapped two IVs,
+          0.79 vs 0.75). The code caught them; no verdict depended on them.</p></div>
         <div class="honest"><b>The journal grades the agent.</b> Its score is printed in its own
           morning briefing - the agent publishes its record, not just its picks.</div>
       </div>
@@ -461,15 +464,25 @@
     <h2>What the product <span class="hl">looks like</span></h2>
     <div class="cols">
       <div class="col">
-        <div class="visual" style="height:218px">
-          <div class="vtag">VISUAL: dashboard.html screenshot - capture from runs/2026-10-23</div>
-          <div class="vsub">Board table with component scores, X-Ray posture, both cards with
-          PASS / FAIL / UNKNOWN check pills, the NVDA debate with both rounds and the gap box.</div>
-        </div>
-        <div class="visual" style="height:120px;margin-top:12px">
-          <div class="vtag">VISUAL: Board Migration panel - capture from runs/2026-10-23 dashboard</div>
-          <div class="vsub">Score migration day over day, from the second dated live run onward.</div>
-        </div>
+        <div class="card" style="margin-bottom:12px"><h3>Oct 23 live run - liquidity board (real output)</h3>
+          <table class="checks" style="margin-top:8px">
+            <tr><td>MSFT - rank 1</td><td><span class="pill p-pass">20.50</span></td></tr>
+            <tr><td>TSLA - rank 2</td><td><span class="pill p-pass">19.72</span></td></tr>
+            <tr><td>AAPL - rank 3</td><td><span class="pill p-pass">19.09</span></td></tr>
+            <tr><td>AMZN - rank 4</td><td><span class="pill p-pass">11.08</span></td></tr>
+            <tr><td>NVDA - rank 5</td><td><span class="pill p-pass">5.22</span></td></tr>
+            <tr><td>META - rank 12</td><td><span class="pill p-fail">-36.92</span></td></tr>
+          </table>
+          <p class="small" style="margin-top:8px">Cards: META SKIP (conviction 7), MSFT WATCH (4),
+          TSLA WATCH (4). Reasons: FOMC Oct 28 on the expiry day, IV rank unknown, MSFT
+          earnings Oct 28 in window. Full dashboard: samples/live-run-2026-10-23/dashboard.html
+          in the repo.</p></div>
+        <div class="card"><h3>Board Migration panel - day over day (real output)</h3>
+          <table class="checks" style="margin-top:8px">
+            <tr><td>MSFT</td><td>rank 5, -5.05 (Oct 22) -&gt; rank 1, 20.50 (Oct 23)</td></tr>
+            <tr><td>TSLA</td><td>rank 1, 45.91 (Oct 22) -&gt; rank 2, 19.72 (Oct 23)</td></tr>
+            <tr><td>META</td><td>rank 12, -57.02 (Oct 22) -&gt; rank 12, -36.92 (Oct 23)</td></tr>
+          </table></div>
       </div>
       <div class="col" style="flex:0 0 400px">
         <div class="card" style="margin-bottom:12px"><h3>Also capture</h3>

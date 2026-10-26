@@ -25,8 +25,8 @@ a normal run), MEDIUM (wrong in edge cases or misleading wording), LOW
   mode 600. `resolve_provider()` -> provider=nvidia, that model.
 - Suite right after the merge, Zetaris up: 197 passed, 1 failed
   (test_zetaris::test_quote_spy_through_zetaris - a real bug, R6).
-- Suite after all repairs and additions: 250 passed, 0 failed, 0
-  skipped (Zetaris up; Mac, Python 3.13.1).
+- Suite after all repairs, Drop 6 and the Oct 23 fixes: 260 passed,
+  0 failed, 0 skipped (Zetaris up; Mac, Python 3.13.1).
 
 ## 1. Findings
 
@@ -274,23 +274,81 @@ in the packet. No verdict depended on them (META SKIP).
 | R19 | Em / en dashes in model text normalized to hyphens at the LLM transport (house rule covers generated output). Live: Nemotron wrote 24 em and 64 en dashes into the Oct 22 run; those files were normalized after the run (typography only, noted in artifacts.json `postprocess_note`); the raw debate text inside runs/journal.db keeps the originals. | test_model_dashes_are_normalized_to_hyphens |
 | R18 | Clock times ("13:50") are not claimed values in the verifier. Live: META bear flagged "13". | test_clock_times_are_not_claimed_values |
 
+## 5b. Second live run (Mac, US market hours, 2026-10-23)
+
+Run: 10:00:56-10:21:41 ET, same command and journal (runs/journal.db),
+Drop 6 merged (per-call model log + Zetaris trace). Exit 0, zero
+errors. Outputs: runs/2026-10-23/, committable copy in
+samples/live-run-2026-10-23/. Cards: META SKIP (7), MSFT WATCH (4),
+TSLA WATCH (4) - still no live TRADE card.
+
+Run-book checks (docs/mac-runbook-2026-10-23.md):
+
+| # | Check | Result | Evidence |
+|---|-------|--------|----------|
+| 1 | R16 expiry outlives the hold | PASS | All 3 packets `covers_holding_window`: META 5 DTE, TSLA 5 DTE, MSFT 7 DTE; OI check names all 5 DTE (Oct 22: every pick 1 DTE). |
+| 2 | First TRADE card, or WATCH for a reason other than 1-DTE theta | PASS (no TRADE) | Reasons changed: FOMC 2026-10-28 now falls ON the 5-DTE expiry day, IV rank unknown so crush risk is unscored, MSFT earnings 2026-10-28 inside the window (earnings check failed, correctly), bearish structure on META/TSLA. No judge cited 1-day theta. |
+| 3 | H-Mem day-2 recall | PASS | META packet memory: `{"date": "2026-10-22", "judge_verdict": "SKIP", "conviction": 7, "entry_spot": 660.005, "card_kind": "no_trade"}`; TSLA recalled its Oct 22 WATCH. MSFT (new to the top 3) recalled `[]`, correctly. |
+| 4 | Board Migration panel | PASS | dashboard.html renders it; board_history dates 2026-10-22, 2026-10-23. |
+| 5 | IV snapshot day 2 | PASS, with a gap found | 3 rows on 2026-10-23 - but only for the 3 debated names (see R22). |
+
+Post-run fixes verified live: R17 fired and recovered (TSLA judge
+empty on the first call, the 2x-budget retry returned a real verdict);
+R19 zero em dashes in every output; R20 day change printed for all 12
+board names (e.g. TSLA -1.83%, previous close 374.58).
+
+Evidence logs (Drop 6): `model_calls` names provider nvidia and model
+nvidia/nemotron-3-ultra-550b-a55b on all 10 calls; `data_calls` 59
+Zetaris queries, 15,804 rows. Run cache: 48 hits / 86 misses.
+
+OI at 10:00 ET: real again on the 5-DTE chains (SPY 160/161 contracts,
+QQQ 158/168, AAPL 64/66, NVDA 69/71, TSLA 103/103, AMZN 51/52).
+
+Latency: 10 LLM calls, mean 100.2 s, max 181.3 s, 1,002 s of the
+1,245 s run (80%). Board 169.7 s (12 extra 5m-bar queries for the
+same-time relative volume, R15, plus slower Zetaris), X-Ray 68.9 s.
+Per symbol 330-337 s.
+
+Grounding: 115 citations, 113 verified, 0 numbers outside the packet.
+The 2 failures are genuine misquotes caught by code: MSFT bear cited
+the indicator's partial-day relative volume (0.12) under the board's
+path (0.96), and TSLA bear cited a probability of profit of 0.3339
+where the packet holds 0.3031. Neither verdict was a TRADE.
+
+Nightshift recheck (Drop 6 hand-off step 1): the M1-M4 app runs on
+127.0.0.1:47321 (Command Center UI only; /v1/models there is 404).
+Its Console reads "RUNTIME in-tab": the in-tab engine answers
+/v1/models and /v1/chat/completions for its own page, and other apps
+cannot reach 127.0.0.1:8088 because "the desktop Runtime listens
+there" - not part of this edition (Network: n/a). Ports 10080 and
+8088: connection refused. .env left on NVIDIA direct; the
+organizer escalation is the critical path.
+
+Fixes from the Oct 23 run:
+
+| # | Fix | Evidence |
+|---|-----|----------|
+| R21 | Verifier splits several citation pairs separated by ";" as well as ",". Live: two TSLA bear "mismatches" were `[x.mitigated = false; y.bottom = 376.75]` read as one value. | test_semicolon_separated_pairs_in_one_bracket |
+| R22 | IV snapshot for every board name (12/day, from the cached board chains), not only the 3 debated names - otherwise a name needed 20 days in the top 3 before its IV rank could exist. `iv_snapshots_written` in artifacts. | runner live-isolation test asserts 3/3 board rows snapshotted |
+| R23 | The indicator engine's relative volume is labeled in the packet as partial-day vs full-day averages, beside the board's same-time-of-day figure. Live: the MSFT misquote above. | packet field `indicators.volume.relative_volume_basis` |
+
 ## 6. Could not verify (feeds README limitations)
 
-- R16-R20 are unit-tested but not yet exercised in a US-hours run; the
-  next run (Oct 23, 10:00 ET) is the check, and it is also the first
-  chance at a live TRADE card.
-- Meterless Runtime route: still no callable endpoint on the M1
-  Nightshift edition; probe reports offline (honest). Unchanged.
-- No loop-back (INSUFFICIENT_EVIDENCE) fired in the live run; the loop
-  is proven by tests and the sample fixture only.
-- IV rank: unknown until 20 snapshot days exist (day 1 of the
-  snapshot history was written Oct 22).
-- Earnings dates are Yahoo's (META and TSLA reported 2026-10-21 per
-  Yahoo); not cross-checked against company IR pages.
-- H-Mem recall into a packet is verified live only as empty (day 1);
-  a non-empty recall is unit-tested and needs the day-2 run.
-- Cursor: no usage can be shown from this session; a real Cursor
-  editing/review session on the repo is still needed and must not be
-  fabricated.
-- VM copy (~/workspace/quantpilot) is not synced; see the Muse hand-off
-  in docs/muse-vm-sync-2026-10-22.md.
+- A live TRADE card: two US-hours runs, six debates, zero TRADE
+  verdicts. Oct 22 on 1-DTE theta (fixed by R16); Oct 23 on FOMC
+  2026-10-28 landing on the 5-DTE expiry, unknown IV rank, earnings
+  in window, bearish structure - honest reasons, not a defect. The
+  week of Oct 26 is FOMC week, so a live TRADE before submission is
+  not likely; the demo should show the sample TSLA card as the
+  trade-card insert and say so.
+- R21-R23 are unit-tested, not yet in a live run.
+- Meterless Runtime route: no callable endpoint on the M1-M4 edition
+  (rechecked Oct 23, details in 5b).
+- No loop-back (INSUFFICIENT_EVIDENCE) has fired live in six debates;
+  the loop is proven by tests and the sample fixture only.
+- IV rank: unknown until 20 snapshot days. With R22, all 12 names
+  accumulate from Oct 24's run; the first ranks can exist ~20 trading
+  days later, after the submission deadline.
+- Earnings dates are Yahoo's; not cross-checked against company IR.
+- Cursor: no usage can be shown from this session (metadata.json now
+  declares it unused, per the Drop 6 rules reading).

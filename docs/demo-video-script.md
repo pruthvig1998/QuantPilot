@@ -51,85 +51,90 @@ evidence has a hole, it says so."
 
 ## Segment 3 - Agents and collaboration (0:45-1:25, guide range 30-45s, ~100 words)
 
-On screen: the dashboard's debate panel for the recorded run. Bull
-case, bear case, judge verdict - then scroll to the featured debate
-(the NVDA loop-back from the sample dashboard if the live run did not
-produce one): round 1 verdict INSUFFICIENT_EVIDENCE, the gap box
-("events.iv.rank_pct is null"), round 2 arguments, final WATCH.
+Footage rule (Oct 26 revision): live footage is runs/2026-10-23
+(dashboard.html, briefing.txt, run_stdout.txt). Narration states only
+numbers that are on screen in that footage. Sample footage appears
+only where labeled SAMPLE on screen.
+
+On screen: the Oct 23 dashboard debate panel for TSLA - bull case,
+bear case, judge verdict - then the grounding table under the round
+(Citations / Verified / Failed citations). Hold on the failed row:
+"guardrails.candidates[4].evaluation.metrics.probability_of_profit =
+0.3339 - mismatch (packet: 0.3031)". Then a 5-second cut to the SAMPLE
+NVDA loop-back (gap box "events.iv.rank_pct is null"), with an
+on-screen label "SAMPLE RUN - loop-back".
 
 Narration:
-"Three agents, three jobs. The bull argues the packet. The bear
-argues against it. The judge verdicts: trade, watch, or skip - and
-every claim has to cite a packet value. Watch what the judge does
-here. Round one comes back 'insufficient evidence': the packet has
-no IV rank, so the crash-risk check cannot be scored. The judge
-names the gap and sends both sides back. The gap survives round two,
-so the verdict is a watch - not a trade built on a number nobody
-had. That refusal is the product."
+"Three agents, three jobs. The bull argues the packet, the bear argues
+against it, and the judge decides: trade, watch, or skip. Every claim
+must cite a packet value - and the code checks every citation. In
+Friday's live run, Nemotron wrote a hundred and fifteen citations;
+a hundred and thirteen matched the packet, and the two that didn't
+were caught and named, like this probability of profit. When evidence
+is missing, the judge can send both sides back - shown here on our
+sample run - and if the gap survives, the answer is watch, never a
+guess."
 
 ## Segment 4 - Live run (1:25-2:20, guide range 45-60s, ~135 words)
 
-Numbers note: the narration below quotes the SAMPLE run's values
-(49.12, 243.56, 50.0%). If the segment uses the live Mac take,
-re-record those lines with the live run's actual top name, score,
-card levels, check counts, and hit rate before locking the audio -
-the script's rule is that narration never describes a number that
-is not the number on screen.
-
-On screen: the recorded Mac run, lightly time-lapsed through the
-3-15s Zetaris queries, real time on the card rendering. Show, in
-order: the run command; board rows landing (TSLA at the top of the
-sample board, score 49.12, components visible); the TSLA trade card
-(entry 243.56, stop 242.83, target 255.10, 1 contract at a $100 risk
-budget); the checks list with 1 failed and 4 unknown of 15; the
-briefing file; the journal line "hit rate 50.0%".
+On screen: the recorded Oct 23 run, time-lapsed: the run command; the
+board landing (MSFT #1 at 20.50, all twelve rows with components); the
+three cards (META SKIP, MSFT WATCH, TSLA WATCH) with their checks
+lists; the TSLA judge's biggest risk line (FOMC in 5 days, IV rank
+unknown, theta over $70/day on the 5-day options). Then a labeled
+insert: "SAMPLE RUN - what a trade card looks like" showing the sample
+TSLA trade card (levels, sizing, checks). Do NOT narrate sample numbers.
 
 Narration:
-"This is a real run. The board ranks TSLA first at 49.12 - and the
-score is not a black box: open-interest bias, options volume,
-momentum, relative volume, each shown with its weight. The packet
-adds order blocks, guardrail checks, and event risk, including an
-FOMC decision five days out. The card it produces is sized at one
-percent risk, and it prints its own weaknesses: one failed check,
-four unknown, out of fifteen. The Greeks are plain English - it
-needs plus 2.8 percent by expiry to break even, and it bleeds
-fifty-two dollars a day in theta. Then the journal writes it all
-down, append-only, and grades the agent's earlier calls: fifty
-percent, in print, in its own briefing."
+"This is a real run, Friday morning at the open, recorded and sped
+up. The board ranks twelve names; Microsoft leads at twenty point
+five, and every score shows its four components. Three names go to
+debate. All three judges stand aside - and they say why: the Fed
+decides on the very day these options expire, the implied-volatility
+rank is still unknown, and Microsoft reports earnings inside the
+window. No trade beats a bad trade. When the evidence does line up,
+the card looks like this one from our sample run: entry, stop and
+target from order blocks, sized at one percent risk, every check
+printed - passed, failed, or unknown."
 
-## Segment 5 - Sponsor technology (2:20-2:45, guide range 20-30s, ~62 words)
+## Segment 5 - Sponsor technology (2:20-2:45, guide range 20-30s, ~70 words)
 
-On screen: three quick beats. (1) Zetaris web UI: the
-YAHOO_FINANCE_REST container and one SQL query returning live rows.
-(2) The Meterless H-Mem bridge: a remember and a recall in the
-terminal; Nightshift window with the NVIDIA provider configured.
-(3) The provider layer probe and the Nemotron model id in the run
-log (no keys anywhere in frame).
+On screen: (1) Zetaris web UI: YAHOO_FINANCE_REST container and one
+SQL query returning rows; then run_stdout.txt line "data calls: 59
+zetaris queries, 15804 rows". (2) The Oct 23 TSLA packet's memory
+block: its Oct 22 WATCH recalled from H-Mem (and META's Oct 22 SKIP).
+(3) run_stdout.txt line "model calls: 10 (nvidia/nvidia/nemotron-3-
+ultra-550b-a55b x10)". No keys anywhere in frame.
+CONDITIONAL beat (only if the Nightshift re-probe succeeds): 10-15 s
+of one real request through the Nightshift Runtime with the served
+model name in the log; trim Segment 4 by the same amount.
 
 Narration:
 "Under the hood: Zetaris is the data harness - forty-six REST tables
-behind one SQL interface, so the agent never hand-rolls per-source
-ETL. Meterless supplies the H-Mem memory engine and the Runtime
-provider connection, implemented to the published contract. And the
-brain is NVIDIA Nemotron - and every citation it writes is checked
-against the packet in code before a card can say TRADE."
+behind one SQL interface; this run made fifty-nine queries through it.
+Meterless H-Mem is the agent's memory: on Friday, the packet for each
+returning name carried its call from Thursday. The Meterless Runtime
+provider is built in, and every model call is logged - here, all ten
+served by NVIDIA Nemotron Ultra."
 
 ## Segment 6 - Output and impact (2:45-3:20, guide range 30-40s, ~87 words)
 
-On screen: the final dashboard in full; then Ask-QuantPilot being
-asked two questions against the run: "Why is TSLA ranked first?"
-(answered with 49.12 and the four components) and "What is NVDA's
-IV rank?" (answered: unknown in the artifacts). Closing card: the
-motto, the repo name, "Educational only - not financial advice."
+On screen: terminal, scripts/ask.py against runs/2026-10-23:
+1. "Why is MSFT ranked first?" -> rank #1 of 12, score 20.50, the four
+   components and their inputs.
+2. "What is META's IV rank?" -> "Unknown in the artifacts".
+3. "Should I buy TSLA calls with my savings?" -> refused, out of scope.
+Closing card: the motto, the repo URL, "Educational only - not
+financial advice."
 
 Narration:
-"And because the explanation layer is grounded in the same
-artifacts, a judge can interrogate the run directly. Ask why TSLA
-leads, and it cites the score and its components. Ask for a number
-the packet never had, and it answers 'unknown' - never a guess.
-QuantPilot: the options research agent that has to show its work.
-It investigates, it argues, and it confesses. Then it grades
-itself."
+"And because the explanation layer reads the same artifacts, a judge
+can question the run directly. Ask why Microsoft leads, and it cites
+the score and all four components. Ask for a number the packet never
+had, and it says unknown - never a guess. Ask for personal advice, and
+it declines. QuantPilot: the options research agent that has to show
+its work. It investigates, it argues, it checks its own citations -
+and it is not afraid to say no trade."
 
 ---
 

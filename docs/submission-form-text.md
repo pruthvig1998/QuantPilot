@@ -69,15 +69,21 @@ explicit in code and in the README limitations.
 
 ### Meterless (engines + runtime)
 Two integrations, matching the Official Rules (8.1/15.2/16/23) and
-the Technical Execution Requirements. (1) The H-Mem memory engine:
-the official Meterless H-MEM reference implementation, vendored
-unmodified under Apache-2.0, runs through a Node bridge. It is wired
-into the agent loop: before each debate, the agent's past calls on
-that symbol are recalled into the evidence packet as citable values;
-after outcomes are scored, the memory record is superseded with the
-result. (2) Nightshift as the primary AI provider: the Meterless
-Runtime (Runtime 1.4) is implemented in the application as an
-OpenAI-compatible provider route (base-URL normalization,
+the Technical Execution Requirements, implemented per the Meterless
+team's own guidance: Sam Cummings (Meterless team) confirmed on
+Oct 19 in the official HackOS #Help Meterless channel that engines
+satisfy the Build rule and a Runtime provider connection satisfies
+the Power rule, and confirmed that guidance directly to this project
+in the same channel on Oct 23, 5:39 PM IST, adding that NVIDIA-direct
+Nemotron calls are fine from a technical standpoint. (1) The H-Mem
+memory engine: the official Meterless H-MEM reference implementation,
+vendored unmodified under Apache-2.0, runs through a Node bridge. It
+is wired into the agent loop: before each debate, the agent's past
+calls on that symbol are recalled into the evidence packet as citable
+values; after outcomes are scored, the memory record is superseded
+with the result. (2) Nightshift as the primary AI provider: the
+Meterless Runtime (Runtime 1.4) is implemented in the application as
+an OpenAI-compatible provider route (base-URL normalization,
 connect-link parsing, the meterless-app and meterless-scope headers,
 a /v1/models probe that reports online, unauthorized or offline
 honestly). Per the Technical Execution Requirements, the NVIDIA key
@@ -86,20 +92,27 @@ only the Nightshift URL and the runtime token, and routes its model
 calls through Nightshift when that route is configured
 (LLM_PROVIDER=meterless, or auto when a Meterless URL or token is
 present). Every model call is logged per run (provider, the model
-that actually served, latency) in the run artifacts. The NVIDIA
-direct route below is retained only as a development fallback.
+that actually served, latency) in the run artifacts. Note on the
+M1-M4 edition: the Oct 20 Nightshift build on the author's Mac
+exposes no callable endpoint (verified Oct 23 and Oct 26: UI only on
+port 47321, ports 8088 and 10080 refused), so live runs to date used
+the NVIDIA direct route below; the Oct 25 Nightshift build, which
+the Meterless team states adds a callable M1-M4 Runtime endpoint at
+127.0.0.1:8088, is being re-probed before submission, and the app
+routes through it automatically when it answers.
 
 ### NVIDIA (the brain)
 All reasoning runs on NVIDIA Nemotron:
 nvidia/nemotron-3-ultra-550b-a55b (the originally targeted
 nemotron-3-super-120b-a12b chat endpoint has returned 404 since
 Oct 20, 2026; the model is an env setting and flips back in one line).
-In the rules configuration the key is registered in Nightshift's
-Providers tab and Nightshift serves the calls (see Meterless above);
-NVIDIA's direct API is retained as a development fallback only. Bull,
-bear and judge are separate Nemotron calls over the same evidence
-packet, and the model that served each call is logged in the run
-artifacts.
+Live runs to date call NVIDIA's direct API, which the Meterless team
+confirmed on Oct 19 and again directly to this project on Oct 23 is
+fine for the NVIDIA award; when a Nightshift Runtime endpoint is
+present (see Meterless above), the same calls route through
+Nightshift. Bull, bear and judge are separate Nemotron calls over the
+same evidence packet, and the model that served each call is logged
+in the run artifacts.
 
 ### Cursor (development environment)
 Optional per Official Rules 8.1; not used. Development used Claude
@@ -124,6 +137,6 @@ Code. No Cursor credits were provided for this event.
 
 ## Links (fill at submission)
 
-- Public GitHub repo: https://github.com/pruthvig1998/QuantPilot (created Oct 23; snapshot commit 0875be0f - re-push after the Oct 23 live-run fixes, then update this note)
+- Public GitHub repo: https://github.com/pruthvig1998/QuantPilot (created Oct 23; snapshot at submission state, Oct 26-27, including the Oct 23 live-run fixes and samples)
 - Demo video: [TO COMPLETE - file name OAH2026-QuantPilot-Track02-Demo.mp4]
 - Slide deck: [TO COMPLETE]

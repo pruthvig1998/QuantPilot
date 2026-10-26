@@ -31,7 +31,7 @@ from typing import Dict, Iterable, List, Optional, Tuple
 CITATION_RE = re.compile(
     r"\[\s*([A-Za-z_][\w.\-]*(?:\[\d+\][\w.\-]*)*)\s*=\s*((?:[^\[\]]|\[\d+\])+?)\s*\]"
 )
-_PAIR_SPLIT_RE = re.compile(r",\s*(?=[A-Za-z_][\w.\-]*(?:\[\d+\][\w.\-]*)*\s*=)")
+_PAIR_SPLIT_RE = re.compile(r"[,;]\s*(?=[A-Za-z_][\w.\-]*(?:\[\d+\][\w.\-]*)*\s*=)")
 _PAIR_RE = re.compile(r"^\s*([A-Za-z_][\w.\-]*(?:\[\d+\][\w.\-]*)*)\s*=\s*(.+?)\s*$")
 # Numbers as models write them: 1,234.5  -5.31%  $2.15  212k  1.0e-05
 NUMBER_RE = re.compile(

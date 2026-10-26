@@ -95,7 +95,7 @@ def test_live_run_isolates_failures_and_still_writes(tmp_path, monkeypatch):
                     "biggest_risk": "x", "summary": "y"})
             return "case [spot = 102.2]"
 
-    board = {"board": [{"ticker": t, "score": s, "rank": i + 1}
+    board = {"board": [{"ticker": t, "score": s, "rank": i + 1, "price": 102.2}
                        for i, (t, s) in enumerate([("TST", 50.0), ("BAD", 40.0),
                                                    ("LLMX", 30.0)])],
              "errors": [], "count": 3}
@@ -126,6 +126,10 @@ def test_live_run_isolates_failures_and_still_writes(tmp_path, monkeypatch):
     # H-Mem: TST recalled (nothing yet) into its packet, then remembered.
     assert artifacts["packets"]["TST"]["memory"]["calls"] == []
     assert list(memory.live) == [f"call:{artifacts['date']}:TST"]
+    # IV snapshots cover every board name the chain serves, debated or
+    # not (TST, BAD-quote names still have a chain; LLMX too) - not just
+    # the cards: 3 board rows, the fake chain has a 0.30 ATM IV.
+    assert artifacts["iv_snapshots_written"] == 3
     briefing = (out_dir / "briefing.txt").read_text()
     assert "NOT COMPLETED THIS RUN" in briefing
     assert "LLMX: debate failed" in briefing

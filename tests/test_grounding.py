@@ -216,3 +216,11 @@ def test_empty_judge_reply_retries_once_then_says_so():
     assert result["verdict"] == "WATCH"
     assert result["judge"]["no_reply"] is True
     assert "no verdict was invented" in result["why"]
+
+
+def test_semicolon_separated_pairs_in_one_bracket():
+    """Live TSLA bear, Oct 23: "[a.mitigated = false; b.bottom = 376.75]"
+    read "false; b.bottom = 376.75" as the value of a."""
+    ev = {"ob": {"above": [{"mitigated": False, "bottom": 376.75}]}}
+    text = "[ob.above[0].mitigated = false; ob.above[0].bottom = 376.75]"
+    assert [c["status"] for c in verify_citations(text, ev)] == ["verified", "verified"]

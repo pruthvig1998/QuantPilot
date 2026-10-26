@@ -1,0 +1,14 @@
+mode: live
+output: runs/2026-10-23
+card: META SKIP (no_trade) conviction 7
+card: MSFT WATCH (no_trade) conviction 4
+card: TSLA WATCH (no_trade) conviction 4
+journal: 6 entries, hit rate None
+llm: 10 calls, mean 100.2s, max 181.34s, total 1002.1s (nvidia/nemotron-3-ultra-550b-a55b)
+model calls: 10 (nvidia/nvidia/nemotron-3-ultra-550b-a55b x10)
+data calls: 59 zetaris queries, 15804 rows
+briefing_text: runs/2026-10-23/briefing.txt
+briefing_markdown: runs/2026-10-23/briefing.md
+dashboard: runs/2026-10-23/dashboard.html
+artifacts: runs/2026-10-23/artifacts.json
+exit 0

@@ -246,7 +246,7 @@ print(answer_question('Why is TSLA ranked first?', load_fixture())['answer'])
 .venv/bin/python -m pytest tests/ -q
 ```
 
-248 tests, all passing on the Mac with Zetaris up (6 of them are live
+260 tests, all passing on the Mac with Zetaris up (6 of them are live
 Zetaris tests that skip when the harness is down): the pipeline
 (indicators, providers, board, order blocks, X-Ray, both guardrails,
 packet, debate, cards, risk review, journal, LLM provider layer,

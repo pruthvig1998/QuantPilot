@@ -274,6 +274,17 @@ def assemble_packet(
         events["earnings_estimate"] = (earnings or {}).get("estimate")
         events["earnings_error"] = earnings_error
 
+    # Two relative volumes reach the packet: the indicator engine's is
+    # today's bar so far against FULL-day averages (partial in session);
+    # the board row's is same-time-of-day when in session. Label both so
+    # neither the model nor a reader mistakes one for the other (live
+    # Oct 23: MSFT bear cited the indicator 0.12 under the board's 0.96).
+    if indicators and isinstance(indicators.get("volume"), dict):
+        indicators["volume"]["relative_volume_basis"] = (
+            "daily bar so far vs 20-day full-day average "
+            "(partial day while the session is open)"
+        )
+
     insider = load_insider_context(symbol, path=insider_path)
 
     missing: List[str] = []

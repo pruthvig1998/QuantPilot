@@ -60,6 +60,7 @@ from src.data.yahoo import get_provider  # noqa: E402
 from src.integrations.llm import clear_call_log, get_call_log, get_llm_provider  # noqa: E402
 from src.integrations.zetaris import clear_trace_log, get_trace_log  # noqa: E402
 from src.integrations.meterless_engine import MeterlessEngine  # noqa: E402
+from src.guardrail.events import nearest_money_iv  # noqa: E402
 from src.liquidity.board import build_board  # noqa: E402
 from src.xray.xray import market_xray  # noqa: E402
 
@@ -208,6 +209,26 @@ def run_live(args: argparse.Namespace) -> Dict:
     try:
         open_before = journal.open_entries()
 
+        # IV snapshot for EVERY board name, not only the debated ones:
+        # otherwise a name needs 20 days in the top N before its IV rank
+        # exists. The chains are already in the run cache (board fetch).
+        iv_snapshots = 0
+        for row in board.get("board") or []:
+            sel = row.get("chain_selection") or {}
+            try:
+                chain = provider.get_option_chain(
+                    row["ticker"], expiration=sel.get("expiration")
+                )
+                if journal.record_iv_snapshot(
+                    row["ticker"], today,
+                    nearest_money_iv(chain, float(row["price"])),
+                    sel.get("expiration"),
+                ):
+                    iv_snapshots += 1
+            except Exception as exc:
+                errors.append({"symbol": row.get("ticker"), "stage": "iv-snapshot",
+                               "error": str(exc)})
+
         packets: Dict[str, Dict] = {}
         debates: Dict[str, Dict] = {}
         cards: List[Dict] = []
@@ -309,6 +330,7 @@ def run_live(args: argparse.Namespace) -> Dict:
             "journal_stats": journal.stats(),
             "journal_entries": journal.list_entries(),
             "scored_open_entries": scored,
+            "iv_snapshots_written": iv_snapshots,
             "memory": {"engine": "meterless h-mem" if memory is not None else None,
                        "calls_remembered": remembered},
             "errors": errors,
