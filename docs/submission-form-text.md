@@ -148,5 +148,5 @@ Code. No Cursor credits were provided for this event.
 ## Links (fill at submission)
 
 - Public GitHub repo: https://github.com/pruthvig1998/QuantPilot (created Oct 23; snapshot at submission state, Oct 26-27, including the Oct 23 and Oct 26 live-run samples and the Nightshift-through run)
-- Demo video: OAH2026-QuantPilot-Track02-Demo.mp4, 2:54, 1920x1080, recorded Oct 26 on the Mac (narration: macOS Samantha voice; visuals: real Oct 26 Nightshift-run captures, Oct 23 caught-misquote capture, labeled SAMPLE fixture loop-back and trade card) - upload the file to HackOS
+- Demo video: OAH2026-QuantPilot-Track02-Demo.mp4, 3:46, 1920x1080, recorded Oct 26 on the Mac, v3 approved structure (title card + six numbered chapters, chapter cards, progress bar, burned-in subtitles, captions .srt; narration: Kokoro neural voice af_heart; visuals: real Oct 26 Nightshift-run captures, Oct 23 caught-misquote capture, labeled SAMPLE fixture loop-back and trade card, one ILLUSTRATION-labeled generic pick) - upload the file to HackOS
 - Slide deck: PDF exported Oct 26 (docs/slide-deck.pdf, 12 pages, 260 tests, Oct 23 facts) - upload the PDF file to HackOS

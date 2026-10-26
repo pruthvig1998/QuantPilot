@@ -180,31 +180,43 @@ at least the run footage (proves the run is real and in-hours):
 - Keep the published video link live and permission-free until
   judging ends (results Nov 6, 2026).
 
-## Final cut - Oct 26 (as rendered)
+## Final cut - Oct 26 (v3, submission video)
 
-File: ~/Downloads/OAH2026-QuantPilot-Track02-Demo.mp4 - 2:54, 1920x1080, H.264 30 fps,
-AAC 48 kHz stereo, 8 MB, -16.7 LUFS. Narration: macOS voice Samantha at 175 wpm
-(synthetic, by Pruthvi's choice). Every visual is a real capture or real text from
-the run artifacts; every shot carries a LIVE (with date) or SAMPLE caption. The
-Nightshift Console capture has the API key and LAN IP covered by solid boxes.
-This table supersedes the segment narration above where they differ.
+File: ~/Downloads/OAH2026-QuantPilot-Track02-Demo.mp4 - 3:46, 1920x1080, H.264 30 fps,
+AAC 48 kHz stereo, -16.1 LUFS; captions also as ~/Downloads/OAH2026-QuantPilot-Track02-Demo.srt.
+Approved structure after Pruthvi's review: title card first, then six numbered chapters
+(01 The problem, 02 What QuantPilot does, 03 How the agents work, 04 A real run,
+05 Sponsor technology, 06 Ask it anything), each opened by a chapter card; every frame
+carries the chapter tag, a progress bar and burned-in subtitles (digits for numbers).
+Voice: Kokoro-82M af_heart via `npx hyperframes tts` (brag skill). Narration verified by
+transcription. Visuals as in v2 (real captures, LIVE/SAMPLE/ILLUSTRATION captions, key and
+LAN IP covered). Backups: ...-v2-nochapters.mp4, ...-v1-samantha.mp4.
 
-| Start | On screen | Narration |
+| Start | Section | Narration |
 |---|---|---|
-| 0:00 | title card | Every morning, retail options traders are sold confident picks with no evidence behind them. |
-| 0:06 | title card | No breakeven, no probability, no record of what the picker got wrong yesterday. The data to check a pick exists. It is just scattered across options chains, price charts, sector data, and event calendars. |
-| 0:20 | title card | Quant Pilot is an options research agent that investigates before it recommends. It ranks a twelve-name watchlist by options flow and price action, builds an evidence packet for each top name, and makes three agents argue over it. |
-| 0:34 | LIVE RUN - Mon Oct 26, 2026 - US market hours - 12:15 ET - scripts/run_morning.py | One command runs the whole morning. Every number it prints comes from that packet, and the code checks that it does. |
-| 0:40 | LIVE RUN - Mon Oct 26, 2026 - US market hours - TSLA debate - judge + grounding check | Three agents, three jobs. The bull argues for the trade, the bear argues against it, and the judge decides: trade, watch, or skip. Every claim must cite a value from the packet, and code verifies every citation. In Monday's run, all ninety-one checked out. |
-| 0:58 | LIVE RUN - Fri Oct 23, 2026 - TSLA debate - misquote caught by the verifier | On Friday, two did not. Here the bear quoted a probability of profit of thirty-three percent, where the packet said thirty. The verifier caught it, and named it. |
-| 1:08 | SAMPLE RUN (fixture data) - evidence-gap loop-back | When evidence is missing, the judge sends both sides back with the gap named, shown here on our sample run. If the gap survives, the answer is watch. Never a guess. |
-| 1:19 | LIVE RUN - Mon Oct 26, 2026 - US market hours - Liquidity Board | This is a real run, recorded Monday during market hours. Tesla tops the board at forty-six point eight, and every score shows its four components. |
-| 1:28 | LIVE RUN - Mon Oct 26, 2026 - US market hours - TSLA trade card | Three names go to debate, and all three judges stand aside. |
-| 1:32 | LIVE RUN - Mon Oct 26, 2026 - US market hours - TSLA card checks | And they say exactly why. The Fed decides in two days, the implied volatility rank is still unknown, and every check is printed: passed, failed, or unknown. |
-| 1:43 | SAMPLE RUN (fixture data) - what a trade card looks like | No trade beats a bad trade. When the evidence does line up, the card looks like this one, from our sample run: entry, stop and target from order blocks, sized at one percent risk. |
-| 1:55 | LIVE RUN - Mon Oct 26, 2026 - US market hours - Zetaris SQL trace | Under the hood, Zetaris is the data harness: forty-six REST tables behind one SQL interface. Monday's run made fifty-nine queries through it. |
-| 2:05 | LIVE RUN - Mon Oct 26, 2026 - US market hours - TSLA packet memory - Meterless H-Mem | Meterless H Mem is the agent's memory. Tesla's packet carried its last two calls, and Thursday's call had already been updated with how it played out. |
-| 2:14 | Meterless Nightshift M1-M4 0.92.7 - Runtime online at 127.0.0.1:8088 - API key redacted | And every model call goes through the Meterless Nightshift runtime, running on this Mac. |
-| 2:19 | LIVE RUN - Mon Oct 26, 2026 - US market hours - model_calls log | Pinned to NVIDIA Nemotron Ultra. Nine calls out of nine, each one logged with the model that served it. |
-| 2:26 | LIVE RUN - Mon Oct 26, 2026 - US market hours - Ask QuantPilot (scripts/ask.py) | Because the explanation layer reads the same artifacts, anyone can question the run. Ask why Tesla leads, and it cites the score and all four components. Ask for a number the packet never had, and it says unknown. Ask for personal advice, and it declines. |
-| 2:42 | title card | Quant Pilot. The options research agent that has to show its work. It investigates, it argues, it checks its own citations, and it is not afraid to say no trade. |
+| 0:00 | title (t0) | This is Quant Pilot: the options research agent that has to show its work. Built for Track Two, the agent that can explain why. |
+| 0:08 | Chapter card 01: The problem | (silent, 1.6 s) |
+| 0:10 | 1 / 6 (p1) | Every morning, millions of retail traders open their phones to a confident options pick. Buy these calls. Big move coming. |
+| 0:18 | 1 / 6 (p2) | But almost none of those picks show their work. No break-even price. No probability of profit. No mention that the Fed decides in two days. And no record of the picks that went to zero yesterday. |
+| 0:31 | 1 / 6 (p3) | That matters, because weekly options punish guesswork. Take this real Tesla contract from Monday. It needs a three point seven percent move just to break even. The model gives it a twenty-three percent chance of profit. And it loses about fifty-one dollars a day to time decay. You can be right on direction, and still lose. |
+| 0:52 | 1 / 6 (p4) | The evidence to check a pick does exist. It's just scattered across options chains, price history, sector rotation, event calendars and earnings dates. Checking all of that by hand, for twelve names, before every open? Nobody does. So we built an agent that does. |
+| 1:09 | Chapter card 02: What QuantPilot does | (silent, 1.6 s) |
+| 1:10 | 2 / 6 (s1) | Quant Pilot is an options research agent that investigates before it recommends. It ranks a twelve-name watchlist by options flow and price action, builds an evidence packet for each top name, and makes three agents argue over it. |
+| 1:25 | 2 / 6 (s2) | One command runs the whole morning, end to end, in about twelve minutes. |
+| 1:30 | Chapter card 03: How the agents work | (silent, 1.6 s) |
+| 1:31 | 3 / 6 (a1) | Three agents, three jobs. The bull argues for the trade, the bear argues against it, and the judge decides: trade, watch, or skip. Every claim must cite a value from the packet, and the code checks every citation. In Monday's run, all ninety-one checked out. |
+| 1:48 | 3 / 6 (a2) | On Friday, two did not. Here the bear quoted a thirty-three percent probability of profit, where the packet said thirty. The verifier caught it, and named it. |
+| 1:58 | 3 / 6 (a3) | When evidence is missing, the judge sends both sides back with the gap named, shown here on our sample run. If the gap survives, the answer is watch. Never a guess. |
+| 2:09 | Chapter card 04: A real run | (silent, 1.6 s) |
+| 2:10 | 4 / 6 (l1) | This is a real run, recorded Monday during market hours. Tesla tops the board at forty-six point eight, and every score shows its four components. |
+| 2:20 | 4 / 6 (l2) | Three names go to debate, and all three judges stand aside. |
+| 2:24 | 4 / 6 (l3) | And they say exactly why. The Fed decides in two days, and the volatility rank is still unknown. Every check is printed: passed, failed, or unknown. No trade beats a bad trade. |
+| 2:36 | 4 / 6 (l4) | When the evidence does line up, the card looks like this one, from our sample run: entry, stop and target from order blocks, sized at one percent risk. |
+| 2:46 | Chapter card 05: Sponsor technology | (silent, 1.6 s) |
+| 2:48 | 5 / 6 (z) | Under the hood, Zetaris is the data harness: forty-six REST tables behind one SQL interface. Monday's run made fifty-nine queries through it. |
+| 2:58 | 5 / 6 (h) | Meterless H Mem is the agent's memory. Tesla's packet carried its last two calls, and Thursday's call had already been updated with how it played out. |
+| 3:08 | 5 / 6 (n) | And every model call runs through the Meterless Nightshift runtime, right here on this Mac, |
+| 3:14 | 5 / 6 (m) | pinned to NVIDIA Nemotron Ultra. Nine calls out of nine, each one logged with the model that served it. |
+| 3:21 | Chapter card 06: Ask it anything | (silent, 1.6 s) |
+| 3:23 | 6 / 6 (q) | Anyone can question the run. Ask why Tesla leads, and it cites the score and its four components. Ask for a number the packet never had, and it says unknown. Ask for personal advice, and it declines. |
+| 3:36 | closing card (end) | Quant Pilot. It investigates, it argues, it checks its own citations, and it isn't afraid to say: no trade today. |
