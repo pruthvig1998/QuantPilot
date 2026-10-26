@@ -1,0 +1,95 @@
+{
+ "checked_at_utc": "2026-10-26T16:15:18.960762+00:00",
+ "rows": [
+  {
+   "symbol": "SPY",
+   "expiration": 1793577600,
+   "selection": {
+    "expiration": 1793577600,
+    "dte": 7,
+    "basis": "covers_holding_window"
+   },
+   "contracts": 181,
+   "oi_missing": 0,
+   "oi_positive": 178,
+   "oi_total": 48280,
+   "volume_positive": 168,
+   "volume_total": 30283
+  },
+  {
+   "symbol": "QQQ",
+   "expiration": 1793577600,
+   "selection": {
+    "expiration": 1793577600,
+    "dte": 7,
+    "basis": "covers_holding_window"
+   },
+   "contracts": 202,
+   "oi_missing": 0,
+   "oi_positive": 198,
+   "oi_total": 102769,
+   "volume_positive": 175,
+   "volume_total": 38271
+  },
+  {
+   "symbol": "AAPL",
+   "expiration": 1793318400,
+   "selection": {
+    "expiration": 1793318400,
+    "dte": 4,
+    "basis": "longest_in_dte_window"
+   },
+   "contracts": 141,
+   "oi_missing": 0,
+   "oi_positive": 133,
+   "oi_total": 261948,
+   "volume_positive": 133,
+   "volume_total": 140825
+  },
+  {
+   "symbol": "NVDA",
+   "expiration": 1793577600,
+   "selection": {
+    "expiration": 1793577600,
+    "dte": 7,
+    "basis": "covers_holding_window"
+   },
+   "contracts": 86,
+   "oi_missing": 0,
+   "oi_positive": 79,
+   "oi_total": 15966,
+   "volume_positive": 65,
+   "volume_total": 17522
+  },
+  {
+   "symbol": "TSLA",
+   "expiration": 1793577600,
+   "selection": {
+    "expiration": 1793577600,
+    "dte": 7,
+    "basis": "covers_holding_window"
+   },
+   "contracts": 114,
+   "oi_missing": 0,
+   "oi_positive": 113,
+   "oi_total": 30473,
+   "volume_positive": 102,
+   "volume_total": 17139
+  },
+  {
+   "symbol": "AMZN",
+   "expiration": 1793577600,
+   "selection": {
+    "expiration": 1793577600,
+    "dte": 7,
+    "basis": "covers_holding_window"
+   },
+   "contracts": 81,
+   "oi_missing": 0,
+   "oi_positive": 75,
+   "oi_total": 7811,
+   "volume_positive": 66,
+   "volume_total": 2139
+  }
+ ]
+}

@@ -318,3 +318,16 @@ def test_model_dashes_are_normalized_to_hyphens():
         text = provider.chat_text("x")
     assert "\u2014" not in text and "\u2013" not in text
     assert text == "formed at 13:50 today - roughly 12 minutes; 75-79%"
+
+
+def test_inline_think_block_is_stripped_to_the_answer():
+    """Measured through Nightshift 0.92.7 (Oct 26): reasoning inline in
+    content, closed by </think>, answer after it."""
+    raw = 'The user wants the BULL case... {"verdict": "TRADE"}?\n</think>\n\nTSLA is bullish [liquidity.score = 19.72].'
+    payload = {"choices": [{"message": {"role": "assistant", "content": raw}}]}
+    provider = get_llm_provider({"MODEL_API_KEY": "nv-key"})
+    with mock.patch.object(llm.requests, "post", return_value=_Resp(200, payload)):
+        assert provider.chat_text("x") == "TSLA is bullish [liquidity.score = 19.72]."
+    cut = {"choices": [{"message": {"role": "assistant", "content": "<think>still thinking"}}]}
+    with mock.patch.object(llm.requests, "post", return_value=_Resp(200, cut)):
+        assert provider.chat_text("x") == ""

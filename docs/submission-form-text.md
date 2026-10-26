@@ -92,27 +92,37 @@ only the Nightshift URL and the runtime token, and routes its model
 calls through Nightshift when that route is configured
 (LLM_PROVIDER=meterless, or auto when a Meterless URL or token is
 present). Every model call is logged per run (provider, the model
-that actually served, latency) in the run artifacts. Note on the
-M1-M4 edition: the Oct 20 Nightshift build on the author's Mac
-exposes no callable endpoint (verified Oct 23 and Oct 26: UI only on
-port 47321, ports 8088 and 10080 refused), so live runs to date used
-the NVIDIA direct route below; the Oct 25 Nightshift build, which
-the Meterless team states adds a callable M1-M4 Runtime endpoint at
-127.0.0.1:8088, is being re-probed before submission, and the app
-routes through it automatically when it answers.
+that actually served, latency) in the run artifacts. M1-M4 edition: the Oct 20 Nightshift build on the author's Mac
+exposed no callable endpoint (verified Oct 23 and Oct 26: UI only on
+port 47321, ports 8088 and 10080 refused), so the Oct 22-23 live runs
+used the NVIDIA direct route below. RESOLVED Oct 26: Nightshift
+M1-M4 0.92.7 (Oct 25 release, SHA-256 matched) serves the Runtime at
+127.0.0.1:8088, /v1/models includes nvidia/nemotron-3-ultra-550b-a55b,
+the lane is pinned via METERLESS_RUNTIME_MODEL, the NVIDIA key lives
+in Nightshift, and the app holds only the runtime token path. The
+full Oct 26 live run (12:15-12:27 ET) went through Nightshift: 9 of
+9 model calls provider meterless, model nemotron-3-ultra-550b-a55b
+logged per call, mean 60.5 s, 0 errors, grounding 91/91. The app's
+.env now sets LLM_PROVIDER=meterless, with NVIDIA direct kept as
+fallback. One transport note from that run (R24): through the
+Runtime, Nemotron's reasoning arrives inline in content, closed by
+"</think>"; the transport keeps only the answer, and an opened,
+unclosed think block counts as no answer (the existing retry path
+handles it).
 
 ### NVIDIA (the brain)
 All reasoning runs on NVIDIA Nemotron:
 nvidia/nemotron-3-ultra-550b-a55b (the originally targeted
 nemotron-3-super-120b-a12b chat endpoint has returned 404 since
 Oct 20, 2026; the model is an env setting and flips back in one line).
-Live runs to date call NVIDIA's direct API, which the Meterless team
-confirmed on Oct 19 and again directly to this project on Oct 23 is
-fine for the NVIDIA award; when a Nightshift Runtime endpoint is
-present (see Meterless above), the same calls route through
-Nightshift. Bull, bear and judge are separate Nemotron calls over the
-same evidence packet, and the model that served each call is logged
-in the run artifacts.
+Live runs Oct 22-23 called NVIDIA's direct API, which the Meterless
+team confirmed on Oct 19 and again directly to this project on Oct
+23 is fine for the NVIDIA award. The Oct 26 live run called Nemotron
+through Nightshift (9 of 9 calls, model logged per call), so the
+strict Rule 15.2 reading is met as well as the ruling. Bull, bear
+and judge are separate Nemotron calls over the same evidence
+packet, and the model that served each call is logged in the run
+artifacts.
 
 ### Cursor (development environment)
 Optional per Official Rules 8.1; not used. Development used Claude
@@ -137,6 +147,6 @@ Code. No Cursor credits were provided for this event.
 
 ## Links (fill at submission)
 
-- Public GitHub repo: https://github.com/pruthvig1998/QuantPilot (created Oct 23; snapshot at submission state, Oct 26-27, including the Oct 23 live-run fixes and samples)
-- Demo video: [TO COMPLETE - file name OAH2026-QuantPilot-Track02-Demo.mp4]
-- Slide deck: [TO COMPLETE]
+- Public GitHub repo: https://github.com/pruthvig1998/QuantPilot (created Oct 23; snapshot at submission state, Oct 26-27, including the Oct 23 and Oct 26 live-run samples and the Nightshift-through run)
+- Demo video: OAH2026-QuantPilot-Track02-Demo.mp4, 2:54, 1920x1080, recorded Oct 26 on the Mac (narration: macOS Samantha voice; visuals: real Oct 26 Nightshift-run captures, Oct 23 caught-misquote capture, labeled SAMPLE fixture loop-back and trade card) - upload the file to HackOS
+- Slide deck: PDF exported Oct 26 (docs/slide-deck.pdf, 12 pages, 260 tests, Oct 23 facts) - upload the PDF file to HackOS

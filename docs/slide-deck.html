@@ -130,7 +130,7 @@
     <div class="chips" style="margin-top:28px">
       <span class="chip"><span class="lbl">Builder</span> <b>Pruthvi Garlapati</b> (solo)</span>
       <span class="chip"><span class="lbl">Watchlist</span> <b>12</b> US names</span>
-      <span class="chip"><span class="lbl">Tests</span> <b>260</b> passing</span>
+      <span class="chip"><span class="lbl">Tests</span> <b>261</b> passing</span>
       <span class="chip"><span class="lbl">Orders placed</span> <b>none</b> - research only</span>
     </div>
   </div>
@@ -289,7 +289,7 @@
           dashboard, and the Ask-QuantPilot Q&amp;A brain shared by every surface.</p></div>
       </div>
       <div class="col" style="flex:0 0 330px">
-        <div class="stat" style="margin-bottom:12px"><div class="num acc">260</div>
+        <div class="stat" style="margin-bottom:12px"><div class="num acc">261</div>
           <div class="cap">automated tests, all passing (Mac suite, Zetaris up)</div></div>
         <div class="stat" style="margin-bottom:12px"><div class="num">0.6368</div>
           <div class="cap">Black-Scholes call delta, ATM 1y / 20% IV - matches the textbook value; every analytic is verified against a known reference</div></div>
@@ -312,7 +312,7 @@
   <div class="slide-body">
     <h2>What it is <span class="hl">built on</span></h2>
     <ul class="points">
-      <li><b>Python 3.12</b>; requests / pandas / numpy; SQLite; pytest (260 tests).</li>
+      <li><b>Python 3.12</b>; requests / pandas / numpy; SQLite; pytest (261 tests).</li>
       <li><b>Data:</b> Yahoo Finance public APIs (chart + options) behind a provider interface -
         the harness and the direct route are interchangeable.</li>
       <li><b>Brain:</b> NVIDIA Nemotron (nvidia/nemotron-3-ultra-550b-a55b) over an
@@ -386,22 +386,26 @@
       <li><b>Power rule:</b> a Meterless Runtime provider connection implemented in the product
         to the published Runtime 1.4 contract (connect-link token parsing, provider headers,
         /v1/models probe), per the Meterless team's Oct 19 HackOS ruling, confirmed directly
-        to this project on Oct 23.</li>
+        to this project on Oct 23. On Oct 26 the full live run went through Nightshift 0.92.7
+        (9 of 9 calls, model logged per call) - the strict Rule 15.2 reading is met, not just
+        the ruling.</li>
       <li><b>Brain:</b> Nemotron ultra-550b. The planned super-120b endpoint has returned 404 on
         NVIDIA's side since Oct 20 (verified on multiple keys); the model is one env line and
         flips back if it returns.</li>
     </ul>
     <div class="chips" style="margin-top:16px">
-      <span class="chip"><span class="lbl">Measured latency, US hours:</span> <b>100.2s</b> <span class="lbl">mean per Nemotron call, Oct 23 live run (Oct 22: 121.8s)</span></span>
-      <span class="chip"><span class="lbl">Full live run, Oct 23</span> <b>20.7 min</b></span>
-      <span class="chip"><b>10</b> <span class="lbl">model calls, all Nemotron ultra-550b, logged by served model</span></span>
+      <span class="chip"><span class="lbl">Measured latency, US hours:</span> <b>60.5s</b> <span class="lbl">mean per Nemotron call through Nightshift, Oct 26 live run (direct: 100.2s Oct 23, 121.8s Oct 22)</span></span>
+      <span class="chip"><span class="lbl">Oct 26 run through Nightshift</span> <b>9 calls, 0 errors</b></span>
+      <span class="chip"><b>9/9</b> <span class="lbl">calls served by Nemotron ultra-550b, model logged per call</span></span>
       <span class="chip"><span class="lbl">Demo uses the recorded run, as the guide allows</span></span>
     </div>
   </div>
   <div class="notes"><span class="tag">Speaker note</span>
     <p>The ruling matters: the Meterless team confirmed engines satisfy Build, a Runtime provider
     connection satisfies Power, and Nemotron need not route through Nightshift for the NVIDIA
-    prize. The team confirmed that ruling directly to this project on Oct 23. We followed the ruling exactly and documented it.</p></div>
+    prize. The team confirmed that ruling directly to this project on Oct 23. On Oct 26 we went
+    further: the full live run actually went through Nightshift, so even the strictest reading
+    of the rules is satisfied. We followed the ruling exactly and documented it.</p></div>
 </section>
 
 <!-- SLIDE 10 - WHAT WAS UNIQUE -->
@@ -439,8 +443,9 @@
             <div class="stat"><div class="num bad">2</div><div class="cap">true mismatches caught</div></div>
             <div class="stat"><div class="num acc">0</div><div class="cap">numbers outside the packet</div></div>
           </div>
-          <p class="small" style="margin-top:10px">The 2 catches were real: MSFT relative volume
-          misquoted, and TSLA probability of profit cited as 0.3339 against 0.3031 in the packet.
+          <p class="small" style="margin-top:10px">Oct 26, through Nightshift: 91 citations,
+          91 verified. Oct 23: 115 citations, 113 verified, 2 catches (MSFT relative volume
+          misquoted, TSLA probability of profit cited as 0.3339 against 0.3031 in the packet).
           Oct 22: 102 citations, 100 verified, 2 mismatches caught (META bear swapped two IVs,
           0.79 vs 0.75). The code caught them; no verdict depended on them.</p></div>
         <div class="honest"><b>The journal grades the agent.</b> Its score is printed in its own

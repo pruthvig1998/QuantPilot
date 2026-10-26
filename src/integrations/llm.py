@@ -403,6 +403,14 @@ class LLMProvider:
             content.strip() == reasoning.strip()
         ):
             return ""
+        # Through the Meterless Runtime (Nightshift 0.92.7, measured Oct
+        # 26) Nemotron's reasoning arrives INLINE in content, closed by
+        # "</think>"; the answer is what follows. An opened, unclosed
+        # think block is a reply cut off mid-thought: no answer.
+        if "</think>" in content:
+            content = content.rsplit("</think>", 1)[1].strip()
+        elif "<think>" in content:
+            return ""
         # House rule: no em dash anywhere, generated output included.
         # Models write them freely; normalize at the transport.
         return content.replace("\u2014", " - ").replace("\u2013", "-")

@@ -105,17 +105,20 @@ zetaris queries, 15804 rows". (2) The Oct 23 TSLA packet's memory
 block: its Oct 22 WATCH recalled from H-Mem (and META's Oct 22 SKIP).
 (3) run_stdout.txt line "model calls: 10 (nvidia/nvidia/nemotron-3-
 ultra-550b-a55b x10)". No keys anywhere in frame.
-CONDITIONAL beat (only if the Nightshift re-probe succeeds): 10-15 s
-of one real request through the Nightshift Runtime with the served
-model name in the log; trim Segment 4 by the same amount.
+(4) Nightshift beat (live since Oct 26): the Nightshift Command Center
+with the Runtime online at 127.0.0.1:8088 (hide the API key field),
+then runs/2026-10-26/run_stdout.txt line "model calls: 9
+(meterless/nvidia/nemotron-3-ultra-550b-a55b x9)". Trim Segment 4 by
+the 10 s this adds.
 
 Narration:
 "Under the hood: Zetaris is the data harness - forty-six REST tables
 behind one SQL interface; this run made fifty-nine queries through it.
 Meterless H-Mem is the agent's memory: on Friday, the packet for each
-returning name carried its call from Thursday. The Meterless Runtime
-provider is built in, and every model call is logged - here, all ten
-served by NVIDIA Nemotron Ultra."
+returning name carried its call from Thursday. And every model call
+goes through the Meterless Nightshift runtime on this Mac, pinned to
+NVIDIA Nemotron Ultra - nine of nine in Monday's run, each one logged
+with the model that served it."
 
 ## Segment 6 - Output and impact (2:45-3:20, guide range 30-40s, ~87 words)
 
@@ -176,3 +179,32 @@ at least the run footage (proves the run is real and in-hours):
   live-run segment uses the real Mac run for exactly this reason.
 - Keep the published video link live and permission-free until
   judging ends (results Nov 6, 2026).
+
+## Final cut - Oct 26 (as rendered)
+
+File: ~/Downloads/OAH2026-QuantPilot-Track02-Demo.mp4 - 2:54, 1920x1080, H.264 30 fps,
+AAC 48 kHz stereo, 8 MB, -16.7 LUFS. Narration: macOS voice Samantha at 175 wpm
+(synthetic, by Pruthvi's choice). Every visual is a real capture or real text from
+the run artifacts; every shot carries a LIVE (with date) or SAMPLE caption. The
+Nightshift Console capture has the API key and LAN IP covered by solid boxes.
+This table supersedes the segment narration above where they differ.
+
+| Start | On screen | Narration |
+|---|---|---|
+| 0:00 | title card | Every morning, retail options traders are sold confident picks with no evidence behind them. |
+| 0:06 | title card | No breakeven, no probability, no record of what the picker got wrong yesterday. The data to check a pick exists. It is just scattered across options chains, price charts, sector data, and event calendars. |
+| 0:20 | title card | Quant Pilot is an options research agent that investigates before it recommends. It ranks a twelve-name watchlist by options flow and price action, builds an evidence packet for each top name, and makes three agents argue over it. |
+| 0:34 | LIVE RUN - Mon Oct 26, 2026 - US market hours - 12:15 ET - scripts/run_morning.py | One command runs the whole morning. Every number it prints comes from that packet, and the code checks that it does. |
+| 0:40 | LIVE RUN - Mon Oct 26, 2026 - US market hours - TSLA debate - judge + grounding check | Three agents, three jobs. The bull argues for the trade, the bear argues against it, and the judge decides: trade, watch, or skip. Every claim must cite a value from the packet, and code verifies every citation. In Monday's run, all ninety-one checked out. |
+| 0:58 | LIVE RUN - Fri Oct 23, 2026 - TSLA debate - misquote caught by the verifier | On Friday, two did not. Here the bear quoted a probability of profit of thirty-three percent, where the packet said thirty. The verifier caught it, and named it. |
+| 1:08 | SAMPLE RUN (fixture data) - evidence-gap loop-back | When evidence is missing, the judge sends both sides back with the gap named, shown here on our sample run. If the gap survives, the answer is watch. Never a guess. |
+| 1:19 | LIVE RUN - Mon Oct 26, 2026 - US market hours - Liquidity Board | This is a real run, recorded Monday during market hours. Tesla tops the board at forty-six point eight, and every score shows its four components. |
+| 1:28 | LIVE RUN - Mon Oct 26, 2026 - US market hours - TSLA trade card | Three names go to debate, and all three judges stand aside. |
+| 1:32 | LIVE RUN - Mon Oct 26, 2026 - US market hours - TSLA card checks | And they say exactly why. The Fed decides in two days, the implied volatility rank is still unknown, and every check is printed: passed, failed, or unknown. |
+| 1:43 | SAMPLE RUN (fixture data) - what a trade card looks like | No trade beats a bad trade. When the evidence does line up, the card looks like this one, from our sample run: entry, stop and target from order blocks, sized at one percent risk. |
+| 1:55 | LIVE RUN - Mon Oct 26, 2026 - US market hours - Zetaris SQL trace | Under the hood, Zetaris is the data harness: forty-six REST tables behind one SQL interface. Monday's run made fifty-nine queries through it. |
+| 2:05 | LIVE RUN - Mon Oct 26, 2026 - US market hours - TSLA packet memory - Meterless H-Mem | Meterless H Mem is the agent's memory. Tesla's packet carried its last two calls, and Thursday's call had already been updated with how it played out. |
+| 2:14 | Meterless Nightshift M1-M4 0.92.7 - Runtime online at 127.0.0.1:8088 - API key redacted | And every model call goes through the Meterless Nightshift runtime, running on this Mac. |
+| 2:19 | LIVE RUN - Mon Oct 26, 2026 - US market hours - model_calls log | Pinned to NVIDIA Nemotron Ultra. Nine calls out of nine, each one logged with the model that served it. |
+| 2:26 | LIVE RUN - Mon Oct 26, 2026 - US market hours - Ask QuantPilot (scripts/ask.py) | Because the explanation layer reads the same artifacts, anyone can question the run. Ask why Tesla leads, and it cites the score and all four components. Ask for a number the packet never had, and it says unknown. Ask for personal advice, and it declines. |
+| 2:42 | title card | Quant Pilot. The options research agent that has to show its work. It investigates, it argues, it checks its own citations, and it is not afraid to say no trade. |

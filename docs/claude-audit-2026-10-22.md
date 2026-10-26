@@ -25,7 +25,7 @@ a normal run), MEDIUM (wrong in edge cases or misleading wording), LOW
   mode 600. `resolve_provider()` -> provider=nvidia, that model.
 - Suite right after the merge, Zetaris up: 197 passed, 1 failed
   (test_zetaris::test_quote_spy_through_zetaris - a real bug, R6).
-- Suite after all repairs, Drop 6 and the Oct 23 fixes: 260 passed,
+- Suite after all repairs, Drop 6, the Oct 23 fixes and R24: 261 passed,
   0 failed, 0 skipped (Zetaris up; Mac, Python 3.13.1).
 
 ## 1. Findings
@@ -332,9 +332,52 @@ Fixes from the Oct 23 run:
 | R22 | IV snapshot for every board name (12/day, from the cached board chains), not only the 3 debated names - otherwise a name needed 20 days in the top 3 before its IV rank could exist. `iv_snapshots_written` in artifacts. | runner live-isolation test asserts 3/3 board rows snapshotted |
 | R23 | The indicator engine's relative volume is labeled in the packet as partial-day vs full-day averages, beside the board's same-time-of-day figure. Live: the MSFT misquote above. | packet field `indicators.volume.relative_volume_basis` |
 
+## 5c. Nightshift live: third run, through the Meterless Runtime (2026-10-26)
+
+Nightshift M1-M4 0.92.7 (Oct 25 release, SHA-256 matched the published
+SHA256SUMS; installed Oct 26 with a backup of 0.91.0) serves a callable
+Runtime at 127.0.0.1:8088. /healthz: engine ready, cloud provider
+"nvidia" configured inside Nightshift. Through the app's provider layer:
+probe "online", 19 models listed incl. nvidia/nemotron-3-ultra-550b-a55b.
+
+.env now routes through Nightshift as the primary provider:
+LLM_PROVIDER=meterless, base URL 127.0.0.1:8088/v1, runtime token read
+from Nightshift's own token file (no secret copied), lane pinned with
+METERLESS_RUNTIME_MODEL=nvidia/nemotron-3-ultra-550b-a55b. NVIDIA direct
+remains the documented fallback (LLM_PROVIDER=nvidia).
+
+R24 (found on the first call): through the Runtime, Nemotron's reasoning
+arrives inline in content, closed by "</think>". The transport now keeps
+only the text after it, and an unclosed "<think>" counts as no reply.
+Test: test_inline_think_block_is_stripped_to_the_answer.
+
+Live run: 12:15-12:27 ET (US hours), top 3, runs/2026-10-26 (copy in
+samples/live-run-2026-10-26, plus nightshift_single_call.json, the first
+raw call). A first attempt at 12:12 ET found Docker Desktop stopped
+(Zetaris down): the runner recorded every board name as not completed,
+invented nothing, and still wrote its outputs; after a Docker restart
+the rerun below completed.
+
+| Check | Result |
+|---|---|
+| Errors | 0 |
+| model_calls | 9 of 9 provider meterless, model nvidia/nemotron-3-ultra-550b-a55b, all ok |
+| Latency through Nightshift | mean 60.5 s, max 117.2 s, 544 s of a 720 s run (direct, same hours: 100.2-121.8 s mean) |
+| data_calls | 59 Zetaris queries, 16,093 rows |
+| Cards | TSLA WATCH 5, NFLX SKIP 8, NVDA SKIP 8 (FOMC 2026-10-28 two days out, IV rank unknown, bearish structure for NFLX/NVDA) |
+| Expiry selection | NVDA 7 DTE and TSLA 7 DTE covers_holding_window; NFLX 4 DTE longest_in_dte_window |
+| Grounding | 91 citations, 91 verified; 1 model-derived number flagged (NFLX bull "2.5%") |
+| Reasoning leaks | 0 (R24 live) |
+| H-Mem | TSLA recalled 2026-10-23 WATCH and 2026-10-22 WATCH; NFLX and NVDA new to the top 3: [] |
+| IV snapshots | 12 of 12 board names (R22 live) |
+| Board Migration | 3 dated runs (Oct 22, 23, 26) |
+| OI at 12:12 ET | real on the 7-DTE chains (SPY 178/181, QQQ 198/202) |
+
+Suite after R24: 261 passed, 0 failed, 0 skipped (Zetaris up).
+
 ## 6. Could not verify (feeds README limitations)
 
-- A live TRADE card: two US-hours runs, six debates, zero TRADE
+- A live TRADE card: three US-hours runs, nine debates, zero TRADE
   verdicts. Oct 22 on 1-DTE theta (fixed by R16); Oct 23 on FOMC
   2026-10-28 landing on the 5-DTE expiry, unknown IV rank, earnings
   in window, bearish structure - honest reasons, not a defect. The
@@ -342,9 +385,10 @@ Fixes from the Oct 23 run:
   not likely; the demo should show the sample TSLA card as the
   trade-card insert and say so.
 - R21-R23 are unit-tested, not yet in a live run.
-- Meterless Runtime route: no callable endpoint on the M1-M4 edition
-  (rechecked Oct 23, details in 5b).
-- No loop-back (INSUFFICIENT_EVIDENCE) has fired live in six debates;
+- Meterless Runtime route: RESOLVED Oct 26 - live on Nightshift
+  0.92.7 and now the primary route (section 5c).
+- No loop-back (INSUFFICIENT_EVIDENCE) has fired live in nine debates
+  (Oct 22, 23, 26);
   the loop is proven by tests and the sample fixture only.
 - IV rank: unknown until 20 snapshot days. With R22, all 12 names
   accumulate from Oct 24's run; the first ranks can exist ~20 trading

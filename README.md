@@ -163,7 +163,13 @@ QuantPilot places no orders.
   in the product per the published Runtime 1.4 provider contract
   (`src/integrations/llm.py`): Nightshift route with connect-link token
   parsing, provider headers and a /v1/models probe, beside the NVIDIA
-  direct route behind one interface.
+  direct route behind one interface. Since Oct 26 the Nightshift route
+  is the app's primary provider on the build Mac (Nightshift M1-M4
+  0.92.7, Runtime at 127.0.0.1:8088): the NVIDIA key lives inside
+  Nightshift, the app holds only the runtime token file path, and the
+  lane is pinned to Nemotron Ultra so routing can never pick a
+  non-NVIDIA model. Every run logs the provider and the model that
+  actually served each call (`model_calls` in artifacts.json).
 - **NVIDIA Nemotron (the brain).** All debate and explanation calls run on
   Nemotron (`nvidia/nemotron-3-ultra-550b-a55b`), a reasoning model that
   argues the bull, bear and judge voices; every packet citation it writes
@@ -246,7 +252,7 @@ print(answer_question('Why is TSLA ranked first?', load_fixture())['answer'])
 .venv/bin/python -m pytest tests/ -q
 ```
 
-260 tests, all passing on the Mac with Zetaris up (6 of them are live
+261 tests, all passing on the Mac with Zetaris up (6 of them are live
 Zetaris tests that skip when the harness is down): the pipeline
 (indicators, providers, board, order blocks, X-Ray, both guardrails,
 packet, debate, cards, risk review, journal, LLM provider layer,
@@ -282,15 +288,14 @@ tests against the real Yahoo Finance API and need network access.
 - **Yahoo chains carry no Greeks.** Delta and theta are computed with
   Black-Scholes from the chain's own IV; the risk-free rate is a labeled
   config assumption (0.043), not a quote.
-- **The Meterless route cannot be live-verified on an M1 Mac.** The free
-  M1-M4 Nightshift edition exposes no callable endpoint (verified
-  exhaustively); the provider connection is implemented to the published
-  contract and unit-tested with mocked HTTP, and its probe honestly
-  reports "offline" on that edition. First live verification needs an
-  endpoint-bearing edition (M5 / Windows / DGX Spark) or an
-  organizer-hosted endpoint.
-- **Latency.** Measured in US hours (Oct 22, top 3 names): 19.5 min end
-  to end, 94% of it Nemotron ultra-550b (9 calls, mean 122 s, max 273 s;
+- **Meterless Runtime on M1-M4 needs Nightshift 0.92.7 or later.**
+  Builds up to 0.91.0 ran the runtime only inside the app's own tab
+  (verified Oct 23); the Oct 25 release (0.92.7) serves a callable
+  Runtime at 127.0.0.1:8088, live-verified Oct 26. NVIDIA direct stays
+  in the provider layer as the documented fallback (`LLM_PROVIDER=nvidia`).
+- **Latency.** Through Nightshift (Oct 26, US hours, top 3): 12 min end
+  to end, 9 calls, mean 60.5 s, max 117 s. Earlier, via NVIDIA direct
+  (Oct 22, US hours, top 3): 19.5 min end to end, 94% of it Nemotron ultra-550b (9 calls, mean 122 s, max 273 s;
   the same calls averaged 35 s premarket). Zetaris queries take 3-15 s
   each on an M1 under emulation; a run-scoped cache makes packet
   assembly sub-second. The demo uses a recorded real run, as the Demo

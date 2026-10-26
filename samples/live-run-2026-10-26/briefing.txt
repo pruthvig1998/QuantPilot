@@ -1,0 +1,110 @@
+QUANTPILOT MORNING BRIEFING
+Mon Oct 26, 2026 - as of 12:27 PM ET (live)
+
+MARKET X-RAY
+Posture: MIXED - breadth 25.0% bullish / 25.0% bearish; 75.0% of the watchlist above the 200DMA
+Breadth: 3 bullish / 6 neutral / 3 bearish of 12 (stacks 3 up / 9 down; RSI 0 overbought / 0 oversold)
+Leading sectors: Energy, Healthcare, Utilities
+Lagging sectors: Real Estate, Industrials, Communication Services
+Top sector: Energy (XLE) $69.47 (live) - momentum +12.68, RS vs SPY +12.74%
+Weakest sector: Communication Services (XLC) $104.30 (live) - momentum -6.35, RS vs SPY -6.90%
+
+LIQUIDITY BOARD
+Top bullish:
+1. TSLA $394.55 (live) ↑ +6.00% day | score 46.8 bullish | OI +0.46, opt vol +0.19, mom +0.98, relvol +0.20 | RV 1.29
+Bearish:
+12. NFLX $63.45 (live) ↓ -3.65% day | score -22.5 bearish | OI -0.10, opt vol +0.20, mom -0.98, relvol -0.00 | RV 0.83
+Choppy / no read: NVDA (score 12.0), AVGO (score 11.9), AMD (score 9.8), QQQ (score 9.7), GOOGL (score 4.8), AMZN (score 4.0), AAPL (score 1.9), META (score 0.7), MSFT (score 0.2), SPY (score -2.0)
+
+TRADE CARDS
+TSLA - WATCH (no trade)
+Nearest candidate: TSLA261102C00405000 call, strike $405.00, exp 2026-11-02 (7 DTE), premium $4.17 (live)
+Levels: spot $394.55 (live) | entry unknown | stop unknown | target unknown (no target in packet)
+Greeks: needs +3.7% by 2026-11-02 to break even; model probability of profit 23%; bleeds $51.06/day in theta per contract
+Sector: TSLA: sector XLY ranks #4 of 10 (neutral), market posture mixed.
+Risk review: not applicable - the card is a no_trade (WATCH).
+Why: TSLA: WATCH (conviction 5/10, none bias). Bullish momentum (0.9775) and technical structure
+  (EMA stack, price > 200-DMA, call volume dominance) are strong, but FOMC in 2 days with
+  unquantifiable IV crush risk and immediate overhead resistance at 395.09 make the setup plausible
+  but unproven; wait for post-event clarity. Bull case: The EMA stack is fully bullish with price
+  trading above it [indicators.ema.bullish_stack = true, indicators.ema.price_above_stack = true],
+  and the stock sits above its 200‑DMA by +2.18% [indicators.long_filter.price_above_200dma = true,
+  indicators.long_filter.distance_200dma_pct = 2.176]. The 5‑day return is +7.2%
+  [liquidity.inputs.ret_5d_pct = 7.2] and today’s session is up +6.0% [liquidity.inputs.change_pct =
+  6.0], Bear case: The bull case rests on a 5‑day momentum surge (+7.2% [liquidity.inputs.ret_5d_pct
+  = 7.2]) that coincides with a FOMC rate decision in just two days
+  [events.market_events_in_window[0].days_away = 2], yet the 52‑week IV rank is unavailable so
+  event‑crush risk cannot be scored [events.checks[0].detail = "unknown - 52-week IV range
+  unavailable, so no IV rank can be computed"]. Price sits only 0.14% below equal‑high resis Biggest
+  risk: FOMC rate decision in 2 days with unknown IV rank/event crush risk, while price sits 0.14%
+  below equal-high resistance at 395.09 [order_blocks.nearest_pools[0].distance_pct = 0.14].
+Reason: judge verdict WATCH. Bullish momentum (0.9775) and technical structure (EMA stack, price > 200-DMA, call volume dominance) are strong, but FOMC in 2 days with unquantifiable IV crush risk and immediate overhead resist...
+Checks: 11 passed / 1 failed / 3 unknown of 15
+  failed: market_event_in_window (events) - market event(s) inside the 5-day window: FOMC 2026-10-28 (2d)
+  unknown: iv_rank_known (events) - unknown - 52-week IV range unavailable, so no IV rank can be computed
+  unknown: iv_elevated (events) - unknown - no IV rank, so elevation cannot be judged
+
+NFLX - SKIP (no trade)
+Nearest candidate: NFLX261030C00064000 call, strike $64.00, exp 2026-10-30 (4 DTE), premium $0.85 (live)
+Levels: spot $63.45 (live) | entry unknown | stop unknown | target unknown (no target in packet)
+Greeks: needs +2.2% by 2026-10-30 to break even; model probability of profit 29%; bleeds $12.51/day in theta per contract
+Sector: NFLX: sector XLC ranks #10 of 10 (lagging), market posture mixed.
+Risk review: not applicable - the card is a no_trade (SKIP).
+Why: NFLX: SKIP (conviction 8/10, none bias). The packet shows a clear downtrend with near-maximum
+  bearish momentum (-0.9809), price at the 52-week low and 22.76% below the 200-DMA, overhead
+  resistance from unmitigated bearish order blocks and equal-high pools, and an FOMC event in 2 days
+  with no IV rank to assess crush risk. Evidence is one-sided against a trade. Bull case: The
+  62‑strike call expiring in 4 days offers the tightest breakeven (only a 1.01% rally to 64.085) and
+  the highest model probability of profit at 40.64%
+  [guardrails.candidates[2].evaluation.metrics.breakeven_move_pct = 1.01,
+  guardrails.candidates[2].evaluation.metrics.probability_of_profit = 0.4064]. Call volume (47,205)
+  exceeds put volume (31,316) despite the selloff, showing options flow bias to the upside [liquidi
+  Bear case: The liquidity model scores momentum at -0.9809, essentially the most bearish reading
+  possible, and the overall direction is “bearish” with a score of -22.48
+  [liquidity.components.momentum = -0.9809, liquidity.direction = "bearish", liquidity.score =
+  -22.48]. The 5‑day return is -9.17% and today’s session is down another -3.65%, confirming
+  sustained selling pressure [liquidity.inputs.ret_5d_pct = -9.17, liquidity.inpu Biggest risk: FOMC
+  decision in 2 days with unknown IV rank and unquantifiable event-crush risk while price is in a
+  confirmed downtrend 22.76% below the 200-DMA.
+Reason: judge verdict SKIP. The packet shows a clear downtrend with near-maximum bearish momentum (-0.9809), price at the 52-week low and 22.76% below the 200-DMA, overhead resistance from unmitigated bearish order blocks and...
+Checks: 11 passed / 1 failed / 3 unknown of 15
+  failed: market_event_in_window (events) - market event(s) inside the 5-day window: FOMC 2026-10-28 (2d)
+  unknown: iv_rank_known (events) - unknown - 52-week IV range unavailable, so no IV rank can be computed
+  unknown: iv_elevated (events) - unknown - no IV rank, so elevation cannot be judged
+
+NVDA - SKIP (no trade)
+Nearest candidate: NVDA261102C00220000 call, strike $220.00, exp 2026-11-02 (7 DTE), premium $2.23 (live)
+Levels: spot $215.40 (live) | entry unknown | stop unknown | target unknown (no target in packet)
+Greeks: needs +3.2% by 2026-11-02 to break even; model probability of profit 24%; bleeds $26.05/day in theta per contract
+Sector: NVDA: sector XLK ranks #7 of 10 (neutral), market posture mixed.
+Risk review: not applicable - the card is a no_trade (SKIP).
+Why: NVDA: SKIP (conviction 8/10, none bias). The packet shows bearish short-term structure (EMA
+  stack bearish, price below stack), choppy liquidity with negative 5-day return, immediate overhead
+  resistance at 215.82 (0.19% away), and an FOMC event in 2 days with unquantifiable vol risk. Puts
+  offer better POF and breakeven than calls. The evidence argues against a directional trade. Bull
+  case: Price sits 5.68% above its 200‑day SMA, confirming the long‑term uptrend remains intact
+  [indicators.long_filter.price_above_200dma = true, indicators.long_filter.distance_200dma_pct =
+  5.68]. Today’s session printed a 2.11% gain on a green daily candle [liquidity.inputs.change_pct =
+  2.11], and call volume (9,171) edged out put volume (8,304), showing options flow bias to the
+  upside [liquidity.inputs.call_volume = 9171 Bear case: The EMA stack is bearish with price trading
+  below it, signaling a downtrend on the very timeframe that matters for a 1-7 day trade
+  [indicators.ema.bearish_stack = true, indicators.ema.price_below_stack = true]. The 5‑day return
+  is negative at ‑0.78%, contradicting any short‑term momentum claim [liquidity.inputs.ret_5d_pct =
+  -0.78]. Biggest risk: FOMC in 2 days with unknown IV rank and crush risk while price sits 0.19%
+  below equal-highs resistance and the EMA stack is bearish.
+Reason: judge verdict SKIP. The packet shows bearish short-term structure (EMA stack bearish, price below stack), choppy liquidity with negative 5-day return, immediate overhead resistance at 215.82 (0.19% away), and an FOMC ...
+Checks: 11 passed / 1 failed / 3 unknown of 15
+  failed: market_event_in_window (events) - market event(s) inside the 5-day window: FOMC 2026-10-28 (2d)
+  unknown: iv_rank_known (events) - unknown - 52-week IV range unavailable, so no IV rank can be computed
+  unknown: iv_elevated (events) - unknown - no IV rank, so elevation cannot be judged
+
+RISK FLAGS
+NFLX: IV rank unknown - 52-week IV history unavailable; event risk cannot be scored
+NVDA: IV rank unknown - 52-week IV history unavailable; event risk cannot be scored
+TSLA: IV rank unknown - 52-week IV history unavailable; event risk cannot be scored
+Market events inside the holding window: FOMC 2026-10-28 (in 2d)
+
+JOURNAL
+Entries: 9 | scored: 0 | hits 0 / losses 0 | hit rate unknown (nothing scored yet)
+
+Educational only - not financial advice.

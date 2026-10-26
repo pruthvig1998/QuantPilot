@@ -1,0 +1,14 @@
+mode: live
+output: runs/2026-10-26
+card: TSLA WATCH (no_trade) conviction 5
+card: NFLX SKIP (no_trade) conviction 8
+card: NVDA SKIP (no_trade) conviction 8
+journal: 9 entries, hit rate None
+llm: 9 calls, mean 60.5s, max 117.17s, total 544.1s (nvidia/nemotron-3-ultra-550b-a55b)
+model calls: 9 (meterless/nvidia/nemotron-3-ultra-550b-a55b x9)
+data calls: 59 zetaris queries, 16093 rows
+briefing_text: runs/2026-10-26/briefing.txt
+briefing_markdown: runs/2026-10-26/briefing.md
+dashboard: runs/2026-10-26/dashboard.html
+artifacts: runs/2026-10-26/artifacts.json
+exit 0
