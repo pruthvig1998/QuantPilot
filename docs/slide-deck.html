@@ -130,7 +130,7 @@
     <div class="chips" style="margin-top:28px">
       <span class="chip"><span class="lbl">Builder</span> <b>Pruthvi Garlapati</b> (solo)</span>
       <span class="chip"><span class="lbl">Watchlist</span> <b>12</b> US names</span>
-      <span class="chip"><span class="lbl">Tests</span> <b>261</b> passing</span>
+      <span class="chip"><span class="lbl">Tests</span> <b>263</b> passing</span>
       <span class="chip"><span class="lbl">Orders placed</span> <b>none</b> - research only</span>
     </div>
   </div>
@@ -151,7 +151,7 @@
       <li><b>Buyers of weekly options mostly lose:</b> premium decays daily, IV crushes after
         events, and most "picks" never show breakeven, probability, or risk.</li>
       <li><b>The evidence lives in fragmented places</b> <span class="dim">- options chains, order
-        flow, chart structure, sector breadth, event calendars, insider filings -</span> and no
+        flow, chart structure, sector breadth, event calendars, earnings dates -</span> and no
         retail tool assembles it into one auditable argument.</li>
       <li><b>LLM chatbots make it worse:</b> fluent recommendations with no citations, no
         unknowns, and no record of what they got wrong.</li>
@@ -207,7 +207,7 @@
     <h2>An investigating agent, <span class="hl">not a chatbot</span></h2>
     <ul class="points">
       <li>Each morning it builds an <b>evidence packet</b> per name - board score, order blocks,
-        guardrail checks, event risk, insider context. Missing data is null, and named.</li>
+        guardrail checks, event risk, earnings dates. Missing data is null, and named.</li>
       <li>A <b>bull</b> and a <b>bear</b> argue the packet; a <b>judge</b> verdicts
         <span class="verdict v-trade">TRADE</span> <span class="verdict v-watch">WATCH</span>
         <span class="verdict v-skip">SKIP</span> with conviction - and can send the debate back
@@ -246,7 +246,7 @@
         <p>Ranks the watchlist: OI 0.30, options volume 0.25, momentum 0.25, relative volume 0.20. Strikes within 15% of spot.</p></div>
       <div class="arrow">></div>
       <div class="step"><div class="n">STEP 3</div><h4>Evidence packet</h4>
-        <p>Assembled per top name: indicators, blocks, candidates, event risk, insider context. Missing data is null and named.</p></div>
+        <p>Assembled per top name: indicators, blocks, candidates, event risk, earnings dates. Missing data is null and named.</p></div>
       <div class="arrow">></div>
       <div class="step"><div class="n">STEP 4</div><h4>Debate</h4>
         <p>Bull, bear, judge (Nemotron). Every claim cites a packet value. INSUFFICIENT_EVIDENCE triggers one loop-back round.</p></div>
@@ -289,7 +289,7 @@
           dashboard, and the Ask-QuantPilot Q&amp;A brain shared by every surface.</p></div>
       </div>
       <div class="col" style="flex:0 0 330px">
-        <div class="stat" style="margin-bottom:12px"><div class="num acc">261</div>
+        <div class="stat" style="margin-bottom:12px"><div class="num acc">263</div>
           <div class="cap">automated tests, all passing (Mac suite, Zetaris up)</div></div>
         <div class="stat" style="margin-bottom:12px"><div class="num">0.6368</div>
           <div class="cap">Black-Scholes call delta, ATM 1y / 20% IV - matches the textbook value; every analytic is verified against a known reference</div></div>
@@ -312,7 +312,7 @@
   <div class="slide-body">
     <h2>What it is <span class="hl">built on</span></h2>
     <ul class="points">
-      <li><b>Python 3.12</b>; requests / pandas / numpy; SQLite; pytest (261 tests).</li>
+      <li><b>Python 3.12</b>; requests / pandas / numpy; SQLite; pytest (263 tests).</li>
       <li><b>Data:</b> Yahoo Finance public APIs (chart + options) behind a provider interface -
         the harness and the direct route are interchangeable.</li>
       <li><b>Brain:</b> NVIDIA Nemotron (nvidia/nemotron-3-ultra-550b-a55b) over an

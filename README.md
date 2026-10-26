@@ -11,10 +11,34 @@ Track 02 - "The Agent That Can Explain Why":
 QuantPilot investigates a 12-name liquid-options watchlist (SPY, QQQ, AAPL,
 MSFT, NVDA, AMZN, META, GOOGL, TSLA, AMD, NFLX, AVGO) across fragmented
 sources - options flow, price structure, sector breadth, event calendars,
-SEC insider filings - and produces trade cards where every number is
-traceable to the evidence packet it came from. Its motto, enforced in code:
+earnings dates, and its own memory of past calls - and produces trade
+cards where every number is traceable to the evidence packet it came from. Its motto, enforced in code:
 
 **Not the cheapest contract - the cheapest contract that can actually win.**
+
+## Try it in 60 seconds (no keys, no network data, no Zetaris)
+
+```bash
+git clone https://github.com/pruthvig1998/QuantPilot && cd QuantPilot
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+SAMPLE_MODE=true .venv/bin/python scripts/run_morning.py --output-dir /tmp/qp
+open /tmp/qp/dashboard.html          # the judges dashboard for that run
+open docs/explorer/index.html        # QuantPilot Explorer: all live runs + Ask box
+.venv/bin/python scripts/ask.py samples/live-run-2026-10-26 "Why is TSLA ranked first?"
+```
+
+Verified from a fresh copy on Oct 26: install plus all four steps in under
+30 seconds, and the suite at 257 passed / 6 skipped (the 6 are live Zetaris
+tests that skip without a local Zetaris).
+
+**QuantPilot Explorer** (`docs/explorer/index.html`, one self-contained
+page, no install): pick any of the three live runs or the sample, browse
+the Liquidity Board (sortable), every trade card with its pass / fail /
+unknown checks, every debate with its code-verified grounding table, the
+agent's H-Mem memory, and ask questions in plain English - answered only
+from that run's artifacts, with unknowns stated as unknown and personal
+advice refused. Rebuild it from the committed runs with
+`.venv/bin/python scripts/build_explorer.py`.
 
 ## What it does
 
@@ -33,8 +57,12 @@ One morning run (`scripts/run_morning.py`) executes the full pipeline:
    daily + weekly RSI, relative volume, 20-day and 52-week breakout levels),
    the board row with its component breakdown, order-block zones and
    equal-high/low liquidity pools, guardrail verdicts on candidate
-   contracts, the IV/event assessment, and insider-pattern context. Anything
-   missing is null and *named* in the packet's data-quality list.
+   contracts, the IV/event assessment (with the earnings date), and the
+   agent's own past calls on the name, recalled from Meterless H-Mem.
+   Optional insider-pattern context joins the packet only when a scan file
+   is present (it was not on the build Mac, so every live packet names it
+   as missing). Anything missing is null and *named* in the packet's
+   data-quality list.
 4. **A debate, not a summary.** A bull argues the packet, a bear argues
    against it, and a judge verdicts TRADE / WATCH / SKIP with a conviction
    score. The judge can also return INSUFFICIENT_EVIDENCE with a named gap -
@@ -69,7 +97,54 @@ One morning run (`scripts/run_morning.py`) executes the full pipeline:
    run's artifacts - with a deterministic scope gate that refuses
    personal-advice and off-watchlist questions before any model is called.
 
-## A sample run, in numbers
+## Live runs (real market data, US market hours)
+
+Three full runs on the build Mac, each `scripts/run_morning.py --top-n 3`
+against live data. Every output (briefing, dashboard, artifacts with the
+per-call model log and Zetaris SQL trace) is committed under `samples/`.
+
+| Run | Route | Model calls | Contracts screened | Citations verified | Cards |
+|---|---|---|---|---|---|
+| **Mon Oct 26**, 12:15-12:27 ET (`samples/live-run-2026-10-26/`) | Meterless Nightshift Runtime (127.0.0.1:8088), lane pinned to Nemotron Ultra | 9 of 9 served by nvidia/nemotron-3-ultra-550b-a55b through Nightshift, mean 60.5 s | 289 evaluated: 105 passed the guardrail, 184 rejected | 91 of 91 | TSLA WATCH 5, NFLX SKIP 8, NVDA SKIP 8 |
+| **Fri Oct 23**, 10:00-10:21 ET (`samples/live-run-2026-10-23/`) | NVIDIA direct | 10, mean 100.2 s | 317 evaluated: 120 passed, 197 rejected | 113 of 115 - 2 misquotes caught | META SKIP 7, MSFT WATCH 4, TSLA WATCH 4 |
+| **Thu Oct 22**, 10:00-10:20 ET (`samples/live-run-2026-10-22/`) | NVIDIA direct | 9, mean 121.8 s | 693 evaluated: 177 passed, 516 rejected | 100 of 102 - 2 misquotes caught | META SKIP 7, TSLA WATCH 0, AAPL WATCH 5 |
+
+"Contracts screened" counts every option contract the probability
+guardrail evaluated for the debated names (breakeven, Black-Scholes delta,
+probability of profit, theta burn, spread, expiry). A contract is
+rejected when it fails a gate - for example a delta below 0.30 (the cheap
+far-out-of-the-money "lottery ticket"), no usable price, or no time left
+before expiry.
+
+What the live runs show:
+
+- **The verifier catches real model errors.** On Oct 23 the bear quoted a
+  TSLA probability of profit of 0.3339 where the packet held 0.3031, and an
+  MSFT relative volume of 0.12 where the packet held 0.96; on Oct 22 it
+  swapped two META contracts' implied volatilities. Each was flagged in the
+  run's grounding table. None fed a TRADE.
+- **No live TRADE yet, for stated reasons.** Across nine live debates every
+  judge stood aside: the Fed decides on Oct 28 (inside the holding window),
+  the IV rank is still unknown (it builds from the agent's own daily
+  snapshots), earnings fell inside the window (MSFT, Oct 28), or the price
+  structure was bearish. On Oct 22 every candidate expired in 1 day; the
+  expiry selector was fixed the same day and the Oct 23 and Oct 26 runs
+  traded 4-7 day contracts that outlive the 5-day hold.
+- **Memory across days.** On Oct 26 the TSLA packet carried its Oct 22 and
+  Oct 23 calls from Meterless H-Mem, the Oct 22 record already updated
+  with its scored outcome.
+- **Every number is logged.** Each run's `artifacts.json` lists every model
+  call (provider, model that served it, latency) and every Zetaris query
+  (view, milliseconds, rows): 59 queries per run on Oct 23 and Oct 26.
+- **Failure behavior, observed.** The TSLA judge returned an empty reply on
+  Oct 22 (recorded as WATCH with conviction 0, nothing invented); the retry
+  added that day recovered the same failure live on Oct 23. A first Oct 26
+  attempt found Zetaris down: every board name was recorded as not
+  completed, nothing was filled in, and the outputs were still written.
+
+Full audit trail: `docs/claude-audit-2026-10-22.md` (sections 5, 5b, 5c).
+
+## The sample run (offline, synthetic data)
 
 `samples/morning_run.json` is a frozen run of these exact modules over a
 synthetic provider, and `samples/example-run/` holds the outputs it
@@ -237,6 +312,11 @@ print(answer_question('Why is TSLA ranked first?', load_fixture())['answer'])
 
 ## Samples
 
+- `samples/live-run-2026-10-26/`, `samples/live-run-2026-10-23/`,
+  `samples/live-run-2026-10-22/` - the three live US-hours runs above:
+  briefing, dashboard, full artifacts, run log, open-interest checks; the
+  Oct 26 folder also holds `nightshift_single_call.json`, the first raw
+  call through the Nightshift Runtime.
 - `samples/morning_run.json` - the frozen input bundle (board, X-Ray,
   packets, debates, cards, journal seeds) produced by the real modules
   over synthetic provider data. Prices in it are fixture prices, labeled
@@ -252,7 +332,7 @@ print(answer_question('Why is TSLA ranked first?', load_fixture())['answer'])
 .venv/bin/python -m pytest tests/ -q
 ```
 
-261 tests, all passing on the Mac with Zetaris up (6 of them are live
+263 tests, all passing on the Mac with Zetaris up (6 of them are live
 Zetaris tests that skip when the harness is down): the pipeline
 (indicators, providers, board, order blocks, X-Ray, both guardrails,
 packet, debate, cards, risk review, journal, LLM provider layer,
@@ -306,6 +386,10 @@ tests against the real Yahoo Finance API and need network access.
 - **Options chains bypass the harness for now.** Zetaris serves bars and
   quotes; expirations, chains and earnings dates come from the Yahoo
   provider directly (routed inside `ZetarisProvider`).
+- **Insider context is optional and absent in the live runs.** The
+  EDGAR Form 4 insider-pattern scan file exists only on the build VM; on
+  the Mac every packet lists `insider` under data_quality.missing, and no
+  live verdict used insider data.
 - **Research only.** QuantPilot produces research artifacts. It places
   no orders, and every output carries the educational-only footer.
 
