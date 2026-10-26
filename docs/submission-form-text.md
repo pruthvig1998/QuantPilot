@@ -148,5 +148,16 @@ Code. No Cursor credits were provided for this event.
 ## Links (fill at submission)
 
 - Public GitHub repo: https://github.com/pruthvig1998/QuantPilot (created Oct 23; snapshot at submission state, Oct 26-27, including the Oct 23 and Oct 26 live-run samples and the Nightshift-through run)
+- Try it live (no install, no keys): https://pruthvig1998.github.io/QuantPilot/explorer/ - QuantPilot Explorer: all live runs + sample, with the 3-minute judge tour (deep links #tour=1 to #tour=5)
 - Demo video: OAH2026-QuantPilot-Track02-Demo.mp4, 3:46, 1920x1080, recorded Oct 26 on the Mac, v3 approved structure (title card + six numbered chapters, chapter cards, progress bar, burned-in subtitles, captions .srt; narration: Kokoro neural voice af_heart; visuals: real Oct 26 Nightshift-run captures, Oct 23 caught-misquote capture, labeled SAMPLE fixture loop-back and trade card, one ILLUSTRATION-labeled generic pick) - upload the file to HackOS
-- Slide deck: PDF exported Oct 26 (docs/slide-deck.pdf, 12 pages, 263 tests, Oct 26 Nightshift facts) - upload the PDF file to HackOS
+- Slide deck: PDF exported Oct 26 (docs/slide-deck.pdf, 13 pages, 263 tests, Oct 26 Nightshift facts, judge-tour slide) - upload the PDF file to HackOS
+
+## Description for the form (1989 chars, within the 150-2000 limit)
+
+Try it: pruthvig1998.github.io/QuantPilot/explorer. QuantPilot is a pre-market options research agent for US markets that investigates before it recommends. Each morning it ranks a 12-name watchlist on a liquidity board (open interest, options volume, momentum, relative volume), reads breadth and sector rotation and builds one evidence packet per top name: quote, indicators, liquidity row, order blocks, guardrail-checked candidates, IV and event assessment, earnings date, and remembered past calls.
+
+Three NVIDIA Nemotron voices debate each packet: a bull case, a bear case, and a judge that decides TRADE, WATCH, or SKIP. Every voice must cite packet values in brackets, and a citation verifier in code checks each citation against the packet. An unverified TRADE is forced to WATCH with failed citations named. If evidence is missing, the judge names the exact gap, both sides re-argue once, and the second verdict cannot dodge it. A deterministic risk review can veto a TRADE to WATCH.
+
+Surviving verdicts become trade cards: entry at the order-block zone midpoint, stop beyond the zone, target at the nearest liquidity pool, a contract passing explicit filters, sized at 1 percent account risk with premium capped at 5%. Every check prints passed, failed, or unknown; unknowns never confirm trades. All calls go to an append-only journal, scored against live prices later, with a two-loss circuit breaker. Output: a briefing, a dashboard, and an Ask layer that answers only from the run's own artifacts.
+
+Sponsor stack: Zetaris holds 46 REST tables of Yahoo Finance data behind one SQL interface (59 queries Monday). Meterless H-Mem, vendored unmodified, recalls past calls into packets and updates them with outcomes. All model calls run through the Meterless Nightshift Runtime, pinned to NVIDIA Nemotron Ultra: on Oct 26, 9 of 9 calls went through Nightshift, serving model logged per call, grounding 91 of 91 verified. 263 tests pass. Educational only, not financial advice.

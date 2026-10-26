@@ -139,7 +139,31 @@
     above 0.30 are ever ranked, and every pick carries the math that says whether it can win.</p></div>
 </section>
 
-<!-- SLIDE 2 - PROBLEM -->
+<!-- SLIDE 2 - JUDGE TOUR -->
+<section class="slide">
+  <div class="slide-head">
+    <span class="kicker">Try it first</span>
+    <span class="req">No install, no keys</span>
+  </div>
+  <div class="slide-body">
+    <h2>Evaluate QuantPilot in <span class="hl">3 minutes</span></h2>
+    <p class="lede" style="font-size:26px;margin-bottom:14px">
+      <b>pruthvig1998.github.io/QuantPilot/explorer</b></p>
+    <p class="small" style="margin-bottom:10px">Five clicks, each a "Show me" button on the page:</p>
+    <ul class="points">
+      <li><b>1. What happened in a live run</b> - Mon Oct 26, US hours: 12 names ranked, 289 option contracts screened (184 rejected), 91/91 citations verified.</li>
+      <li><b>2. The verifier catches a misquote</b> - Oct 23: the bear cited a TSLA probability of profit of 0.3339; the packet said 0.3031. Flagged in code.</li>
+      <li><b>3. Every check, including the failures</b> - why all three judges stood aside: the Fed decision 2 days out; UNKNOWN where data does not exist.</li>
+      <li><b>4. Ask it why</b> - plain-English answers from the run's own evidence; personal advice refused.</li>
+      <li><b>5. Sponsor tech, proven by the logs</b> - 9/9 calls via Meterless Nightshift on NVIDIA Nemotron Ultra; 59 Zetaris SQL queries.</li>
+    </ul>
+    <p class="small" style="margin-top:14px">Prefer code? <b>SAMPLE_MODE=true python scripts/run_morning.py</b> runs offline in under 30 seconds (README, "Try it in 60 seconds").</p>
+  </div>
+  <div class="notes"><span class="tag">Speaker note</span>
+    <p>Every number on the page comes from a committed run in the repo; each step link (.../explorer/#tour=1 to #tour=5) opens that step directly.</p></div>
+</section>
+
+<!-- SLIDE 3 - PROBLEM -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">The problem</span>
@@ -168,7 +192,7 @@
     unknown, or scores themselves afterwards. That is the hole QuantPilot is built to fill.</p></div>
 </section>
 
-<!-- SLIDE 3 - TARGET USERS -->
+<!-- SLIDE 4 - TARGET USERS -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">Target users</span>
@@ -197,7 +221,7 @@
     matters for Impact: it is a working workflow, not a demo invented for the hackathon.</p></div>
 </section>
 
-<!-- SLIDE 4 - SOLUTION -->
+<!-- SLIDE 5 - SOLUTION -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">The solution</span>
@@ -230,7 +254,7 @@
     mechanical, not prompt-deep.</p></div>
 </section>
 
-<!-- SLIDE 5 - AGENT WORKFLOW -->
+<!-- SLIDE 6 - AGENT WORKFLOW -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">Agent workflow</span>
@@ -268,7 +292,7 @@
     other agents work again.</p></div>
 </section>
 
-<!-- SLIDE 6 - ARCHITECTURE -->
+<!-- SLIDE 7 - ARCHITECTURE -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">Architecture</span>
@@ -303,7 +327,7 @@
     briefing, and a judge's typed question, so every surface gives the same grounded answer.</p></div>
 </section>
 
-<!-- SLIDE 7 - TECHNICAL STACK -->
+<!-- SLIDE 8 - TECHNICAL STACK -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">Technical stack</span>
@@ -330,7 +354,7 @@
     SAMPLE_MODE lets them re-run the whole pipeline with no keys and no network.</p></div>
 </section>
 
-<!-- SLIDE 8 - SPONSOR TECH: ZETARIS -->
+<!-- SLIDE 9 - SPONSOR TECH: ZETARIS -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">Sponsor tech - Zetaris</span>
@@ -370,7 +394,7 @@
     judge finding it.</p></div>
 </section>
 
-<!-- SLIDE 9 - SPONSOR TECH: METERLESS + NVIDIA -->
+<!-- SLIDE 10 - SPONSOR TECH: METERLESS + NVIDIA -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">Sponsor tech - Meterless + NVIDIA</span>
@@ -408,7 +432,7 @@
     of the rules is satisfied. We followed the ruling exactly and documented it.</p></div>
 </section>
 
-<!-- SLIDE 10 - WHAT WAS UNIQUE -->
+<!-- SLIDE 11 - WHAT WAS UNIQUE -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">What was unique</span>
@@ -459,7 +483,7 @@
     the Track 02 statement, demonstrated.</p></div>
 </section>
 
-<!-- SLIDE 11 - PRODUCT VISUALS -->
+<!-- SLIDE 12 - PRODUCT VISUALS -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">Product visuals</span>
@@ -510,7 +534,7 @@
     The filenames and commands to regenerate them are in the README's Samples section.</p></div>
 </section>
 
-<!-- SLIDE 12 - FUTURE ENHANCEMENTS -->
+<!-- SLIDE 13 - FUTURE ENHANCEMENTS -->
 <section class="slide">
   <div class="slide-head">
     <span class="kicker">Future enhancements</span>

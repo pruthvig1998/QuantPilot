@@ -16,6 +16,32 @@ cards where every number is traceable to the evidence packet it came from. Its m
 
 **Not the cheapest contract - the cheapest contract that can actually win.**
 
+## For judges: a 3-minute tour (nothing to install)
+
+**Open the live QuantPilot Explorer: [https://pruthvig1998.github.io/QuantPilot/explorer/](https://pruthvig1998.github.io/QuantPilot/explorer/)** - every number on it
+comes from a committed run in this repo. A "Judges: start here" panel at the
+top walks through five steps; each link below opens that step directly.
+
+| Step | What you will see |
+|---|---|
+| **1. [What happened in a live run](https://pruthvig1998.github.io/QuantPilot/explorer/#tour=1)** | Monday Oct 26, US market hours: 12 names ranked, 289 option contracts screened (184 rejected), 91 of 91 debate citations verified, each verdict with the judge's biggest risk. |
+| **2. [The verifier catches a model misquote](https://pruthvig1998.github.io/QuantPilot/explorer/#tour=2)** | Friday Oct 23: the bear quoted a TSLA probability of profit of 0.3339; the packet held 0.3031. The grounding table flags it - a TRADE resting on a citation like that is downgraded in code. |
+| **3. [Every check on the card, including the failures](https://pruthvig1998.github.io/QuantPilot/explorer/#tour=3)** | Why all three judges stood aside: the Fed decision two days out fails the event check; UNKNOWN marks data that does not exist yet - never a guess. |
+| **4. [Ask it why, in plain English](https://pruthvig1998.github.io/QuantPilot/explorer/#tour=4)** | The Ask box answers only from the run's evidence ("Why did the NFLX judge stand aside?"), and refuses personal advice ("Should I buy calls with my savings?"). |
+| **5. [Sponsor tech, proven by the logs](https://pruthvig1998.github.io/QuantPilot/explorer/#tour=5)** | All 9 model calls on Oct 26: provider meterless (Nightshift on the Mac), model nvidia/nemotron-3-ultra-550b-a55b, each with its latency; 59 Zetaris SQL queries behind the data. |
+
+<p>
+<img src="docs/img/tour-1.jpg" width="49%" alt="Step 1: live run overview, tiles highlighted">
+<img src="docs/img/tour-2.jpg" width="49%" alt="Step 2: grounding table row flagging the TSLA probability-of-profit misquote">
+</p>
+<p>
+<img src="docs/img/tour-3.jpg" width="32%" alt="Step 3: TSLA card filtered to its failed check">
+<img src="docs/img/tour-4.jpg" width="32%" alt="Step 4: Ask answer explaining why NFLX stood aside">
+<img src="docs/img/tour-5.jpg" width="32%" alt="Step 5: per-call log, 9 of 9 calls via meterless on Nemotron Ultra">
+</p>
+
+Demo video (3:46): `OAH2026-QuantPilot-Track02-Demo.mp4` on the submission page.
+
 ## Try it in 60 seconds (no keys, no network data, no Zetaris)
 
 ```bash
@@ -28,7 +54,7 @@ open docs/explorer/index.html        # QuantPilot Explorer: all live runs + Ask 
 ```
 
 Verified from a fresh copy on Oct 26: install plus all four steps in under
-30 seconds, and the suite at 257 passed / 6 skipped (the 6 are live Zetaris
+30 seconds, and the suite at 258 passed / 6 skipped (the 6 are live Zetaris
 tests that skip without a local Zetaris).
 
 **QuantPilot Explorer** (`docs/explorer/index.html`, one self-contained
@@ -332,7 +358,7 @@ print(answer_question('Why is TSLA ranked first?', load_fixture())['answer'])
 .venv/bin/python -m pytest tests/ -q
 ```
 
-263 tests, all passing on the Mac with Zetaris up (6 of them are live
+264 tests, all passing on the Mac with Zetaris up (6 of them are live
 Zetaris tests that skip when the harness is down): the pipeline
 (indicators, providers, board, order blocks, X-Ray, both guardrails,
 packet, debate, cards, risk review, journal, LLM provider layer,

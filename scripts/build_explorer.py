@@ -96,6 +96,8 @@ def trim_run(key, folder, kind, title):
         "xray": {"read": xray.get("read"), "sectors": ((xray.get("sectors") or {}).get("sectors") or [])},
         "cards": cards, "debates": debates, "packets": pk,
         "journal": a.get("journal_stats"),
+        "model_calls": mc,
+        "data_calls_head": (a.get("data_calls") or [])[:6],
         "stats": {
             "names": len((a.get("board") or {}).get("board") or []),
             "debated": len(debates), "evaluated": evaluated, "rankable": rankable,
@@ -106,6 +108,7 @@ def trim_run(key, folder, kind, title):
             "providers": sorted({m.get("provider") for m in mc}) if mc else [],
             "models": sorted({m.get("model") for m in mc}) if mc else ([llm.get("model")] if llm.get("model") else []),
             "zetaris_queries": len(a.get("data_calls") or []),
+            "zetaris_rows": sum(int(e.get("rows") or 0) for e in (a.get("data_calls") or [])),
             "errors": len(a.get("errors") or []),
         },
     }
@@ -141,12 +144,21 @@ select,input{background:#0d1420;color:var(--text);border:1px solid var(--line);b
 .ask{display:flex;gap:8px}.ask input{flex:1}.ask button,.chips button{background:#1d3a66;border:1px solid #3d7cff;color:var(--text);border-radius:8px;padding:8px 14px;cursor:pointer}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.chips button{background:#14243f;font-size:13px;padding:5px 10px}
 .answer{margin-top:12px;background:#0d1420;border:1px solid var(--line);border-radius:10px;padding:14px}.answer .meta{color:var(--muted);font-size:12px;margin-top:8px}
+.tourbox{background:linear-gradient(135deg,#13233f,#111826);border:1px solid #2f5fb3;border-radius:14px;padding:16px 18px;margin-bottom:16px}
+.tourbox h2{font-size:18px;margin:0 0 4px}.tourbox .hint{color:var(--muted);font-size:13px;margin-bottom:10px}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.step{background:#0d1420;border:1px solid var(--line);border-radius:10px;padding:10px 12px}.step.on{border-color:#3d7cff;background:#12203a}
+.step b{color:var(--blue)}.step p{margin:4px 0 8px;font-size:13px;color:#c3cfdf}.step button{background:#1d3a66;border:1px solid #3d7cff;color:var(--text);border-radius:7px;padding:4px 10px;cursor:pointer;font-size:13px}
+.tourbar{display:flex;justify-content:space-between;align-items:center}.tourbar button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:7px;padding:3px 9px;cursor:pointer}
+.look{margin-top:10px;padding:10px 12px;border-left:4px solid #ffcc4d;background:#1d1a0c;border-radius:6px;font-size:14px}
+.hl{outline:3px solid #ffcc4d!important;outline-offset:3px;border-radius:8px;animation:pulse 1.4s ease-in-out 3}
+@keyframes pulse{0%,100%{outline-color:#ffcc4d}50%{outline-color:rgba(255,204,77,.25)}}
 footer{color:var(--muted);padding:0 28px 30px;font-size:13px}code{background:#0d1420;padding:1px 5px;border-radius:5px}
 </style></head><body>
 <header><h1>QuantPilot Explorer<small>the options research agent that has to show its work</small></h1>
 <div class="sub">Open Agent Hackathon 2026 - Track 02: The Agent That Can Explain Why. Every number on this page comes from a committed run in the repo; nothing is computed by the page except the Ask box's lookups.</div>
 <div class="tabs" id="tabs"></div></header>
-<main><div class="runtitle" id="runtitle"></div><div class="tiles" id="tiles"></div>
+<main><div id="tour"></div><div class="runtitle" id="runtitle"></div><div class="tiles" id="tiles"></div>
 <nav class="sec" id="secnav"></nav><div id="view"></div></main>
 <footer>Built from samples/live-run-* and samples/example-run by <code>scripts/build_explorer.py</code>. Data: Yahoo Finance through the Zetaris harness; model: NVIDIA Nemotron Ultra (through Meterless Nightshift on Oct 26). Educational only - not financial advice.</footer>
 <script>
@@ -181,7 +193,11 @@ function overview(){
   return `<section class="panel"><h2>What happened in this run</h2>
   <p>Market posture <b>${esc(r.posture || "unknown")}</b>: ${esc(r.bullish_share_pct)}% of the watchlist bullish, ${esc(r.bearish_share_pct)}% bearish, ${esc(r.pct_above_200dma)}% above the 200-day average. Leading sectors: ${esc((r.leading_sectors||[]).join(", ") || "none")}. Lagging: ${esc((r.lagging_sectors||[]).join(", ") || "none")}.</p>
   <h3>The verdicts and the judge's biggest risk</h3><table><tr><th>Name</th><th>Verdict</th><th>Conviction</th><th>Card</th><th>Biggest risk (judge)</th></tr>${cards}</table>
-  <p class="muted">The pipeline: Zetaris data -> Liquidity Board + Market X-Ray -> evidence packet per top name -> bull / bear / judge debate on Nemotron -> every citation checked in code -> risk review -> trade card -> journal + Meterless H-Mem memory.</p></section>`;
+  <p class="muted">The pipeline: Zetaris data -> Liquidity Board + Market X-Ray -> evidence packet per top name -> bull / bear / judge debate on Nemotron -> every citation checked in code -> risk review -> trade card -> journal + Meterless H-Mem memory.</p></section>
+  <section class="panel" id="sponsorlog"><h2>Sponsor technology, as logged in this run</h2>
+  ${run.model_calls.length ? `<table><tr><th>#</th><th>Provider (route)</th><th>Model that served the call</th><th>Latency</th><th>OK</th></tr>${run.model_calls.map((m,i)=>`<tr><td class="n">${i+1}</td><td>${esc(m.provider)}</td><td>${esc(m.model)}</td><td class="n">${(m.latency_ms/1000).toFixed(1)} s</td><td>${m.ok?"yes":"no"}</td></tr>`).join("")}</table>` : `<p class="muted">This run predates the per-call model log (added Oct 23); its ${esc(run.stats.model_calls)} calls went to ${esc(run.stats.models.join(", ") || "Nemotron")} via NVIDIA direct.</p>`}
+  <p>${run.stats.zetaris_queries ? `Zetaris: ${run.stats.zetaris_queries} SQL queries returned ${run.stats.zetaris_rows} rows, e.g. ${run.data_calls_head.map(d=>esc(d.table_or_view)).join(", ")}.` : "Zetaris served this run's quotes and bars (the per-query trace was added Oct 23)."}
+  Meterless H-Mem: each debated name's past calls are recalled into its packet (see Memory + events).</p></section>`;
 }
 let sortKey = "rank", sortDir = 1;
 function sortBy(k){ sortDir = (sortKey === k) ? -sortDir : 1; sortKey = k; render(); }
@@ -269,7 +285,50 @@ function render(){
   tiles(); $("#secnav").innerHTML = SECS.map(([k,l])=>`<button class="${sec===k?'on':''}" onclick="go('${k}')">${l}</button>`).join("");
   $("#view").innerHTML = ({overview, board, cards: cardsView, debates: debatesView, memory: memoryView, ask: askView})[sec]();
 }
-render();
+const TOUR = [
+  {t:"What happened in a live run", d:"Monday Oct 26, US market hours: 12 names ranked, 289 option contracts screened, 91 of 91 debate citations verified.",
+   look:"The six tiles are this run's own numbers. Below them: each verdict and the judge's biggest risk, in its own words.",
+   run:"2026-10-26", sec:"overview", target:"#tiles"},
+  {t:"The verifier catches a model misquote", d:"Friday Oct 23: the bear quoted a TSLA probability of profit of 0.3339; the packet held 0.3031.",
+   look:"The highlighted row of the grounding table: the code resolved the citation against the evidence packet and flagged the mismatch. A TRADE resting on a citation like this is downgraded in code.",
+   run:"2026-10-23", sec:"debates", sym:"TSLA", target:"tr.bad"},
+  {t:"Every check on the card, including the failures", d:"Why all three judges stood aside on Monday - shown as FAIL and UNKNOWN checks, not hidden.",
+   look:"Filtered to failed checks: the Fed decision two days out sits inside the holding window. UNKNOWN means the data does not exist yet - never a guess.",
+   run:"2026-10-26", sec:"cards", filter:"fail", target:".card"},
+  {t:"Ask it why - in plain English", d:"The Ask box answers only from this run's evidence. Try the chips, including the advice question.",
+   look:"The answer quotes the judge's own risk statement and the failed check. Click 'Should I buy calls with my savings?' to see it refuse personal advice.",
+   run:"2026-10-26", sec:"ask", q:"Why did the NFLX judge stand aside?", target:"#ans"},
+  {t:"Sponsor tech, proven by the logs", d:"Every model call on Monday: provider meterless (Nightshift on the Mac), model Nemotron Ultra. Plus the Zetaris query trace.",
+   look:"9 of 9 calls served by nvidia/nemotron-3-ultra-550b-a55b through the Meterless Nightshift runtime, each with its latency; 59 Zetaris SQL queries behind the data.",
+   run:"2026-10-26", sec:"overview", target:"#sponsorlog"},
+];
+let tourStep = 0, tourOpen = true;
+function renderTour(){
+  const el = $("#tour");
+  if (!tourOpen) { el.innerHTML = `<div class="tourbox"><div class="tourbar"><h2>Judges: start here - a 3-minute tour</h2><button onclick="tourOpen=true;renderTour()">show</button></div></div>`; return; }
+  const cur = TOUR[tourStep-1];
+  el.innerHTML = `<div class="tourbox"><div class="tourbar"><h2>Judges: start here - a 3-minute tour</h2><button onclick="tourOpen=false;renderTour()">hide</button></div>
+  <div class="hint">Five clicks show what QuantPilot does and how it proves it. Each step opens the right run and view and highlights what to look at.</div>
+  <div class="steps">${TOUR.map((s,i)=>`<div class="step ${tourStep===i+1?"on":""}"><b>${i+1}. ${esc(s.t)}</b><p>${esc(s.d)}</p><button onclick="tour(${i+1})">${tourStep===i+1?"Showing":"Show me"}</button></div>`).join("")}</div>
+  ${cur ? `<div class="look"><b>Look at:</b> ${esc(cur.look)}${tourStep < TOUR.length ? ` &nbsp; <button onclick="tour(${tourStep+1})" style="background:#1d3a66;border:1px solid #3d7cff;color:#e6edf3;border-radius:7px;padding:3px 10px;cursor:pointer">Next step</button>` : ""}</div>` : ""}</div>`;
+}
+function tour(n){
+  const s = TOUR[n-1]; if (!s) return;
+  tourStep = n; tourOpen = true;
+  run = RUNS.find(r => r.key === s.run) || RUNS[0];
+  if (s.sym) debSym = s.sym;
+  cardFilter = s.filter || "all";
+  sec = s.sec; render();
+  if (s.q) { $("#q").value = s.q; ask(); }
+  history.replaceState(null, "", "#tour=" + n);
+  document.querySelectorAll(".hl").forEach(e => e.classList.remove("hl"));
+  setTimeout(() => { const t = document.querySelector(s.target); if (t) { t.classList.add("hl"); t.scrollIntoView({behavior: "smooth", block: "center"}); } }, 60);
+}
+const _render = render;
+render = function(){ _render(); renderTour(); };
+function fromHash(){ const m = location.hash.match(/tour=(\d)/); if (m && +m[1] !== tourStep) { tour(+m[1]); return true; } return false; }
+window.addEventListener("hashchange", fromHash);
+if (!fromHash()) render();
 </script></body></html>
 """
 

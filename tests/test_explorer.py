@@ -42,3 +42,14 @@ def test_page_is_self_contained_and_honest():
     assert "—" not in page
     assert "not a live market run" in page          # sample is labeled as such
     assert "personal financial advice" in page        # Ask box scope gate present
+
+
+def test_judge_tour_has_five_steps_with_deep_links():
+    b = _builder()
+    assert b.main() == 0
+    page = (REPO / "docs/explorer/index.html").read_text()
+    assert "Judges: start here" in page
+    assert page.count('run:"2026-10-') == 5          # five tour steps, all on live runs
+    assert 'addEventListener("hashchange"' in page    # #tour=N links work in an open tab
+    for target in ('"#tiles"', '"tr.bad"', '".card"', '"#ans"', '"#sponsorlog"'):
+        assert target in page
